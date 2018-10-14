@@ -1,0 +1,936 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="go语言基础," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Go函数是时候讨论一下Go的函数定义了。 什么是函数函数，简单来讲就是一段将输入数据转换为输出数据的公用代码块。当然有的时候函数的返回值为空，那么就是说输出数据为空。而真正的处理过程在函数内部已经完成了。">
+<meta name="keywords" content="go语言基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go语言基础--函数、指针、结构体、接口">
+<meta property="og:url" content="http://yoursite.com/2017/07/06/goeasylearn2/index.html">
+<meta property="og:site_name" content="不知归期的故人">
+<meta property="og:description" content="Go函数是时候讨论一下Go的函数定义了。 什么是函数函数，简单来讲就是一段将输入数据转换为输出数据的公用代码块。当然有的时候函数的返回值为空，那么就是说输出数据为空。而真正的处理过程在函数内部已经完成了。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-13T14:39:56.280Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="go语言基础--函数、指针、结构体、接口">
+<meta name="twitter:description" content="Go函数是时候讨论一下Go的函数定义了。 什么是函数函数，简单来讲就是一段将输入数据转换为输出数据的公用代码块。当然有的时候函数的返回值为空，那么就是说输出数据为空。而真正的处理过程在函数内部已经完成了。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/06/goeasylearn2/"/>
+
+
+
+
+
+  <title> go语言基础--函数、指针、结构体、接口 | 不知归期的故人 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?bf3223fddf5f9c71af0da2bd98d7f981";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不知归期的故人</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">乘风破浪会有时，直挂云帆济沧海。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/06/goeasylearn2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘韬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不知归期的故人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                go语言基础--函数、指针、结构体、接口
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-06T11:10:36+08:00">
+                2017-07-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go语言学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">go语言学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Go函数"><a href="#Go函数" class="headerlink" title="Go函数"></a>Go函数</h1><p>是时候讨论一下Go的函数定义了。</p>
+<h2 id="什么是函数"><a href="#什么是函数" class="headerlink" title="什么是函数"></a>什么是函数</h2><p>函数，简单来讲就是一段将<code>输入数据</code>转换为<code>输出数据</code>的<code>公用代码块</code>。当然有的时候函数的返回值为空，那么就是说输出数据为空。而真正的处理过程在函数内部已经完成了。<br><a id="more"></a><br>想一想我们为什么需要函数，最直接的需求就是代码中有太多的重复代码了，为了代码的可读性和可维护性，将这些重复代码重构为函数也是必要的。</p>
+<h2 id="函数定义"><a href="#函数定义" class="headerlink" title="函数定义"></a>函数定义</h2><p>先看一个例子<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">slice_sum</span><span class="params">(arr []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	sum := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> _, elem := <span class="keyword">range</span> arr &#123;</span><br><span class="line">		sum += elem</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> arr1 = []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>&#125;</span><br><span class="line">	<span class="keyword">var</span> arr2 = []<span class="keyword">int</span>&#123;<span class="number">3</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">9</span>&#125;</span><br><span class="line">	fmt.Println(slice_sum(arr1))</span><br><span class="line">	fmt.Println(slice_sum(arr2))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子中，我们需要分别计算两个切片的元素和。如果我们把计算切片元素的和的代码分别为两个切片展开，那么代码就失去了简洁性和一致性。假设你预想实现同样功能的代码在拷贝粘贴的过程中发生了错误，比如忘记改变量名之类的，到时候debug到崩溃吧。因为这时很有可能你就先入为主了，因为模板代码没有错啊，是不是。所以函数就是这个用处。</p>
+<p>我们再仔细看一下上面的函数定义：</p>
+<p>首先是关键字<code>func</code>，然后后面是<code>函数名称</code>，<code>参数列表</code>，最后是<code>返回值列表</code>。当然如果函数没有参数列表或者返回值，那么这两项都是可选的。其中返回值两边的括号在只声明一个返回值类型的时候可以省略。</p>
+<h2 id="命名返回值"><a href="#命名返回值" class="headerlink" title="命名返回值"></a>命名返回值</h2><p>Go的函数很有趣，你甚至可以为返回值预先定义一个名称，在函数结束的时候，直接一个return就可以返回所有的预定义返回值。例如上面的例子，我们将sum作为命名返回值。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">slice_sum</span><span class="params">(arr []<span class="keyword">int</span>)</span> <span class="params">(sum <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	sum = <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> _, elem := <span class="keyword">range</span> arr &#123;</span><br><span class="line">		sum += elem</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> arr1 = []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>&#125;</span><br><span class="line">	<span class="keyword">var</span> arr2 = []<span class="keyword">int</span>&#123;<span class="number">3</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">9</span>&#125;</span><br><span class="line">	fmt.Println(slice_sum(arr1))</span><br><span class="line">	fmt.Println(slice_sum(arr2))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里要注意的是，如果你定义了命名返回值，那么在函数内部你将不能再重复定义一个同样名称的变量。比如第一个例子中我们用<code>sum:=0</code>来定义和初始化变量sum，而在第二个例子中，我们只能用<code>sum=0</code>初始化这个变量了。因为<code>:=</code>表示的是定义并且初始化变量。</p>
+<h2 id="实参数和虚参数"><a href="#实参数和虚参数" class="headerlink" title="实参数和虚参数"></a>实参数和虚参数</h2><p>可能你听说过函数的实参数和虚参数。其实所谓的<code>实参数就是函数调用的时候传入的参数</code>。在上面的例子中，实参就是<code>arr1</code>和<code>arr2</code>，而<code>虚参数就是函数定义的时候表示函数需要传入哪些参数的占位参数</code>。在上面的例子中，虚参就是<code>arr</code>。<code>实参和虚参的名字不必是一样的。即使是一样的，也互不影响。</code>因为虚参是函数的内部变量。而实参则是另一个函数的内部变量或者是全局变量。它们的作用域不同。如果一个函数的虚参碰巧和一个全局变量名称相同，那么函数使用的也是虚参。例如我们再修改一下上面的例子。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> arr = []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">slice_sum</span><span class="params">(arr []<span class="keyword">int</span>)</span> <span class="params">(sum <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	sum = <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> _, elem := <span class="keyword">range</span> arr &#123;</span><br><span class="line">		sum += elem</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> arr2 = []<span class="keyword">int</span>&#123;<span class="number">3</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">9</span>&#125;</span><br><span class="line">	fmt.Println(slice_sum(arr))</span><br><span class="line">	fmt.Println(slice_sum(arr2))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子中，我们定义了全局变量arr并且初始化值，而我们的slice_sum函数的虚参也是arr，但是程序同样正常工作。</p>
+<h2 id="函数多返回值"><a href="#函数多返回值" class="headerlink" title="函数多返回值"></a>函数多返回值</h2><p>记不记得你在java或者c里面需要返回多个值时还得去定义一个对象或者结构体的呢？在Go里面，你不需要这么做了。Go函数支持你返回多个值。</p>
+<p>其实函数的多返回值，我们在上面遇见过很多次了。那就是<code>range</code>函数。这个函数用来迭代数组或者切片的时候返回的是两个值，一个是数组或切片元素的索引，另外一个是数组或切片元素。在上面的例子中，因为我们不需要元素的索引，所以我们用一个特殊的忽略返回值符号<code>下划线(_)</code>来忽略索引。</p>
+<p>假设上面的例子我们除了返回切片的元素和，还想返回切片元素的平均值，那么我们修改一下代码。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">slice_sum</span><span class="params">(arr []<span class="keyword">int</span>)</span> <span class="params">(<span class="keyword">int</span>, <span class="keyword">float64</span>)</span></span> &#123;</span><br><span class="line">	sum := <span class="number">0</span></span><br><span class="line">	avg := <span class="number">0.0</span></span><br><span class="line">	<span class="keyword">for</span> _, elem := <span class="keyword">range</span> arr &#123;</span><br><span class="line">		sum += elem</span><br><span class="line">	&#125;</span><br><span class="line">	avg = <span class="keyword">float64</span>(sum) / <span class="keyword">float64</span>(<span class="built_in">len</span>(arr))</span><br><span class="line">	<span class="keyword">return</span> sum, avg</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> arr1 = []<span class="keyword">int</span>&#123;<span class="number">3</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">9</span>&#125;</span><br><span class="line">	fmt.Println(slice_sum(arr1))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>很简单吧，当然我们还可以将上面的参数定义为命名参数<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">slice_sum</span><span class="params">(arr []<span class="keyword">int</span>)</span> <span class="params">(sum <span class="keyword">int</span>, avg <span class="keyword">float64</span>)</span></span> &#123;</span><br><span class="line">	sum = <span class="number">0</span></span><br><span class="line">	avg = <span class="number">0.0</span></span><br><span class="line">	<span class="keyword">for</span> _, elem := <span class="keyword">range</span> arr &#123;</span><br><span class="line">		sum += elem</span><br><span class="line">	&#125;</span><br><span class="line">	avg = <span class="keyword">float64</span>(sum) / <span class="keyword">float64</span>(<span class="built_in">len</span>(arr))</span><br><span class="line">	<span class="comment">//return sum, avg</span></span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> arr1 = []<span class="keyword">int</span>&#123;<span class="number">3</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>, <span class="number">6</span>, <span class="number">4</span>, <span class="number">8</span>, <span class="number">9</span>&#125;</span><br><span class="line">	fmt.Println(slice_sum(arr1))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上面的代码里面，将<code>return sum, avg</code>给注释了而直接使用<code>return</code>。其实这两种返回方式都可以。</p>
+<h2 id="变长参数"><a href="#变长参数" class="headerlink" title="变长参数"></a>变长参数</h2><p>想一想我们的fmt包里面的Println函数，它怎么知道你传入的参数个数呢？<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="number">1</span>)</span><br><span class="line">	fmt.Println(<span class="number">1</span>, <span class="number">2</span>)</span><br><span class="line">	fmt.Println(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个要归功于Go的一大特性，支持可变长参数列表。</p>
+<p>首先我们来看一个例子<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sum</span><span class="params">(arr ...<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	sum := <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> _, val := <span class="keyword">range</span> arr &#123;</span><br><span class="line">		sum += val</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(sum(<span class="number">1</span>))</span><br><span class="line">	fmt.Println(sum(<span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line">	fmt.Println(sum(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子中，我们将原来的切片参数修改为可变长参数，然后使用range函数迭代这些参数，并求和。<br>从这里我们可以看出至少一点那就是<code>可变长参数列表里面的参数类型都是相同的</code>（<em>如果你对这句话表示怀疑，可能是因为你看到Println函数恰恰可以输出不同类型的可变参数，这个问题的答案要等到我们介绍完Go的接口后才行</em>）。</p>
+<p>另外还有一点需要注意，那就是<code>可变长参数定义只能是函数的最后一个参数</code>。比如下面的例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sum</span><span class="params">(base <span class="keyword">int</span>, arr ...<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	sum := base</span><br><span class="line">	<span class="keyword">for</span> _, val := <span class="keyword">range</span> arr &#123;</span><br><span class="line">		sum += val</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(sum(<span class="number">100</span>, <span class="number">1</span>))</span><br><span class="line">	fmt.Println(sum(<span class="number">200</span>, <span class="number">1</span>, <span class="number">2</span>))</span><br><span class="line">	fmt.Println(sum(<span class="number">300</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里不知道你是否觉得这个例子其实和那个切片的例子很像啊，在哪里呢？<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sum</span><span class="params">(base <span class="keyword">int</span>, arr ...<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	sum := base</span><br><span class="line">	<span class="keyword">for</span> _, val := <span class="keyword">range</span> arr &#123;</span><br><span class="line">		sum += val</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> arr1 = []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line">	fmt.Println(sum(<span class="number">300</span>, arr1...))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>呵呵，就是把切片“啪，啪，啪”三个耳光打碎了，传递过去啊！:-P</p>
+<h2 id="闭包函数"><a href="#闭包函数" class="headerlink" title="闭包函数"></a>闭包函数</h2><p>曾经使用python和javascript的时候就在想，如果有一天可以把这两种语言的特性做个并集该有多好。</p>
+<p>这一天终于来了，Go支持闭包函数。</p>
+<p>首先看一个闭包函数的例子。所谓闭包函数就是将整个函数的定义一气呵成写好并赋值给一个变量。然后用这个变量名作为函数名去调用函数体。</p>
+<p>我们将刚刚的例子修改一下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> arr1 = []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">var</span> sum = <span class="function"><span class="keyword">func</span><span class="params">(arr ...<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">		total_sum := <span class="number">0</span></span><br><span class="line">		<span class="keyword">for</span> _, val := <span class="keyword">range</span> arr &#123;</span><br><span class="line">			total_sum += val</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> total_sum</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(sum(arr1...))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>从这里我们可以看出，其实闭包函数也没有什么特别之处。因为Go不支持在一个函数的内部再定义一个嵌套函数，所以使用闭包函数能够实现在一个函数内部定义另一个函数的目的。</p>
+<p>这里我们需要注意的一个问题是，闭包函数对它外层的函数中的变量具有<code>访问</code>和<code>修改</code>的权限。例如：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> arr1 = []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line">	<span class="keyword">var</span> base = <span class="number">300</span></span><br><span class="line">	<span class="keyword">var</span> sum = <span class="function"><span class="keyword">func</span><span class="params">(arr ...<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">		total_sum := <span class="number">0</span></span><br><span class="line">		total_sum += base</span><br><span class="line">		<span class="keyword">for</span> _, val := <span class="keyword">range</span> arr &#123;</span><br><span class="line">			total_sum += val</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> total_sum</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(sum(arr1...))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个例子，输出315，因为total_sum加上了base的值。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> base = <span class="number">0</span></span><br><span class="line">	inc := <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		base += <span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(base)</span><br><span class="line">	inc()</span><br><span class="line">	fmt.Println(base)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子中，闭包函数修改了main函数的局部变量base。</p>
+<p>最后我们来看一个闭包的示例，生成偶数序列。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">createEvenGenerator</span><span class="params">()</span> <span class="title">func</span><span class="params">()</span> <span class="title">uint</span></span> &#123;</span><br><span class="line">	i := <span class="keyword">uint</span>(<span class="number">0</span>)</span><br><span class="line">	<span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="params">(retVal <span class="keyword">uint</span>)</span></span> &#123;</span><br><span class="line">		retVal = i</span><br><span class="line">		i += <span class="number">2</span></span><br><span class="line">		<span class="keyword">return</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	nextEven := createEvenGenerator()</span><br><span class="line">	fmt.Println(nextEven())</span><br><span class="line">	fmt.Println(nextEven())</span><br><span class="line">	fmt.Println(nextEven())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个例子很有意思的，因为我们定义了一个<code>返回函数定义</code>的函数。而所返回的函数定义就是<code>在这个函数的内部定义的闭包函数</code>。这个闭包函数在外层函数调用的时候，每次都生成一个新的偶数（加2操作）然后返回闭包函数定义。</p>
+<p>其中<code>func() uint</code>就是函数createEvenGenerator的返回值。在createEvenGenerator中，这个返回值是return返回的闭包函数定义。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="params">(retVal <span class="keyword">uint</span>)</span></span> &#123;</span><br><span class="line">       	retVal = i</span><br><span class="line">       	i += <span class="number">2</span></span><br><span class="line">       	<span class="keyword">return</span></span><br><span class="line">   	&#125;</span><br></pre></td></tr></table></figure></p>
+<p>因为createEvenGenerator函数返回的是一个函数定义，所以我们再把它赋值给一个代表函数的变量，然后用这个代表闭包函数的变量去调用函数执行。</p>
+<h2 id="递归函数"><a href="#递归函数" class="headerlink" title="递归函数"></a>递归函数</h2><p>每次谈到递归函数，必然绕不开阶乘和斐波拉切数列。</p>
+<p>阶乘<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    n!=1*2*3*...*n</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">factorial</span><span class="params">(x <span class="keyword">uint</span>)</span> <span class="title">uint</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> x == <span class="number">0</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> x * factorial(x<span class="number">-1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(factorial(<span class="number">5</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果x为0，那么返回1，因为0!=1。如果x是1，那么f(1)=1<em>f(0)，如果x是2，那么f(2)=2</em>f(1)=2<em>1</em>f(0)，依次推断f(x)=x<em>(x-1)</em>…<em>2</em>1*f(0)。</p>
+<p>从上面看出所谓递归，就是在函数的内部重复调用一个函数的过程。需要注意的是这个函数必须能够一层一层分解，并且有出口。上面的例子出口就是0。</p>
+<p>斐波拉切数列</p>
+<p>求第N个斐波拉切元素<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	f(1)=1</span></span><br><span class="line"><span class="comment">	f(2)=2</span></span><br><span class="line"><span class="comment">	f(n)=f(n-2)+f(n-1)</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fibonacci</span><span class="params">(n <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> retVal = <span class="number">0</span></span><br><span class="line">	<span class="keyword">if</span> n == <span class="number">1</span> &#123;</span><br><span class="line">		retVal = <span class="number">1</span></span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> n == <span class="number">2</span> &#123;</span><br><span class="line">		retVal = <span class="number">2</span></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		retVal = fibonacci(n<span class="number">-2</span>) + fibonacci(n<span class="number">-1</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> retVal</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(fibonacci(<span class="number">5</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>斐波拉切第一个元素是1，第二个元素是2，后面的元素依次是前两个元素的和。</p>
+<p>其实对于递归函数来讲，只要知道了函数的出口，后面的不过是让计算机去不断地推断，一直推断到这个出口。理解了这一点，递归就很好理解了。</p>
+<h2 id="异常处理"><a href="#异常处理" class="headerlink" title="异常处理"></a>异常处理</h2><p>当你读取文件失败而退出的时候是否担心文件句柄是否已经关闭？抑或是你对于try…catch…finally的结构中finally里面的代码和try里面的return代码那个先执行这样的问题痛苦不已？</p>
+<p>一切都结束了。一门完美的语言必须有一个清晰的无歧义的执行逻辑。</p>
+<p>好，来看看Go提供的异常处理。</p>
+<p><em>defer</em><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">first</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"first func run"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">second</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"second func run"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">defer</span> second()</span><br><span class="line">	first()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>Go语言提供了关键字<code>defer</code>来在函数运行结束的时候运行一段代码或调用一个清理函数。上面的例子中，虽然second()函数写在first()函数前面，但是由于使用了defer标注，所以它是在main函数执行结束的时候才调用的。</p>
+<p>所以输出结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">first func run</span><br><span class="line">second func run</span><br></pre></td></tr></table></figure></p>
+<p><code>defer</code>用途最多的在于释放各种资源。比如我们读取一个文件，读完之后需要释放文件句柄。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"bufio"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"os"</span></span><br><span class="line">	<span class="string">"strings"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fname := <span class="string">"D:\\Temp\\test.txt"</span></span><br><span class="line">	f, err := os.Open(fname)</span><br><span class="line">	<span class="keyword">defer</span> f.Close()</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		os.Exit(<span class="number">1</span>)</span><br><span class="line">	&#125;</span><br><span class="line">	bReader := bufio.NewReader(f)</span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		line, ok := bReader.ReadString(<span class="string">'\n'</span>)</span><br><span class="line">		<span class="keyword">if</span> ok != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println(strings.Trim(line, <span class="string">"\r\n"</span>))</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子中，我们按行读取文件，并且输出。从代码中，我们可以看到在使用os包中的Open方法打开文件后，立马跟着一个defer语句用来关闭文件句柄。这样就保证了该文件句柄在main函数运行结束的时候或者异常终止的时候一定能够被释放。而且由于紧跟着Open语句，一旦养成了习惯，就不会忘记去关闭文件句柄了。</p>
+<p><em>panic</em> &amp; <em>recover</em></p>
+<blockquote>
+<p>当你周末走在林荫道上，听着小歌，哼着小曲，很是惬意。突然之间，从天而降瓢泼大雨，你顿时慌张（panic）起来，没有带伞啊，淋着雨感冒就不好了。于是你四下张望，忽然发现自己离地铁站很近，那里有很多卖伞的，心中顿时又安定了下来（recover），于是你飞奔过去买了一把伞（defer）。</p>
+</blockquote>
+<p>好了，panic和recover是Go语言提供的用以处理异常的关键字。<code>panic用来触发异常</code>，而<code>recover用来终止异常并且返回传递给panic的值</code>。（注意<code>recover并不能处理异常</code>，而且<code>recover只能在defer里面使用，否则无效</code>。）</p>
+<p>先瞧个小例子<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"I am walking and singing..."</span>)</span><br><span class="line">	<span class="built_in">panic</span>(<span class="string">"It starts to rain cats and dogs"</span>)</span><br><span class="line">	msg := <span class="built_in">recover</span>()</span><br><span class="line">	fmt.Println(msg)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>看看输出结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">runtime.panic(0x48d380, 0xc084003210)</span><br><span class="line">       C:/Users/ADMINI~1/AppData/Local/Temp/2/bindist667667715/go/src/pkg/runtime/panic.c:266 	+0xc8</span><br><span class="line">main.main()</span><br><span class="line">       D:/JemyGraw/Creation/Go/freebook_go/func_d1.go:9 +0xea</span><br><span class="line">exit status 2</span><br></pre></td></tr></table></figure>
+<p>咦？怎么没有输出recover获取的错误信息呢？</p>
+<p>这是因为在运行到panic语句的时候，程序已经异常终止了，后面的代码就不运行了。</p>
+<p>那么如何才能阻止程序异常终止呢？这个时候要使用defer。因为<code>defer一定是在函数执行结束的时候运行的。不管是正常结束还是异常终止</code>。</p>
+<p>修改一下代码<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		msg := <span class="built_in">recover</span>()</span><br><span class="line">		fmt.Println(msg)</span><br><span class="line">	&#125;()</span><br><span class="line">	fmt.Println(<span class="string">"I am walking and singing..."</span>)</span><br><span class="line">	<span class="built_in">panic</span>(<span class="string">"It starts to rain cats and dogs"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>好了，看下输出<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">I am walking and singing...</span><br><span class="line">It starts to rain cats and dogs</span><br></pre></td></tr></table></figure></p>
+<p>小结：</p>
+<p>panic触发的异常通常是运行时错误。比如试图访问的索引超出了数组边界，忘记初始化字典或者任何无法轻易恢复到正常执行的错误。</p>
+<h1 id="Go指针"><a href="#Go指针" class="headerlink" title="Go指针"></a>Go指针</h1><p>不要害怕，Go的指针是好指针。</p>
+<h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>所谓<code>指针其实你可以把它想像成一个箭头，这个箭头指向（存储）一个变量的地址</code>。</p>
+<p>因为这个箭头本身也需要变量来存储，所以也叫做指针变量。</p>
+<p>Go的指针<code>不支持那些乱七八糟的指针移位</code>。<code>它就表示一个变量的地址</code>。看看这个例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x <span class="keyword">int</span></span><br><span class="line">	<span class="keyword">var</span> x_ptr *<span class="keyword">int</span></span><br><span class="line"></span><br><span class="line">	x = <span class="number">10</span></span><br><span class="line">	x_ptr = &amp;x</span><br><span class="line"></span><br><span class="line">	fmt.Println(x)</span><br><span class="line">	fmt.Println(x_ptr)</span><br><span class="line">	fmt.Println(*x_ptr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面例子输出<code>x的值</code>，<code>x的地址</code>和<code>通过指针变量输出x的值</code>，而<code>x_ptr就是一个指针变量</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">10</span><br><span class="line">0xc084000038</span><br><span class="line">10</span><br></pre></td></tr></table></figure></p>
+<p>认真理清楚这两个符号的意思。</p>
+<p><strong>&amp;</strong> <code>取一个变量的地址</code></p>
+<p><strong>*</strong> <code>取一个指针变量所指向的地址的值</code></p>
+<p>考你一下，上面的例子中，如何输出x_ptr的地址呢？<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x <span class="keyword">int</span></span><br><span class="line">	<span class="keyword">var</span> x_ptr *<span class="keyword">int</span></span><br><span class="line"></span><br><span class="line">	x = <span class="number">10</span></span><br><span class="line">	x_ptr = &amp;x</span><br><span class="line"></span><br><span class="line">	fmt.Println(&amp;x_ptr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>此例看懂，指针就懂了。</p>
+<p>永远记住一句话，<code>所谓指针就是一个指向（存储）特定变量地址的变量</code>。没有其他的特别之处。</p>
+<p>再变态一下，看看这个：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">	&quot;fmt&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">func main() &#123;</span><br><span class="line">	var x int</span><br><span class="line">	var x_ptr *int</span><br><span class="line"></span><br><span class="line">	x = 10</span><br><span class="line">	x_ptr = &amp;x</span><br><span class="line"></span><br><span class="line">	fmt.Println(*&amp;x_ptr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>x_ptr 是一个<code>指针变量</code>，它<code>指向(存储)x的地址</code>；</li>
+<li>&amp;x_ptr 是<code>取这个指针变量x_ptr的地址</code>，这里可以设想<code>有另一个指针变量x_ptr_ptr(指向)存储</code>这个<code>x_ptr指针的地址</code>；</li>
+<li><em>&amp;x_ptr 等价于`</em>x_ptr_ptr<code>就是</code>取这个x_ptr_ptr指针变量<code>所</code>指向(存储)<code>的</code>地址所对应的变量的值<code>，也就是</code>x_ptr的值<code>，也就是</code>指针变量x_ptr指向(存储)的地址<code>，也就是</code>x的地址<code>。 这里可以看到，其实</code>*&amp;`这两个运算符在一起就相互抵消作用了。</li>
+</ol>
+<h2 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h2><p><code>指针的一大用途就是可以将变量的指针作为实参传递给函数，从而在函数内部能够直接修改实参所指向的变量值。</code></p>
+<p>Go的变量传递都是值传递。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">change</span><span class="params">(x <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	x = <span class="number">200</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x <span class="keyword">int</span> = <span class="number">100</span></span><br><span class="line">	fmt.Println(x)</span><br><span class="line">	change(x)</span><br><span class="line">	fmt.Println(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的例子输出结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">100</span><br><span class="line">100</span><br></pre></td></tr></table></figure></p>
+<p>很显然，change函数<code>改变的</code>仅仅是<code>内部变量x</code>的<code>值</code>，而<code>不会改变</code>传递进去的<code>实参</code>。其实，也就是说Go的函数一般关心的是输出结果，而输入参数就相当于信使跑到函数门口大叫，你们这个参数是什么值，那个是什么值，然后就跑了。你函数根本就不能修改它的值。不过如果是传递的实参是指针变量，那么函数一看，小子这次你地址我都知道了，哪里跑。那么就是下面的例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">change</span><span class="params">(x *<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	*x = <span class="number">200</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x <span class="keyword">int</span> = <span class="number">100</span></span><br><span class="line">	fmt.Println(x)</span><br><span class="line">	change(&amp;x)</span><br><span class="line">	fmt.Println(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的例子中，change函数的虚参为<code>整型指针变量</code>，所以在main中调用的时候<code>传递的是x的地址</code>。然后在change里面使用<code>*x=200</code>修改了这个x的地址的值。所以<code>x的值就变了</code>。这个输出是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">100</span><br><span class="line">200</span><br></pre></td></tr></table></figure></p>
+<h2 id="new"><a href="#new" class="headerlink" title="new"></a>new</h2><p>new这个函数挺神奇，因为它的用处太多了。这里还可以通过new来<code>初始化一个指针</code>。上面说过指针指向(存储)的是一个变量的地址，但是指针本身也需要地址存储。先看个例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">set_value</span><span class="params">(x_ptr *<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	*x_ptr = <span class="number">100</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	x_ptr := <span class="built_in">new</span>(<span class="keyword">int</span>)</span><br><span class="line">	set_value(x_ptr)</span><br><span class="line">	<span class="comment">//x_ptr指向的地址</span></span><br><span class="line">	fmt.Println(x_ptr)</span><br><span class="line">	<span class="comment">//x_ptr本身的地址</span></span><br><span class="line">	fmt.Println(&amp;x_ptr)</span><br><span class="line">	<span class="comment">//x_ptr指向的地址值</span></span><br><span class="line">	fmt.Println(*x_ptr)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面我们定义了一个x_ptr变量，然后用<code>new申请</code>了一个<code>存储整型数据的内存地址</code>，然后将这个<code>地址赋值</code>给<code>x_ptr指针变量</code>，也就是说<code>x_ptr指向（存储）的是一个可以存储整型数据的地址</code>，然后用set_value函数将<code>这个地址中存储的值</code>赋值为100。所以第一个输出是<code>x_ptr指向的地址</code>，第二个则是<code>x_ptr本身的地址</code>，而<code>*x_ptr</code>则是<code>x_ptr指向的地址中存储的整型数据的值</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">0xc084000040</span><br><span class="line">0xc084000038</span><br><span class="line">100</span><br></pre></td></tr></table></figure>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>好了，现在用个例子再来回顾一下指针。</p>
+<p>交换两个变量的值。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swap</span><span class="params">(x, y *<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	*x, *y = *y, *x</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	x_val := <span class="number">100</span></span><br><span class="line">	y_val := <span class="number">200</span></span><br><span class="line">	swap(&amp;x_val, &amp;y_val)</span><br><span class="line">	fmt.Println(x_val)</span><br><span class="line">	fmt.Println(y_val)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>很简单吧，这里利用了Go提供的<code>交叉赋值</code>的功能，另外由于是使用了指针作为参数，所以在swap函数内，x_val和y_val的值就被交换了。</p>
+<h1 id="Go结构体和指针"><a href="#Go结构体和指针" class="headerlink" title="Go结构体和指针"></a>Go结构体和指针</h1><p>基本上到这里的时候，就是上了一个台阶了。Go的精华特点即将展开。</p>
+<h2 id="结构体定义"><a href="#结构体定义" class="headerlink" title="结构体定义"></a>结构体定义</h2><p>上面我们说过Go的指针和C的不同，结构体也是一样的。Go是一门删繁就简的语言，一切令人困惑的特性都必须去掉。</p>
+<p>简单来讲，Go提供的<code>结构体</code>就是把<code>使用各种数据类型定义</code>的<code>不同变量组合起来</code>的<code>高级数据类型</code>。闲话不多说，看例子:<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Rect <span class="keyword">struct</span> &#123;</span><br><span class="line">	width <span class="keyword">float64</span></span><br><span class="line">	length <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面我们定义了一个矩形结构体，首先是关键是<code>type</code>表示要<code>定义一个新的数据类型了</code>，然后是新的数据类型名称<code>Rect</code>，最后是<code>struct</code>关键字，表示这个高级数据类型是结构体类型。在上面的例子中，因为<code>width和length的数据类型相同</code>，还可以写成如下格式：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Rect <span class="keyword">struct</span> &#123;</span><br><span class="line">	width, length <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>好了，来用结构体干点啥吧，计算一下矩形面积。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Rect <span class="keyword">struct</span> &#123;</span><br><span class="line">	width, length <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> rect Rect</span><br><span class="line">	rect.width = <span class="number">100</span></span><br><span class="line">	rect.length = <span class="number">200</span></span><br><span class="line">	fmt.Println(rect.width * rect.length)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>从上面的例子看到，其实结构体类型和基础数据类型使用方式差不多，唯一的区别就是结构体类型可以通过<code>.</code>来访问内部的成员。包括<code>给内部成员赋值</code>和<code>读取内部成员值</code>。</p>
+<p>在上面的例子中，我们是用var关键字先定义了一个Rect变量，然后对它的成员赋值。我们也可以使用初始化的方式来给Rect变量的内部成员赋值。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Rect <span class="keyword">struct</span> &#123;</span><br><span class="line">	width, length <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> rect = Rect&#123;width: <span class="number">100</span>, length: <span class="number">200</span>&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(rect.width * rect.length)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当然<code>如果你知道结构体成员定义的顺序</code>，也可以不使用<code>key:value</code>的方式赋值，<code>直接按照结构体成员定义的顺序给它们赋值</code>。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Rect <span class="keyword">struct</span> &#123;</span><br><span class="line">	width, length <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> rect = Rect&#123;<span class="number">100</span>, <span class="number">200</span>&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"Width:"</span>, rect.width, <span class="string">"* Length:"</span>,</span><br><span class="line">		rect.length, <span class="string">"= Area:"</span>, rect.width*rect.length)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果为</p>
+<pre><code>Width: 100 * Length: 200 = Area: 20000
+</code></pre><h2 id="结构体参数传递方式"><a href="#结构体参数传递方式" class="headerlink" title="结构体参数传递方式"></a>结构体参数传递方式</h2><p>我们说过，<code>Go函数的参数传递方式是值传递</code>，这句话<code>对结构体也是适用的</code>。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Rect <span class="keyword">struct</span> &#123;</span><br><span class="line">	width, length <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">double_area</span><span class="params">(rect Rect)</span> <span class="title">float64</span></span> &#123;</span><br><span class="line">	rect.width *= <span class="number">2</span></span><br><span class="line">	rect.length *= <span class="number">2</span></span><br><span class="line">	<span class="keyword">return</span> rect.width * rect.length</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> rect = Rect&#123;<span class="number">100</span>, <span class="number">200</span>&#125;</span><br><span class="line">	fmt.Println(double_area(rect))</span><br><span class="line">	fmt.Println(<span class="string">"Width:"</span>, rect.width, <span class="string">"Length:"</span>, rect.length)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的例子输出为:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">80000</span><br><span class="line">Width: 100 Length: 200</span><br></pre></td></tr></table></figure></p>
+<p>也就说虽然在double_area函数里面我们将结构体的宽度和长度都加倍，但仍然没有影响main函数里面的rect变量的宽度和长度。</p>
+<h2 id="结构体组合函数"><a href="#结构体组合函数" class="headerlink" title="结构体组合函数"></a>结构体组合函数</h2><p>上面我们在main函数中计算了矩形的面积，但是我们觉得矩形的面积如果能够作为矩形结构体的“内部函数”提供会更好。这样我们就可以直接说这个矩形面积是多少，而不用另外去取宽度和长度去计算。现在我们看看结构体“内部函数”定义方法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Rect <span class="keyword">struct</span> &#123;</span><br><span class="line">	width, length <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(rect Rect)</span> <span class="title">area</span><span class="params">()</span> <span class="title">float64</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> rect.width * rect.length</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> rect = Rect&#123;<span class="number">100</span>, <span class="number">200</span>&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"Width:"</span>, rect.width, <span class="string">"Length:"</span>, rect.length,</span><br><span class="line">		<span class="string">"Area:"</span>, rect.area())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>咦？这个是什么“内部方法”，根本没有定义在Rect数据类型的内部啊？</p>
+<p>确实如此，我们看到，虽然main函数中的rect变量可以直接调用函数area()来获取矩形面积，但是area()函数确实没有定义在Rect结构体内部，这点和C语言的有很大不同。<code>Go使用组合函数的方式来为结构体定义结构体方法</code>。我们仔细看一下上面的area()函数定义。</p>
+<p>首先是关键字<code>func</code>表示这是一个函数，第二个参数是<code>结构体类型和实例变量</code>，第三个是<code>函数名称</code>，第四个是<code>函数返回值</code>。这里我们可以看出area()函数和普通函数定义的<code>区别就在于</code>area()函数<code>多了一个结构体类型限定</code>。这样一来Go就知道了这是一个为结构体定义的<code>方法</code>。</p>
+<p>这里需要注意一点就是<code>定义在结构体上面的函数(function)</code>一般叫做<code>方法(method)</code>。</p>
+<h2 id="结构体和指针"><a href="#结构体和指针" class="headerlink" title="结构体和指针"></a>结构体和指针</h2><p>我们在指针一节讲到过，<code>指针的主要作用就是在函数内部改变传递进来变量的值</code>。对于上面的计算矩形面积的例子，我们可以修改一下代码如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Rect <span class="keyword">struct</span> &#123;</span><br><span class="line">	width, length <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(rect *Rect)</span> <span class="title">area</span><span class="params">()</span> <span class="title">float64</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> rect.width * rect.length</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> rect = <span class="built_in">new</span>(Rect)</span><br><span class="line">	rect.width = <span class="number">100</span></span><br><span class="line">	rect.length = <span class="number">200</span></span><br><span class="line">	fmt.Println(<span class="string">"Width:"</span>, rect.width, <span class="string">"Length:"</span>, rect.length,</span><br><span class="line">		<span class="string">"Area:"</span>, rect.area())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的例子中，使用了new函数来创建一个结构体指针rect，也就是说rect的类型是*Rect，结构体遇到指针的时候，你<code>不需要使用*去访问结构体的成员</code>，直接使用<code>.</code>引用就可以了。所以上面的例子中我们直接使用<code>rect.width=100</code> 和<code>rect.length=200</code>来设置结构体成员值。因为这个时候rect是结构体指针，所以我们定义area()函数的时候结构体限定类型为<code>*Rect</code>。</p>
+<p>其实在计算面积的这个例子中，我们不需要改变矩形的宽或者长度，所以定义area函数的时候结构体限定类型仍然为<code>Rect</code>也是可以的。如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Rect <span class="keyword">struct</span> &#123;</span><br><span class="line">	width, length <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(rect Rect)</span> <span class="title">area</span><span class="params">()</span> <span class="title">float64</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> rect.width * rect.length</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> rect = <span class="built_in">new</span>(Rect)</span><br><span class="line">	rect.width = <span class="number">100</span></span><br><span class="line">	rect.length = <span class="number">200</span></span><br><span class="line">	fmt.Println(<span class="string">"Width:"</span>, rect.width, <span class="string">"Length:"</span>, rect.length,</span><br><span class="line">		<span class="string">"Area:"</span>, rect.area())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里Go足够聪明，所以rect.area()也是可以的。</p>
+<p>至于<code>使不使用结构体指针和使不使用指针的出发点是一样的</code>，那就是<code>你是否试图在函数内部改变传递进来的参数的值</code>。再举个例子如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Rect <span class="keyword">struct</span> &#123;</span><br><span class="line">	width, length <span class="keyword">float64</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(rect *Rect)</span> <span class="title">double_area</span><span class="params">()</span> <span class="title">float64</span></span> &#123;</span><br><span class="line">	rect.width *= <span class="number">2</span></span><br><span class="line">	rect.length *= <span class="number">2</span></span><br><span class="line">	<span class="keyword">return</span> rect.width * rect.length</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> rect = <span class="built_in">new</span>(Rect)</span><br><span class="line">	rect.width = <span class="number">100</span></span><br><span class="line">	rect.length = <span class="number">200</span></span><br><span class="line">	fmt.Println(*rect)</span><br><span class="line">	fmt.Println(<span class="string">"Double Width:"</span>, rect.width, <span class="string">"Double Length:"</span>, rect.length,</span><br><span class="line">		<span class="string">"Double Area:"</span>, rect.double_area())</span><br><span class="line">	fmt.Println(*rect)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个例子的输出是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;100 200&#125;</span><br><span class="line">Double Width: 200 Double Length: 400 Double Area: 80000</span><br><span class="line">&#123;200 400&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="结构体内嵌类型"><a href="#结构体内嵌类型" class="headerlink" title="结构体内嵌类型"></a>结构体内嵌类型</h2><p>我们可以在一个<code>结构体内部定义另外一个结构体类型的成员</code>。例如iPhone也是Phone，我们看下例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Phone <span class="keyword">struct</span> &#123;</span><br><span class="line">	price <span class="keyword">int</span></span><br><span class="line">	color <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> IPhone <span class="keyword">struct</span> &#123;</span><br><span class="line">	phone Phone</span><br><span class="line">	model <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> p IPhone</span><br><span class="line">	p.phone.price = <span class="number">5000</span></span><br><span class="line">	p.phone.color = <span class="string">"Black"</span></span><br><span class="line">	p.model = <span class="string">"iPhone 5"</span></span><br><span class="line">	fmt.Println(<span class="string">"I have a iPhone:"</span>)</span><br><span class="line">	fmt.Println(<span class="string">"Price:"</span>, p.phone.price)</span><br><span class="line">	fmt.Println(<span class="string">"Color:"</span>, p.phone.color)</span><br><span class="line">	fmt.Println(<span class="string">"Model:"</span>, p.model)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">I have a iPhone:</span><br><span class="line">Price: 5000</span><br><span class="line">Color: Black</span><br><span class="line">Model: iPhone 5</span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子中，我们在结构体IPhone里面定义了一个Phone变量phone，然后我们可以像正常的访问结构体成员一样访问phone的成员数据。但是我们原来的意思是<code>“iPhone也是(is-a)Phone”</code>，而这里的结构体IPhone里面定义了一个phone变量，给人的感觉就是<code>“iPhone有一个(has-a)Phone”</code>，挺奇怪的。当然Go也知道这种方式很奇怪，所以支持如下做法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Phone <span class="keyword">struct</span> &#123;</span><br><span class="line">	price <span class="keyword">int</span></span><br><span class="line">	color <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> IPhone <span class="keyword">struct</span> &#123;</span><br><span class="line">	Phone</span><br><span class="line">	model <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> p IPhone</span><br><span class="line">	p.price = <span class="number">5000</span></span><br><span class="line">	p.color = <span class="string">"Black"</span></span><br><span class="line">	p.model = <span class="string">"iPhone 5"</span></span><br><span class="line">	fmt.Println(<span class="string">"I have a iPhone:"</span>)</span><br><span class="line">	fmt.Println(<span class="string">"Price:"</span>, p.price)</span><br><span class="line">	fmt.Println(<span class="string">"Color:"</span>, p.color)</span><br><span class="line">	fmt.Println(<span class="string">"Model:"</span>, p.model)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">I have a iPhone:</span><br><span class="line">Price: 5000</span><br><span class="line">Color: Black</span><br><span class="line">Model: iPhone 5</span><br></pre></td></tr></table></figure></p>
+<p>在这个例子中，我们定义IPhone结构体的时候，<code>不再定义Phone变量</code>，<code>直接把结构体Phone类型定义在那里</code>。然后IPhone就可以<code>像访问直接定义在自己结构体里面的成员一样访问Phone的成员</code>。</p>
+<p>上面的例子中，我们演示了结构体的内嵌类型以及内嵌类型的成员访问，除此之外，假设结构体A内部定义了一个内嵌结构体B，那么A同时也可以调用所有定义在B上面的函数。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Phone <span class="keyword">struct</span> &#123;</span><br><span class="line">	price <span class="keyword">int</span></span><br><span class="line">	color <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(phone Phone)</span> <span class="title">ringing</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"Phone is ringing..."</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> IPhone <span class="keyword">struct</span> &#123;</span><br><span class="line">	Phone</span><br><span class="line">	model <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> p IPhone</span><br><span class="line">	p.price = <span class="number">5000</span></span><br><span class="line">	p.color = <span class="string">"Black"</span></span><br><span class="line">	p.model = <span class="string">"iPhone 5"</span></span><br><span class="line">	fmt.Println(<span class="string">"I have a iPhone:"</span>)</span><br><span class="line">	fmt.Println(<span class="string">"Price:"</span>, p.price)</span><br><span class="line">	fmt.Println(<span class="string">"Color:"</span>, p.color)</span><br><span class="line">	fmt.Println(<span class="string">"Model:"</span>, p.model)</span><br><span class="line"></span><br><span class="line">	p.ringing()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>输出结果为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">I have a iPhone:</span><br><span class="line">Price: 5000</span><br><span class="line">Color: Black</span><br><span class="line">Model: iPhone 5</span><br><span class="line">Phone is ringing...</span><br></pre></td></tr></table></figure></p>
+<h2 id="接口"><a href="#接口" class="headerlink" title="接口"></a>接口</h2><p>我们先看一个例子，关于Nokia手机和iPhone手机都能够打电话的例子。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> NokiaPhone <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(nokiaPhone NokiaPhone)</span> <span class="title">call</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"I am Nokia, I can call you!"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> IPhone <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(iPhone IPhone)</span> <span class="title">call</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"I am iPhone, I can call you!"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> nokia NokiaPhone</span><br><span class="line">	nokia.call()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> iPhone IPhone</span><br><span class="line">	iPhone.call()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>我们定义了NokiaPhone和IPhone，它们都有各自的方法call()，表示自己都能够打电话。但是我们想一想，是手机都应该能够打电话，所以这个不算是NokiaPhone或是IPhone的独特特点。否则iPhone不可能卖这么贵了。</p>
+<p>再仔细看一下<code>接口的定义</code>，首先是关键字<code>type</code>，然后是<code>接口名称</code>，最后是关键字<code>interface</code>表示这个类型是接口类型。<code>在接口类型里面，我们定义了一组方法</code>。</p>
+<p>Go语言提供了一种接口功能，它把所有的具有共性的方法定义在一起，<code>任何其他类型只要实现了这些方法就是实现了这个接口</code>，<code>不一定非要显式地声明</code>要去实现哪些接口啦。比如上面的手机的call()方法，就完全可以定义在接口Phone里面，而NokiaPhone和IPhone只要实现了这个接口就是一个Phone。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Phone <span class="keyword">interface</span> &#123;</span><br><span class="line">	call()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> NokiaPhone <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(nokiaPhone NokiaPhone)</span> <span class="title">call</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"I am Nokia, I can call you!"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> IPhone <span class="keyword">struct</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(iPhone IPhone)</span> <span class="title">call</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"I am iPhone, I can call you!"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> phone Phone</span><br><span class="line"></span><br><span class="line">	phone = <span class="built_in">new</span>(NokiaPhone)</span><br><span class="line">	phone.call()</span><br><span class="line"></span><br><span class="line">	phone = <span class="built_in">new</span>(IPhone)</span><br><span class="line">	phone.call()</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子中，我们定义了一个接口Phone，接口里面有一个方法call()，仅此而已。然后我们在main函数里面定义了一个Phone类型变量，并分别为之赋值为NokiaPhone和IPhone。然后调用call()方法，输出结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">I am Nokia, I can call you!</span><br><span class="line">I am iPhone, I can call you!</span><br></pre></td></tr></table></figure></p>
+<p>以前我们说过，<code>Go语言式静态类型语言，变量的类型在运行过程中不能改变</code>。但是在上面的例子中，phone变量好像先定义为Phone类型，然后是NokiaPhone类型，最后成为了IPhone类型，真的是这样吗？</p>
+<p>原来，在Go语言里面，<code>一个类型A只要实现了接口X所定义的全部方法</code>，那么<code>A类型的变量</code>也是<code>X类型的变量</code>。在上面的例子中，NokiaPhone和IPhone都实现了Phone接口的call()方法，所以它们都是Phone，这样一来是不是感觉正常了一些。</p>
+<p>我们为Phone添加一个方法sales()，再来熟悉一下接口用法。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Phone <span class="keyword">interface</span> &#123;</span><br><span class="line">	call()</span><br><span class="line">	sales() <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> NokiaPhone <span class="keyword">struct</span> &#123;</span><br><span class="line">	price <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(nokiaPhone NokiaPhone)</span> <span class="title">call</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"I am Nokia, I can call you!"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(nokiaPhone NokiaPhone)</span> <span class="title">sales</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> nokiaPhone.price</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> IPhone <span class="keyword">struct</span> &#123;</span><br><span class="line">	price <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(iPhone IPhone)</span> <span class="title">call</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"I am iPhone, I can call you!"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(iPhone IPhone)</span> <span class="title">sales</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> iPhone.price</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> phones = [<span class="number">5</span>]Phone&#123;</span><br><span class="line">		NokiaPhone&#123;price: <span class="number">350</span>&#125;,</span><br><span class="line">		IPhone&#123;price: <span class="number">5000</span>&#125;,</span><br><span class="line">		IPhone&#123;price: <span class="number">3400</span>&#125;,</span><br><span class="line">		NokiaPhone&#123;price: <span class="number">450</span>&#125;,</span><br><span class="line">		IPhone&#123;price: <span class="number">5000</span>&#125;,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> totalSales = <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> _, phone := <span class="keyword">range</span> phones &#123;</span><br><span class="line">		totalSales += phone.sales()</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(totalSales)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果：</p>
+<pre><code>14200
+</code></pre><p>上面的例子中，我们定义了一个手机数组，然后计算手机的总售价。可以看到，由于NokiaPhone和IPhone都实现了sales()方法，所以它们都是Phone类型，但是计算售价的时候，Go会知道调用哪个对象实现的方法。</p>
+<p>接口类型还可以作为结构体的数据成员。</p>
+<p>假设有个败家子，iPhone没有出的时候，买了好几款Nokia，iPhone出来后，又买了好多部iPhone，老爸要来看看这小子一共花了多少钱。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Phone <span class="keyword">interface</span> &#123;</span><br><span class="line">	sales() <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> NokiaPhone <span class="keyword">struct</span> &#123;</span><br><span class="line">	price <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(nokiaPhone NokiaPhone)</span> <span class="title">sales</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> nokiaPhone.price</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> IPhone <span class="keyword">struct</span> &#123;</span><br><span class="line">	price <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(iPhone IPhone)</span> <span class="title">sales</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> iPhone.price</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Person <span class="keyword">struct</span> &#123;</span><br><span class="line">	phones []Phone</span><br><span class="line">	name   <span class="keyword">string</span></span><br><span class="line">	age    <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(person Person)</span> <span class="title">total_cost</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> sum = <span class="number">0</span></span><br><span class="line">	<span class="keyword">for</span> _, phone := <span class="keyword">range</span> person.phones &#123;</span><br><span class="line">		sum += phone.sales()</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> sum</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> bought_phones = [<span class="number">5</span>]Phone&#123;</span><br><span class="line">		NokiaPhone&#123;price: <span class="number">350</span>&#125;,</span><br><span class="line">		IPhone&#123;price: <span class="number">5000</span>&#125;,</span><br><span class="line">		IPhone&#123;price: <span class="number">3400</span>&#125;,</span><br><span class="line">		NokiaPhone&#123;price: <span class="number">450</span>&#125;,</span><br><span class="line">		IPhone&#123;price: <span class="number">5000</span>&#125;,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> person = Person&#123;name: <span class="string">"Jemy"</span>, age: <span class="number">25</span>, phones: bought_phones[:]&#125;</span><br><span class="line"></span><br><span class="line">	fmt.Println(person.name)</span><br><span class="line">	fmt.Println(person.age)</span><br><span class="line">	fmt.Println(person.total_cost())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个例子纯为演示接口作为结构体数据成员，如有雷同，纯属巧合。这里面我们定义了一个Person结构体，结构体内部定义了一个手机类型切片。另外我们定义了Person的total_cost()方法用来计算手机花费总额。输出结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Jemy</span><br><span class="line">25</span><br><span class="line">14200</span><br></pre></td></tr></table></figure></p>
+<h2 id="小结-1"><a href="#小结-1" class="headerlink" title="小结"></a>小结</h2><p>Go的结构体和接口的实现方法可谓删繁就简，去除了很多别的语言令人困惑的地方，而且学习难度也不大，很容易上手。不过由于思想比较独到，也有可能会有人觉得功能太简单而无用，这个就各有看法了，不过在逐渐的使用过程中，我们会慢慢领悟到这种设计所带来的好处，以及所避免的问题。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="刘韬 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>一分也是情，一分也是爱！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/go语言基础/" rel="tag"># go语言基础</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/06/goeasylearn1/" rel="next" title="go语言基础--数据类型、变量、控制">
+                <i class="fa fa-chevron-left"></i> go语言基础--数据类型、变量、控制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/06/goeasylearn3/" rel="prev" title="go语言基础--并行计算、包、测试">
+                go语言基础--并行计算、包、测试 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="刘韬" />
+          <p class="site-author-name" itemprop="name">刘韬</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kusole" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/83381421/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liu-tao-86-26-47/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/6193724399/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Go函数"><span class="nav-number">1.</span> <span class="nav-text">Go函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是函数"><span class="nav-number">1.1.</span> <span class="nav-text">什么是函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数定义"><span class="nav-number">1.2.</span> <span class="nav-text">函数定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#命名返回值"><span class="nav-number">1.3.</span> <span class="nav-text">命名返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实参数和虚参数"><span class="nav-number">1.4.</span> <span class="nav-text">实参数和虚参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数多返回值"><span class="nav-number">1.5.</span> <span class="nav-text">函数多返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变长参数"><span class="nav-number">1.6.</span> <span class="nav-text">变长参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#闭包函数"><span class="nav-number">1.7.</span> <span class="nav-text">闭包函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归函数"><span class="nav-number">1.8.</span> <span class="nav-text">递归函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常处理"><span class="nav-number">1.9.</span> <span class="nav-text">异常处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Go指针"><span class="nav-number">2.</span> <span class="nav-text">Go指针</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用途"><span class="nav-number">2.2.</span> <span class="nav-text">用途</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#new"><span class="nav-number">2.3.</span> <span class="nav-text">new</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">2.4.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Go结构体和指针"><span class="nav-number">3.</span> <span class="nav-text">Go结构体和指针</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#结构体定义"><span class="nav-number">3.1.</span> <span class="nav-text">结构体定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构体参数传递方式"><span class="nav-number">3.2.</span> <span class="nav-text">结构体参数传递方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构体组合函数"><span class="nav-number">3.3.</span> <span class="nav-text">结构体组合函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构体和指针"><span class="nav-number">3.4.</span> <span class="nav-text">结构体和指针</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结构体内嵌类型"><span class="nav-number">3.5.</span> <span class="nav-text">结构体内嵌类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口"><span class="nav-number">3.6.</span> <span class="nav-text">接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结-1"><span class="nav-number">3.7.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <!--
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘韬</span>
+  -->
+</div>
+
+
+<!-- <div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+-->
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

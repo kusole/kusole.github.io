@@ -1,0 +1,799 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="案例分析：重构“策略”模式经典的“策略”模式图中的UML类图指出了“策略”模式对类的编排。">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用一等函数实现设计模式">
+<meta property="og:url" content="http://yoursite.com/2017/11/13/strategy/index.html">
+<meta property="og:site_name" content="不知归期的故人">
+<meta property="og:description" content="案例分析：重构“策略”模式经典的“策略”模式图中的UML类图指出了“策略”模式对类的编排。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://otl4ekdmf.bkt.clouddn.com/strategy.png">
+<meta property="og:updated_time" content="2018-10-13T14:39:56.283Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用一等函数实现设计模式">
+<meta name="twitter:description" content="案例分析：重构“策略”模式经典的“策略”模式图中的UML类图指出了“策略”模式对类的编排。">
+<meta name="twitter:image" content="http://otl4ekdmf.bkt.clouddn.com/strategy.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/13/strategy/"/>
+
+
+
+
+
+  <title> 使用一等函数实现设计模式 | 不知归期的故人 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?bf3223fddf5f9c71af0da2bd98d7f981";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不知归期的故人</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">乘风破浪会有时，直挂云帆济沧海。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/13/strategy/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘韬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不知归期的故人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用一等函数实现设计模式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-13T15:10:16+08:00">
+                2017-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python学习/" itemprop="url" rel="index">
+                    <span itemprop="name">python学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="案例分析：重构“策略”模式"><a href="#案例分析：重构“策略”模式" class="headerlink" title="案例分析：重构“策略”模式"></a>案例分析：重构“策略”模式</h2><h3 id="经典的“策略”模式"><a href="#经典的“策略”模式" class="headerlink" title="经典的“策略”模式"></a>经典的“策略”模式</h3><p>图中的UML类图指出了“策略”模式对类的编排。</p>
+<p><img src="http://otl4ekdmf.bkt.clouddn.com/strategy.png" alt=""><br><a id="more"></a><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># classic_strategy.py</span></span><br><span class="line"><span class="comment"># Strategy pattern -- classic implementation</span></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string"># BEGIN CLASSIC_STRATEGY_TESTS</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; joe = Customer('John Doe', 0)  # &lt;1&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; ann = Customer('Ann Smith', 1100)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; cart = [LineItem('banana', 4, .5),  # &lt;2&gt;</span></span><br><span class="line"><span class="string">    ...         LineItem('apple', 10, 1.5),</span></span><br><span class="line"><span class="string">    ...         LineItem('watermellon', 5, 5.0)]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, cart, FidelityPromo())  # &lt;3&gt;</span></span><br><span class="line"><span class="string">    &lt;Order total: 42.00 due: 42.00&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(ann, cart, FidelityPromo())  # &lt;4&gt;</span></span><br><span class="line"><span class="string">    &lt;Order total: 42.00 due: 39.90&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; banana_cart = [LineItem('banana', 30, .5),  # &lt;5&gt;</span></span><br><span class="line"><span class="string">    ...                LineItem('apple', 10, 1.5)]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, banana_cart, BulkItemPromo())  # &lt;6&gt;</span></span><br><span class="line"><span class="string">    &lt;Order total: 30.00 due: 28.50&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; long_order = [LineItem(str(item_code), 1, 1.0) # &lt;7&gt;</span></span><br><span class="line"><span class="string">    ...               for item_code in range(10)]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, long_order, LargeOrderPromo())  # &lt;8&gt;</span></span><br><span class="line"><span class="string">    &lt;Order total: 10.00 due: 9.30&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, cart, LargeOrderPromo())</span></span><br><span class="line"><span class="string">    &lt;Order total: 42.00 due: 42.00&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># END CLASSIC_STRATEGY_TESTS</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="comment"># BEGIN CLASSIC_STRATEGY</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> abc <span class="keyword">import</span> ABC, abstractmethod</span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"></span><br><span class="line">Customer = namedtuple(<span class="string">'Customer'</span>, <span class="string">'name fidelity'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LineItem</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, product, quantity, price)</span>:</span></span><br><span class="line">        self.product = product</span><br><span class="line">        self.quantity = quantity</span><br><span class="line">        self.price = price</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.price * self.quantity</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span>:</span>  <span class="comment"># the Context</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, customer, cart, promotion=None)</span>:</span></span><br><span class="line">        self.customer = customer</span><br><span class="line">        self.cart = list(cart)</span><br><span class="line">        self.promotion = promotion</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(self, <span class="string">'__total'</span>):</span><br><span class="line">            self.__total = sum(item.total() <span class="keyword">for</span> item <span class="keyword">in</span> self.cart)</span><br><span class="line">        <span class="keyword">return</span> self.__total</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">due</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.promotion <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            discount = <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            discount = self.promotion.discount(self)</span><br><span class="line">        <span class="keyword">return</span> self.total() - discount</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        fmt = <span class="string">'&lt;Order total: &#123;:.2f&#125; due: &#123;:.2f&#125;&gt;'</span></span><br><span class="line">        <span class="keyword">return</span> fmt.format(self.total(), self.due())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Promotion</span><span class="params">(ABC)</span>:</span>  <span class="comment"># the Strategy: an Abstract Base Class</span></span><br><span class="line"></span><br><span class="line"><span class="meta">    @abstractmethod</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">discount</span><span class="params">(self, order)</span>:</span></span><br><span class="line">        <span class="string">"""Return discount as a positive dollar amount"""</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FidelityPromo</span><span class="params">(Promotion)</span>:</span>  <span class="comment"># first Concrete Strategy</span></span><br><span class="line">    <span class="string">"""5% discount for customers with 1000 or more fidelity points"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">discount</span><span class="params">(self, order)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> order.total() * <span class="number">.05</span> <span class="keyword">if</span> order.customer.fidelity &gt;= <span class="number">1000</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BulkItemPromo</span><span class="params">(Promotion)</span>:</span>  <span class="comment"># second Concrete Strategy</span></span><br><span class="line">    <span class="string">"""10% discount for each LineItem with 20 or more units"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">discount</span><span class="params">(self, order)</span>:</span></span><br><span class="line">        discount = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> order.cart:</span><br><span class="line">            <span class="keyword">if</span> item.quantity &gt;= <span class="number">20</span>:</span><br><span class="line">                discount += item.total() * <span class="number">.1</span></span><br><span class="line">        <span class="keyword">return</span> discount</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LargeOrderPromo</span><span class="params">(Promotion)</span>:</span>  <span class="comment"># third Concrete Strategy</span></span><br><span class="line">    <span class="string">"""7% discount for orders with 10 or more distinct items"""</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">discount</span><span class="params">(self, order)</span>:</span></span><br><span class="line">        distinct_items = &#123;item.product <span class="keyword">for</span> item <span class="keyword">in</span> order.cart&#125;</span><br><span class="line">        <span class="keyword">if</span> len(distinct_items) &gt;= <span class="number">10</span>:</span><br><span class="line">            <span class="keyword">return</span> order.total() * <span class="number">.07</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># END CLASSIC_STRATEGY</span></span><br></pre></td></tr></table></figure></p>
+<p>每个具体策略都是一个类，而且都只定义了一个方法，即discount。此外，策略实例没有状态（没有实例属性）。你可能会说，它们看起来像是普通的函数。以下示例是对以上示例的重构，把具体策略换成了简单的函数，而且去掉了Promo抽象类。</p>
+<h3 id="Order-类和使用函数实现的折扣策略"><a href="#Order-类和使用函数实现的折扣策略" class="headerlink" title="Order 类和使用函数实现的折扣策略"></a>Order 类和使用函数实现的折扣策略</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># strategy.py</span></span><br><span class="line"><span class="comment"># Strategy pattern -- function-based implementation</span></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string"># BEGIN STRATEGY_TESTS</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; joe = Customer('John Doe', 0)  # &lt;1&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; ann = Customer('Ann Smith', 1100)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; cart = [LineItem('banana', 4, .5),</span></span><br><span class="line"><span class="string">    ...         LineItem('apple', 10, 1.5),</span></span><br><span class="line"><span class="string">    ...         LineItem('watermellon', 5, 5.0)]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, cart, fidelity_promo)  # &lt;2&gt;</span></span><br><span class="line"><span class="string">    &lt;Order total: 42.00 due: 42.00&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(ann, cart, fidelity_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 42.00 due: 39.90&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; banana_cart = [LineItem('banana', 30, .5),</span></span><br><span class="line"><span class="string">    ...                LineItem('apple', 10, 1.5)]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, banana_cart, bulk_item_promo)  # &lt;3&gt;</span></span><br><span class="line"><span class="string">    &lt;Order total: 30.00 due: 28.50&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; long_order = [LineItem(str(item_code), 1, 1.0)</span></span><br><span class="line"><span class="string">    ...               for item_code in range(10)]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, long_order, large_order_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 10.00 due: 9.30&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, cart, large_order_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 42.00 due: 42.00&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># END STRATEGY_TESTS</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="comment"># BEGIN STRATEGY</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"></span><br><span class="line">Customer = namedtuple(<span class="string">'Customer'</span>, <span class="string">'name fidelity'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LineItem</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, product, quantity, price)</span>:</span></span><br><span class="line">        self.product = product</span><br><span class="line">        self.quantity = quantity</span><br><span class="line">        self.price = price</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.price * self.quantity</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span>:</span>  <span class="comment"># the Context</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, customer, cart, promotion=None)</span>:</span></span><br><span class="line">        self.customer = customer</span><br><span class="line">        self.cart = list(cart)</span><br><span class="line">        self.promotion = promotion</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(self, <span class="string">'__total'</span>):</span><br><span class="line">            self.__total = sum(item.total() <span class="keyword">for</span> item <span class="keyword">in</span> self.cart)</span><br><span class="line">        <span class="keyword">return</span> self.__total</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">due</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.promotion <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            discount = <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            discount = self.promotion(self)  <span class="comment"># &lt;1&gt;</span></span><br><span class="line">        <span class="keyword">return</span> self.total() - discount</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        fmt = <span class="string">'&lt;Order total: &#123;:.2f&#125; due: &#123;:.2f&#125;&gt;'</span></span><br><span class="line">        <span class="keyword">return</span> fmt.format(self.total(), self.due())</span><br><span class="line"></span><br><span class="line"><span class="comment"># &lt;2&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fidelity_promo</span><span class="params">(order)</span>:</span>  <span class="comment"># &lt;3&gt;</span></span><br><span class="line">    <span class="string">"""5% discount for customers with 1000 or more fidelity points"""</span></span><br><span class="line">    <span class="keyword">return</span> order.total() * <span class="number">.05</span> <span class="keyword">if</span> order.customer.fidelity &gt;= <span class="number">1000</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bulk_item_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""10% discount for each LineItem with 20 or more units"""</span></span><br><span class="line">    discount = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> order.cart:</span><br><span class="line">        <span class="keyword">if</span> item.quantity &gt;= <span class="number">20</span>:</span><br><span class="line">            discount += item.total() * <span class="number">.1</span></span><br><span class="line">    <span class="keyword">return</span> discount</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">large_order_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""7% discount for orders with 10 or more distinct items"""</span></span><br><span class="line">    distinct_items = &#123;item.product <span class="keyword">for</span> item <span class="keyword">in</span> order.cart&#125;</span><br><span class="line">    <span class="keyword">if</span> len(distinct_items) &gt;= <span class="number">10</span>:</span><br><span class="line">        <span class="keyword">return</span> order.total() * <span class="number">.07</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># END STRATEGY</span></span><br></pre></td></tr></table></figure>
+<h3 id="best-promo-函数计算所有折扣，-并返回额度最大的"><a href="#best-promo-函数计算所有折扣，-并返回额度最大的" class="headerlink" title="best_promo 函数计算所有折扣， 并返回额度最大的"></a>best_promo 函数计算所有折扣， 并返回额度最大的</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># strategy_best.py</span></span><br><span class="line"><span class="comment"># Strategy pattern -- function-based implementation</span></span><br><span class="line"><span class="comment"># selecting best promotion from static list of functions</span></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; joe = Customer('John Doe', 0)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; ann = Customer('Ann Smith', 1100)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; cart = [LineItem('banana', 4, .5),</span></span><br><span class="line"><span class="string">    ...         LineItem('apple', 10, 1.5),</span></span><br><span class="line"><span class="string">    ...         LineItem('watermellon', 5, 5.0)]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, cart, fidelity_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 42.00 due: 42.00&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(ann, cart, fidelity_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 42.00 due: 39.90&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; banana_cart = [LineItem('banana', 30, .5),</span></span><br><span class="line"><span class="string">    ...                LineItem('apple', 10, 1.5)]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, banana_cart, bulk_item_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 30.00 due: 28.50&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; long_order = [LineItem(str(item_code), 1, 1.0)</span></span><br><span class="line"><span class="string">    ...               for item_code in range(10)]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, long_order, large_order_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 10.00 due: 9.30&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, cart, large_order_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 42.00 due: 42.00&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># BEGIN STRATEGY_BEST_TESTS</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, long_order, best_promo)  # &lt;1&gt;</span></span><br><span class="line"><span class="string">    &lt;Order total: 10.00 due: 9.30&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, banana_cart, best_promo)  # &lt;2&gt;</span></span><br><span class="line"><span class="string">    &lt;Order total: 30.00 due: 28.50&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(ann, cart, best_promo)  # &lt;3&gt;</span></span><br><span class="line"><span class="string">    &lt;Order total: 42.00 due: 39.90&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># END STRATEGY_BEST_TESTS</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"></span><br><span class="line">Customer = namedtuple(<span class="string">'Customer'</span>, <span class="string">'name fidelity'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LineItem</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, product, quantity, price)</span>:</span></span><br><span class="line">        self.product = product</span><br><span class="line">        self.quantity = quantity</span><br><span class="line">        self.price = price</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.price * self.quantity</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span>:</span>  <span class="comment"># the Context</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, customer, cart, promotion=None)</span>:</span></span><br><span class="line">        self.customer = customer</span><br><span class="line">        self.cart = list(cart)</span><br><span class="line">        self.promotion = promotion</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(self, <span class="string">'__total'</span>):</span><br><span class="line">            self.__total = sum(item.total() <span class="keyword">for</span> item <span class="keyword">in</span> self.cart)</span><br><span class="line">        <span class="keyword">return</span> self.__total</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">due</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.promotion <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            discount = <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            discount = self.promotion(self)</span><br><span class="line">        <span class="keyword">return</span> self.total() - discount</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        fmt = <span class="string">'&lt;Order total: &#123;:.2f&#125; due: &#123;:.2f&#125;&gt;'</span></span><br><span class="line">        <span class="keyword">return</span> fmt.format(self.total(), self.due())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fidelity_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""5% discount for customers with 1000 or more fidelity points"""</span></span><br><span class="line">    <span class="keyword">return</span> order.total() * <span class="number">.05</span> <span class="keyword">if</span> order.customer.fidelity &gt;= <span class="number">1000</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bulk_item_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""10% discount for each LineItem with 20 or more units"""</span></span><br><span class="line">    discount = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> order.cart:</span><br><span class="line">        <span class="keyword">if</span> item.quantity &gt;= <span class="number">20</span>:</span><br><span class="line">            discount += item.total() * <span class="number">.1</span></span><br><span class="line">    <span class="keyword">return</span> discount</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">large_order_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""7% discount for orders with 10 or more distinct items"""</span></span><br><span class="line">    distinct_items = &#123;item.product <span class="keyword">for</span> item <span class="keyword">in</span> order.cart&#125;</span><br><span class="line">    <span class="keyword">if</span> len(distinct_items) &gt;= <span class="number">10</span>:</span><br><span class="line">        <span class="keyword">return</span> order.total() * <span class="number">.07</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># BEGIN STRATEGY_BEST</span></span><br><span class="line"></span><br><span class="line">promos = [fidelity_promo, bulk_item_promo, large_order_promo]  <span class="comment"># &lt;1&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">best_promo</span><span class="params">(order)</span>:</span>  <span class="comment"># &lt;2&gt;</span></span><br><span class="line">    <span class="string">"""Select best discount available</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">return</span> max(promo(order) <span class="keyword">for</span> promo <span class="keyword">in</span> promos)  <span class="comment"># &lt;3&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># END STRATEGY_BEST</span></span><br></pre></td></tr></table></figure>
+<h3 id="找出模块中的全部策略"><a href="#找出模块中的全部策略" class="headerlink" title="找出模块中的全部策略"></a>找出模块中的全部策略</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># strategy_best2.py</span></span><br><span class="line"><span class="comment"># Strategy pattern -- function-based implementation</span></span><br><span class="line"><span class="comment"># selecting best promotion from current module globals</span></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; joe = Customer('John Doe', 0)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; ann = Customer('Ann Smith', 1100)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; cart = [LineItem('banana', 4, .5),</span></span><br><span class="line"><span class="string">    ...         LineItem('apple', 10, 1.5),</span></span><br><span class="line"><span class="string">    ...         LineItem('watermellon', 5, 5.0)]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, cart, fidelity_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 42.00 due: 42.00&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(ann, cart, fidelity_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 42.00 due: 39.90&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; banana_cart = [LineItem('banana', 30, .5),</span></span><br><span class="line"><span class="string">    ...                LineItem('apple', 10, 1.5)]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, banana_cart, bulk_item_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 30.00 due: 28.50&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; long_order = [LineItem(str(item_code), 1, 1.0)</span></span><br><span class="line"><span class="string">    ...               for item_code in range(10)]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, long_order, large_order_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 10.00 due: 9.30&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, cart, large_order_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 42.00 due: 42.00&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># BEGIN STRATEGY_BEST_TESTS</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, long_order, best_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 10.00 due: 9.30&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, banana_cart, best_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 30.00 due: 28.50&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(ann, cart, best_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 42.00 due: 39.90&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># END STRATEGY_BEST_TESTS</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"></span><br><span class="line">Customer = namedtuple(<span class="string">'Customer'</span>, <span class="string">'name fidelity'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LineItem</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, product, quantity, price)</span>:</span></span><br><span class="line">        self.product = product</span><br><span class="line">        self.quantity = quantity</span><br><span class="line">        self.price = price</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.price * self.quantity</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span>:</span>  <span class="comment"># the Context</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, customer, cart, promotion=None)</span>:</span></span><br><span class="line">        self.customer = customer</span><br><span class="line">        self.cart = list(cart)</span><br><span class="line">        self.promotion = promotion</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(self, <span class="string">'__total'</span>):</span><br><span class="line">            self.__total = sum(item.total() <span class="keyword">for</span> item <span class="keyword">in</span> self.cart)</span><br><span class="line">        <span class="keyword">return</span> self.__total</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">due</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.promotion <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            discount = <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            discount = self.promotion(self)</span><br><span class="line">        <span class="keyword">return</span> self.total() - discount</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        fmt = <span class="string">'&lt;Order total: &#123;:.2f&#125; due: &#123;:.2f&#125;&gt;'</span></span><br><span class="line">        <span class="keyword">return</span> fmt.format(self.total(), self.due())</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fidelity_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""5% discount for customers with 1000 or more fidelity points"""</span></span><br><span class="line">    <span class="keyword">return</span> order.total() * <span class="number">.05</span> <span class="keyword">if</span> order.customer.fidelity &gt;= <span class="number">1000</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bulk_item_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""10% discount for each LineItem with 20 or more units"""</span></span><br><span class="line">    discount = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> order.cart:</span><br><span class="line">        <span class="keyword">if</span> item.quantity &gt;= <span class="number">20</span>:</span><br><span class="line">            discount += item.total() * <span class="number">.1</span></span><br><span class="line">    <span class="keyword">return</span> discount</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">large_order_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""7% discount for orders with 10 or more distinct items"""</span></span><br><span class="line">    distinct_items = &#123;item.product <span class="keyword">for</span> item <span class="keyword">in</span> order.cart&#125;</span><br><span class="line">    <span class="keyword">if</span> len(distinct_items) &gt;= <span class="number">10</span>:</span><br><span class="line">        <span class="keyword">return</span> order.total() * <span class="number">.07</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># BEGIN STRATEGY_BEST2</span></span><br><span class="line"></span><br><span class="line">promos = [globals()[name] <span class="keyword">for</span> name <span class="keyword">in</span> globals()  <span class="comment"># &lt;1&gt;</span></span><br><span class="line">            <span class="keyword">if</span> name.endswith(<span class="string">'_promo'</span>)  <span class="comment"># &lt;2&gt;</span></span><br><span class="line">            <span class="keyword">and</span> name != <span class="string">'best_promo'</span>]   <span class="comment"># &lt;3&gt;</span></span><br><span class="line"><span class="comment"># print(globals())</span></span><br><span class="line"><span class="comment"># print([name for name in globals()])</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">best_promo</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""Select best discount available</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">return</span> max(promo(order) <span class="keyword">for</span> promo <span class="keyword">in</span> promos)  <span class="comment"># &lt;4&gt;</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string"># BEGIN STRATEGY_BEST3</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">promos = [func for name, func in</span></span><br><span class="line"><span class="string">                inspect.getmembers(promotions, inspect.isfunction)]</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">def best_promo(order):</span></span><br><span class="line"><span class="string">    """</span>Select best discount available</span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    return max(promo(order) for promo in promos)</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># END STRATEGY_BEST3</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="comment"># END STRATEGY_BEST2</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="刘韬 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>一分也是情，一分也是爱！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/13/decorate/" rel="next" title="python装饰器学习">
+                <i class="fa fa-chevron-left"></i> python装饰器学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/13/openstackauth/" rel="prev" title="django_openstack_auth认证与集成方法">
+                django_openstack_auth认证与集成方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="刘韬" />
+          <p class="site-author-name" itemprop="name">刘韬</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kusole" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/83381421/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liu-tao-86-26-47/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/6193724399/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#案例分析：重构“策略”模式"><span class="nav-number">1.</span> <span class="nav-text">案例分析：重构“策略”模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#经典的“策略”模式"><span class="nav-number">1.1.</span> <span class="nav-text">经典的“策略”模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Order-类和使用函数实现的折扣策略"><span class="nav-number">1.2.</span> <span class="nav-text">Order 类和使用函数实现的折扣策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#best-promo-函数计算所有折扣，-并返回额度最大的"><span class="nav-number">1.3.</span> <span class="nav-text">best_promo 函数计算所有折扣， 并返回额度最大的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#找出模块中的全部策略"><span class="nav-number">1.4.</span> <span class="nav-text">找出模块中的全部策略</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <!--
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘韬</span>
+  -->
+</div>
+
+
+<!-- <div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+-->
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

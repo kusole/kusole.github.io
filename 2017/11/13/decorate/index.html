@@ -1,0 +1,857 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="python," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="1 装饰器初试1.1 装饰器基础知识装饰器是可调用的对象，其参数是另一个函数（被装饰的函数）。装饰器可能会处理被装饰的函数，然后把它返回，或者将其替换成另一个函数或可调用对象。">
+<meta name="keywords" content="python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python装饰器学习">
+<meta property="og:url" content="http://yoursite.com/2017/11/13/decorate/index.html">
+<meta property="og:site_name" content="不知归期的故人">
+<meta property="og:description" content="1 装饰器初试1.1 装饰器基础知识装饰器是可调用的对象，其参数是另一个函数（被装饰的函数）。装饰器可能会处理被装饰的函数，然后把它返回，或者将其替换成另一个函数或可调用对象。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-13T14:39:56.278Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python装饰器学习">
+<meta name="twitter:description" content="1 装饰器初试1.1 装饰器基础知识装饰器是可调用的对象，其参数是另一个函数（被装饰的函数）。装饰器可能会处理被装饰的函数，然后把它返回，或者将其替换成另一个函数或可调用对象。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/13/decorate/"/>
+
+
+
+
+
+  <title> python装饰器学习 | 不知归期的故人 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?bf3223fddf5f9c71af0da2bd98d7f981";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不知归期的故人</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">乘风破浪会有时，直挂云帆济沧海。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/13/decorate/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘韬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不知归期的故人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                python装饰器学习
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-13T14:59:19+08:00">
+                2017-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python学习/" itemprop="url" rel="index">
+                    <span itemprop="name">python学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-装饰器初试"><a href="#1-装饰器初试" class="headerlink" title="1 装饰器初试"></a>1 装饰器初试</h2><h3 id="1-1-装饰器基础知识"><a href="#1-1-装饰器基础知识" class="headerlink" title="1.1 装饰器基础知识"></a>1.1 装饰器基础知识</h3><p>装饰器是可调用的对象，其参数是另一个函数（被装饰的函数）。装饰器可能会处理被装饰的函数，然后把它返回，或者将其替换成另一个函数或可调用对象。<br><a id="more"></a></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@decorate</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">target</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'running target()'</span>)</span><br></pre></td></tr></table></figure>
+<p>上述代码和下述代码的写法一样</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">target</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'running target()'</span>)</span><br><span class="line">target = decorate(target)</span><br></pre></td></tr></table></figure>
+<p>两种写法的最终结果一样：上述两个代码片段执行完毕后得到的target不一定是原来那个target 函数，而是decorate(target)返回的函数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">deco</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        print(<span class="string">'running inner()'</span>)</span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"><span class="meta">@deco</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">target</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'running target()'</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">target()</span><br><span class="line">print(target)</span><br></pre></td></tr></table></figure>
+<pre><code>running inner()
+&lt;function deco.&lt;locals&gt;.inner at 0x0000016C2B20AA60&gt;
+</code></pre><p>严格来说，装饰器只是语法糖。如前所示，装饰器可以像常规的可调用对象那样调用，其参数是另一个函数。有时，这样做更方便，尤其是做元编程（在运行时改变程序的行为）时。综上，装饰器的一大特性是，能把被装饰的函数替换成其他函数。第二个特性是，装饰器在加载模块时立即执行。下一节会说明。</p>
+<h3 id="1-2-Python何时执行装饰器"><a href="#1-2-Python何时执行装饰器" class="headerlink" title="1.2 Python何时执行装饰器"></a>1.2 Python何时执行装饰器</h3><p>装饰器的一个关键特性是， 它们在被装饰的函数定义之后立即运行。 这通常是在导入时(即 Python 加载模块时） ， 如 registration.py 模块所示。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># BEGIN REGISTRATION</span></span><br><span class="line"></span><br><span class="line">registry = []  <span class="comment"># &lt;1&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register</span><span class="params">(func)</span>:</span>  <span class="comment"># &lt;2&gt;</span></span><br><span class="line">    print(<span class="string">'running register(%s)'</span> % func)  <span class="comment"># &lt;3&gt;</span></span><br><span class="line">    registry.append(func)  <span class="comment"># &lt;4&gt;</span></span><br><span class="line">    <span class="keyword">return</span> func  <span class="comment"># &lt;5&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@register  # &lt;6&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'running f1()'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@register</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'running f2()'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f3</span><span class="params">()</span>:</span>  <span class="comment"># &lt;7&gt;</span></span><br><span class="line">    print(<span class="string">'running f3()'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span>  <span class="comment"># &lt;8&gt;</span></span><br><span class="line">    print(<span class="string">'running main()'</span>)</span><br><span class="line">    print(<span class="string">'registry -&gt;'</span>, registry)</span><br><span class="line">    f1()</span><br><span class="line">    f2()</span><br><span class="line">    f3()</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__==<span class="string">'__main__'</span>:</span><br><span class="line">    main()  <span class="comment"># &lt;9&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># END REGISTRATION</span></span><br></pre></td></tr></table></figure>
+<pre><code>running register(&lt;function f1 at 0x0000016C2B20A378&gt;)
+running register(&lt;function f2 at 0x0000016C2B23B048&gt;)
+running main()
+registry -&gt; [&lt;function f1 at 0x0000016C2B20A378&gt;, &lt;function f2 at 0x0000016C2B23B048&gt;]
+running f1()
+running f2()
+running f3()
+</code></pre><p>注意， register 在模块中其他函数之前运行（两次） 。 调用 register 时， 传给它的参数是被装饰的函数， 例如 <function f1="" at="" 0x100631bf8="">。<br>加载模块后， registry 中有两个被装饰函数的引用： f1 和 f2。 这两个函数， 以及 f3，只在 main 明确调用它们时才执行。如果导入 registration.py 模块（不作为脚本运行） ， 输出如下：</function></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> registration</span><br><span class="line">running register(&lt;function f1 at <span class="number">0x10063b1e0</span>&gt;)</span><br><span class="line">running register(&lt;function f2 at <span class="number">0x10063b268</span>&gt;)</span><br></pre></td></tr></table></figure>
+<p>此时查看 registry 的值， 得到的输出如下</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>registration.registry</span><br><span class="line">[&lt;function f1 at <span class="number">0x10063b1e0</span>&gt;, &lt;function f2 at <span class="number">0x10063b268</span>&gt;]</span><br></pre></td></tr></table></figure>
+<p>主要想强调， 函数装饰器在导入模块时立即执行， 而被装饰的函数只在明确调用时运行。 这突出了 Python 程序员所说的导入时和运行时之间的区别。</p>
+<h3 id="1-3-装饰器改进“策略”模式"><a href="#1-3-装饰器改进“策略”模式" class="headerlink" title="1.3 装饰器改进“策略”模式"></a>1.3 装饰器改进“策略”模式</h3><p>定义体中有函数的名称， 但是 best_promo 用来判断哪个折扣幅度最大的 promos 列表中也有函数名称。 这种重复是个问题， 因为新增策略函数后可能会忘记把它添加到 promos 列表中， 导致 best_promo 忽略新策略， 而且不报错， 为系统引入了不易察觉的缺陷。 </p>
+<p><code>实例 1</code> promos 列表中使用promotion装饰器填充</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># strategy_best4.py</span></span><br><span class="line"><span class="comment"># Strategy pattern -- function-based implementation</span></span><br><span class="line"><span class="comment"># selecting best promotion from list of functions</span></span><br><span class="line"><span class="comment"># registered by a decorator</span></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; joe = Customer('John Doe', 0)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; ann = Customer('Ann Smith', 1100)</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; cart = [LineItem('banana', 4, .5),</span></span><br><span class="line"><span class="string">    ...         LineItem('apple', 10, 1.5),</span></span><br><span class="line"><span class="string">    ...         LineItem('watermellon', 5, 5.0)]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, cart, fidelity)</span></span><br><span class="line"><span class="string">    &lt;Order total: 42.00 due: 42.00&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(ann, cart, fidelity)</span></span><br><span class="line"><span class="string">    &lt;Order total: 42.00 due: 39.90&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; banana_cart = [LineItem('banana', 30, .5),</span></span><br><span class="line"><span class="string">    ...                LineItem('apple', 10, 1.5)]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, banana_cart, bulk_item)</span></span><br><span class="line"><span class="string">    &lt;Order total: 30.00 due: 28.50&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; long_order = [LineItem(str(item_code), 1, 1.0)</span></span><br><span class="line"><span class="string">    ...               for item_code in range(10)]</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, long_order, large_order)</span></span><br><span class="line"><span class="string">    &lt;Order total: 10.00 due: 9.30&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, cart, large_order)</span></span><br><span class="line"><span class="string">    &lt;Order total: 42.00 due: 42.00&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># BEGIN STRATEGY_BEST_TESTS</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, long_order, best_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 10.00 due: 9.30&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(joe, banana_cart, best_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 30.00 due: 28.50&gt;</span></span><br><span class="line"><span class="string">    &gt;&gt;&gt; Order(ann, cart, best_promo)</span></span><br><span class="line"><span class="string">    &lt;Order total: 42.00 due: 39.90&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string"># END STRATEGY_BEST_TESTS</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> namedtuple</span><br><span class="line"></span><br><span class="line">Customer = namedtuple(<span class="string">'Customer'</span>, <span class="string">'name fidelity'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LineItem</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, product, quantity, price)</span>:</span></span><br><span class="line">        self.product = product</span><br><span class="line">        self.quantity = quantity</span><br><span class="line">        self.price = price</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">return</span> self.price * self.quantity</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Order</span>:</span>  <span class="comment"># the Context</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, customer, cart, promotion=None)</span>:</span></span><br><span class="line">        self.customer = customer</span><br><span class="line">        self.cart = list(cart)</span><br><span class="line">        self.promotion = promotion</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">total</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> hasattr(self, <span class="string">'__total'</span>):</span><br><span class="line">            self.__total = sum(item.total() <span class="keyword">for</span> item <span class="keyword">in</span> self.cart)</span><br><span class="line">        <span class="keyword">return</span> self.__total</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">due</span><span class="params">(self)</span>:</span></span><br><span class="line">        <span class="keyword">if</span> self.promotion <span class="keyword">is</span> <span class="keyword">None</span>:</span><br><span class="line">            discount = <span class="number">0</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            discount = self.promotion(self)</span><br><span class="line">        <span class="keyword">return</span> self.total() - discount</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></span><br><span class="line">        fmt = <span class="string">'&lt;Order total: &#123;:.2f&#125; due: &#123;:.2f&#125;&gt;'</span></span><br><span class="line">        <span class="keyword">return</span> fmt.format(self.total(), self.due())</span><br><span class="line"></span><br><span class="line"><span class="comment"># BEGIN STRATEGY_BEST4</span></span><br><span class="line"></span><br><span class="line">promos = []  <span class="comment"># &lt;1&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">promotion</span><span class="params">(promo_func)</span>:</span>  <span class="comment"># &lt;2&gt;</span></span><br><span class="line">    promos.append(promo_func)</span><br><span class="line">    <span class="keyword">return</span> promo_func</span><br><span class="line"></span><br><span class="line"><span class="meta">@promotion  # &lt;3&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fidelity</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""5% discount for customers with 1000 or more fidelity points"""</span></span><br><span class="line">    <span class="keyword">return</span> order.total() * <span class="number">.05</span> <span class="keyword">if</span> order.customer.fidelity &gt;= <span class="number">1000</span> <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@promotion</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">bulk_item</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""10% discount for each LineItem with 20 or more units"""</span></span><br><span class="line">    discount = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> item <span class="keyword">in</span> order.cart:</span><br><span class="line">        <span class="keyword">if</span> item.quantity &gt;= <span class="number">20</span>:</span><br><span class="line">            discount += item.total() * <span class="number">.1</span></span><br><span class="line">    <span class="keyword">return</span> discount</span><br><span class="line"></span><br><span class="line"><span class="meta">@promotion</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">large_order</span><span class="params">(order)</span>:</span></span><br><span class="line">    <span class="string">"""7% discount for orders with 10 or more distinct items"""</span></span><br><span class="line">    distinct_items = &#123;item.product <span class="keyword">for</span> item <span class="keyword">in</span> order.cart&#125;</span><br><span class="line">    <span class="keyword">if</span> len(distinct_items) &gt;= <span class="number">10</span>:</span><br><span class="line">        <span class="keyword">return</span> order.total() * <span class="number">.07</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">best_promo</span><span class="params">(order)</span>:</span>  <span class="comment"># &lt;4&gt;</span></span><br><span class="line">    <span class="string">"""Select best discount available</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">return</span> max(promo(order) <span class="keyword">for</span> promo <span class="keyword">in</span> promos)</span><br><span class="line"></span><br><span class="line"><span class="comment"># END STRATEGY_BEST4</span></span><br></pre></td></tr></table></figure>
+<p><code>优点如下：</code></p>
+<ul>
+<li>促销策略函数无需使用特殊的名称（即不用以 _promo 结尾）。</li>
+<li>@promotion 装饰器突出了被装饰的函数的作用， 还便于临时禁用某个促销策略： 只需把装饰器注释掉。</li>
+<li>促销折扣策略可以在其他模块中定义， 在系统中的任何地方都行， 只要使用@promotion 装饰即可。</li>
+</ul>
+<h2 id="2-闭包"><a href="#2-闭包" class="headerlink" title="2 闭包"></a>2 闭包</h2><h3 id="2-1-闭包的使用"><a href="#2-1-闭包的使用" class="headerlink" title="2.1 闭包的使用"></a>2.1 闭包的使用</h3><p>在博客圈， 人们有时会把闭包和匿名函数弄混。 这是有历史原因的： 在函数内部定义函数不常见， 直到开始使用匿名函数才会这样做。 而且， 只有涉及嵌套函数时才有闭包问题。因此， 很多人是同时知道这两个概念的。其实， 闭包指延伸了作用域的函数， 其中包含函数定义体中引用、 但是不在定义体中定义的非全局变量。 函数是不是匿名的没有关系， 关键是它能访问定义体之外定义的非全局变量。</p>
+<p><code>1、闭包实现</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string"><span class="meta">&gt;&gt;&gt; </span>avg = make_averager()</span></span><br><span class="line"><span class="string"><span class="meta">&gt;&gt;&gt; </span>avg(10)</span></span><br><span class="line"><span class="string">10.0</span></span><br><span class="line"><span class="string"><span class="meta">&gt;&gt;&gt; </span>avg(11)</span></span><br><span class="line"><span class="string">10.5</span></span><br><span class="line"><span class="string"><span class="meta">&gt;&gt;&gt; </span>avg(12)</span></span><br><span class="line"><span class="string">11.0</span></span><br><span class="line"><span class="string"><span class="meta">&gt;&gt;&gt; </span>avg.__code__.co_varnames</span></span><br><span class="line"><span class="string">('new_value', 'total')</span></span><br><span class="line"><span class="string"><span class="meta">&gt;&gt;&gt; </span>avg.__code__.co_freevars</span></span><br><span class="line"><span class="string">('series',)</span></span><br><span class="line"><span class="string"><span class="meta">&gt;&gt;&gt; </span>avg.__closure__  # doctest: +ELLIPSIS</span></span><br><span class="line"><span class="string">(&lt;cell at 0x...: list object at 0x...&gt;,)</span></span><br><span class="line"><span class="string"><span class="meta">&gt;&gt;&gt; </span>avg.__closure__[0].cell_contents</span></span><br><span class="line"><span class="string">[10, 11, 12]</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">DEMO = <span class="string">"""</span></span><br><span class="line"><span class="string"><span class="meta">&gt;&gt;&gt; </span>avg.__closure__</span></span><br><span class="line"><span class="string">(&lt;cell at 0x107a44f78: list object at 0x107a91a48&gt;,)</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_averager</span><span class="params">()</span>:</span></span><br><span class="line">    series = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">averager</span><span class="params">(new_value)</span>:</span></span><br><span class="line">        series.append(new_value)</span><br><span class="line">        total = sum(series)</span><br><span class="line">        <span class="keyword">return</span> total/len(series)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> averager</span><br></pre></td></tr></table></figure>
+<p><code>2、初学者实现</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string"><span class="meta">&gt;&gt;&gt; </span>avg = Averager()</span></span><br><span class="line"><span class="string"><span class="meta">&gt;&gt;&gt; </span>avg(10)</span></span><br><span class="line"><span class="string">10.0</span></span><br><span class="line"><span class="string"><span class="meta">&gt;&gt;&gt; </span>avg(11)</span></span><br><span class="line"><span class="string">10.5</span></span><br><span class="line"><span class="string"><span class="meta">&gt;&gt;&gt; </span>avg(12)</span></span><br><span class="line"><span class="string">11.0</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Averager</span><span class="params">()</span>:</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        self.series = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__call__</span><span class="params">(self, new_value)</span>:</span></span><br><span class="line">        self.series.append(new_value)</span><br><span class="line">        total = sum(self.series)</span><br><span class="line">        <span class="keyword">return</span> total/len(self.series)</span><br></pre></td></tr></table></figure>
+<p>综上， 闭包是一种函数， 它会保留定义函数时存在的自由变量的绑定， 这样调用函数时，虽然定义作用域不可用了， 但是仍能使用那些绑定。注意， 只有嵌套在其他函数中的函数才可能需要处理不在全局作用域中的外部变量。</p>
+<h3 id="2-2-nonloacl声明"><a href="#2-2-nonloacl声明" class="headerlink" title="2.2 nonloacl声明"></a>2.2 nonloacl声明</h3><p>前面实现 make_averager 函数的方法效率不高。在示例中，我们把所有值存储在历史数列中，然后在每次调用averager时使用sum求和。更好的实现方式是，只存储目前的总值和元素个数，然后使用这两个数计算均值。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_averager</span><span class="params">()</span>:</span></span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    total = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">averager</span><span class="params">(new_value)</span>:</span></span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        total += new_value</span><br><span class="line">        <span class="keyword">return</span> total / count</span><br><span class="line">    <span class="keyword">return</span> averager</span><br></pre></td></tr></table></figure>
+<p>尝试使用示例定义的函数， 会得到如下结果：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span>avg = make_averager()</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>avg(<span class="number">10</span>)</span><br><span class="line">Traceback (most recent call last):</span><br><span class="line">...</span><br><span class="line">UnboundLocalError: local variable <span class="string">'count'</span> referenced before assignment</span><br><span class="line">&gt;&gt;&gt;</span><br></pre></td></tr></table></figure>
+<p>问题是， 当 count 是数字或任何不可变类型时， count += 1 语句的作用其实与 count= count + 1 一样。 因此， 我们在 averager 的定义体中为 count 赋值了， 这会把count 变成局部变量。 total 变量也受这个问题影响。</p>
+<p>前面没有遇到这个问题， 因为我们没有给 series 赋值， 我们只是调用series.append， 并把它传给 sum 和 len。 也就是说， 我们利用了列表是可变的对象这一事实。但是对数字、 字符串、 元组等不可变类型来说， 只能读取， 不能更新。 如果尝试重新绑定， 例如 count = count + 1， 其实会隐式创建局部变量 count。 这样， count 就不是自由变量了， 因此不会保存在闭包中。</p>
+<p>为了解决这个问题， Python 3 引入了 nonlocal 声明。 它的作用是把变量标记为自由变量， 即使在函数中为变量赋予新值了， 也会变成自由变量。 如果为 nonlocal 声明的变量赋予新值， 闭包中保存的绑定会更新。 最新版 make_averager 的正确实现如示例所示。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">make_averager</span><span class="params">()</span>:</span></span><br><span class="line">    count = <span class="number">0</span></span><br><span class="line">    total = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">averager</span><span class="params">(new_value)</span>:</span></span><br><span class="line">        <span class="keyword">nonlocal</span> count, total</span><br><span class="line">        count += <span class="number">1</span></span><br><span class="line">        total += new_value</span><br><span class="line">        <span class="keyword">return</span> total / count</span><br><span class="line">    <span class="keyword">return</span> averager</span><br></pre></td></tr></table></figure>
+<h2 id="3-实现一个简单的装饰器"><a href="#3-实现一个简单的装饰器" class="headerlink" title="3 实现一个简单的装饰器"></a>3 实现一个简单的装饰器</h2><p> 定义了一个装饰器， 它会在每次调用被装饰的函数时计时， 然后把经过的时间、 传入的参数和调用的结果打印出来。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># clockdeco.py</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clock</span><span class="params">(func)</span>:</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">clocked</span><span class="params">(*args)</span>:</span></span><br><span class="line">        t0 = time.time()</span><br><span class="line">        result = func(*args)</span><br><span class="line">        elapsed = time.time()-t0 <span class="comment">#闭包中包含自由变量func()</span></span><br><span class="line">        name = func.__name__</span><br><span class="line">        arg_str = <span class="string">', '</span>.join(repr(arg) <span class="keyword">for</span> arg <span class="keyword">in</span> args)</span><br><span class="line">        print(<span class="string">'[%0.8fs] %s(%s) -&gt; $r'</span> % \</span><br><span class="line">              (elapsed, name, arg_str, result))</span><br><span class="line">        <span class="keyword">return</span> result</span><br><span class="line">    <span class="keyword">return</span> clocked <span class="comment">#返回内部函数，取代被装饰的函数</span></span><br></pre></td></tr></table></figure>
+<p>使用clock装饰器</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># clockdeco_demo.py</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> clockdeco <span class="keyword">import</span> clock</span><br><span class="line"></span><br><span class="line"><span class="meta">@clock</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">snooze</span><span class="params">(seconds)</span>:</span></span><br><span class="line">    time.sleep(seconds)</span><br><span class="line"></span><br><span class="line"><span class="meta">@clock</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">factorial</span><span class="params">(n)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> <span class="keyword">if</span> n &lt; <span class="number">2</span> <span class="keyword">else</span> n*factorial(n<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    print(<span class="string">'*'</span> * <span class="number">40</span>, <span class="string">'Calling snozzen(.123)'</span>)</span><br><span class="line">    snooze(<span class="number">.123</span>)</span><br><span class="line">    print(<span class="string">'*'</span> * <span class="number">40</span>, <span class="string">'Calling factorial(6)'</span>)</span><br><span class="line">    factorial(<span class="number">6</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">$ python3 clockdeco_demo.py</span><br><span class="line">**************************************** Calling snooze(<span class="number">123</span>)</span><br><span class="line">[0.12405610s] snooze(.123) -&gt; None</span><br><span class="line">**************************************** Calling factorial(<span class="number">6</span>)</span><br><span class="line">[0.00000191s] factorial(1) -&gt; 1</span><br><span class="line">[0.00004911s] factorial(2) -&gt; 2</span><br><span class="line">[0.00008488s] factorial(3) -&gt; 6</span><br><span class="line">[0.00013208s] factorial(4) -&gt; 24</span><br><span class="line">[0.00019193s] factorial(5) -&gt; 120</span><br><span class="line">[0.00026107s] factorial(6) -&gt; 720</span><br><span class="line"><span class="number">6</span>! = <span class="number">720</span></span><br></pre></td></tr></table></figure>
+<p>这是装饰器的典型行为： 把被装饰的函数替换成新函数， 二者接受相同的参数， 而且（通常） 返回被装饰的函数本该返回的值， 同时还会做些额外操作。</p>
+<p>示例中实现的 clock 装饰器有几个缺点：不支持关键字参数，而且遮盖了被装饰函数的 __name__ 和 __doc__ 属性。下面使用 functools.wraps 装饰器把相关的属性从 func 复制到 clocked 中。此外，这个新版还能正确处理关键字参数。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># clockdeco2.py</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> functools</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clock</span><span class="params">(func)</span>:</span></span><br><span class="line"><span class="meta">    @functions.wraps(func)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">clocked</span><span class="params">(*args, **kwargs)</span>:</span></span><br><span class="line">        t0 = time.time()</span><br><span class="line">        result = func(*args)</span><br><span class="line">        elapsed = time.time()-t0 <span class="comment">#闭包中包含自由变量func()</span></span><br><span class="line">        name = func.__name__</span><br><span class="line">        arg_lst = []</span><br><span class="line">        <span class="keyword">if</span> args:</span><br><span class="line">            arg_lst.append(<span class="string">', '</span>.join(repr(arg) <span class="keyword">for</span> arg <span class="keyword">in</span> args))</span><br><span class="line">        <span class="keyword">if</span> kwargs:</span><br><span class="line">            pairs = [<span class="string">'%s=%r'</span> % (k, w) <span class="keyword">for</span> k, w <span class="keyword">in</span> sorted(kwargs.items())]</span><br><span class="line">            arg_lst.append(<span class="string">', '</span>.join(pairs))</span><br><span class="line">        arg_str = <span class="string">', '</span>.join(arg_lst)</span><br><span class="line">        print(<span class="string">'[%0.8fs] %s(%s) -&gt; %r '</span> % (elapsed, name, arg_str, result))</span><br><span class="line">    <span class="keyword">return</span> result</span><br></pre></td></tr></table></figure>
+<h2 id="4-参数化装饰器"><a href="#4-参数化装饰器" class="headerlink" title="4 参数化装饰器"></a>4 参数化装饰器</h2><p>解析源码中的装饰器时， Python 把被装饰的函数作为第一个参数传给装饰器函数。 那怎么让装饰器接受其他参数呢？ 答案是： 创建一个装饰器工厂函数， 把参数传给它， 返回一个装饰器， 然后再把它应用到要装饰的函数上。 </p>
+<h3 id="4-1-一个参数化的注册装饰器"><a href="#4-1-一个参数化的注册装饰器" class="headerlink" title="4.1 一个参数化的注册装饰器"></a>4.1 一个参数化的注册装饰器</h3><p>为了便于启用或禁用 register 执行的函数注册功能， 我们为它提供一个可选active参数， 设为 False 时， 不注册被装饰的函数。 实现方式参见示例。从概念上看， 这个新的 register 函数不是装饰器， 而是装饰器工厂函数。 调用它会返回真正的装饰器，这才是应用到目标函数上的装饰器。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># BEGIN REGISTRATION_PARAM</span></span><br><span class="line">registry = set()  <span class="comment"># &lt;1&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">register</span><span class="params">(active=True)</span>:</span>  <span class="comment"># &lt;2&gt;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorate</span><span class="params">(func)</span>:</span>  <span class="comment"># &lt;3&gt;</span></span><br><span class="line">        print(<span class="string">'running register(active=%s)-&gt;decorate(%s)'</span></span><br><span class="line">              % (active, func))</span><br><span class="line">        <span class="keyword">if</span> active:   <span class="comment"># &lt;4&gt;</span></span><br><span class="line">            registry.add(func)</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            registry.discard(func)  <span class="comment"># &lt;5&gt;</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> func  <span class="comment"># &lt;6&gt;</span></span><br><span class="line">    <span class="keyword">return</span> decorate  <span class="comment"># &lt;7&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@register(active=False)  # &lt;8&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f1</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'running f1()'</span>)</span><br><span class="line"></span><br><span class="line"><span class="meta">@register()  # &lt;9&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f2</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'running f2()'</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f3</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'running f3()'</span>)</span><br><span class="line"></span><br><span class="line">print(registry)</span><br><span class="line"><span class="comment"># END REGISTRATION_PARAM</span></span><br></pre></td></tr></table></figure>
+<p>代码在 registration_param.py 模块中。 如果导入， 得到的结果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">import</span> registration_param</span><br><span class="line">running register(active=False)-&gt;decorate(&lt;function f1 at 0x10063c1e0&gt;)</span><br><span class="line">running register(active=True)-&gt;decorate(&lt;function f2 at 0x10063c268&gt;)</span><br><span class="line"><span class="meta">&gt;&gt;&gt; </span>registration_param.registry</span><br><span class="line">&#123;&lt;function f2 at <span class="number">0x10063c268</span>&gt;&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-2-参数化clock装饰器"><a href="#4-2-参数化clock装饰器" class="headerlink" title="4.2 参数化clock装饰器"></a>4.2 参数化clock装饰器</h3><p>探讨 clock 装饰器， 为它添加一个功能： 让用户传入一个格式字符串， 控制被装饰函数的输出。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># clockdeco_param.py</span></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string"><span class="meta">&gt;&gt;&gt; </span>snooze(.1)  # doctest: +ELLIPSIS</span></span><br><span class="line"><span class="string">[0.101...s] snooze(0.1) -&gt; None</span></span><br><span class="line"><span class="string"><span class="meta">&gt;&gt;&gt; </span>clock('&#123;name&#125;: &#123;elapsed&#125;')(time.sleep)(.2)  # doctest: +ELLIPSIS</span></span><br><span class="line"><span class="string">sleep: 0.20...</span></span><br><span class="line"><span class="string"><span class="meta">&gt;&gt;&gt; </span>clock('&#123;name&#125;(&#123;args&#125;) dt=&#123;elapsed:0.3f&#125;s')(time.sleep)(.2)</span></span><br><span class="line"><span class="string">sleep(0.2) dt=0.201s</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># BEGIN CLOCKDECO_PARAM</span></span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line">DEFAULT_FMT = <span class="string">'[&#123;elapsed:0.8f&#125;s] &#123;name&#125;(&#123;args&#125;) -&gt; &#123;result&#125;'</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">clock</span><span class="params">(fmt=DEFAULT_FMT)</span>:</span>  <span class="comment"># &lt;1&gt;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">decorate</span><span class="params">(func)</span>:</span>      <span class="comment"># &lt;2&gt;</span></span><br><span class="line">        <span class="function"><span class="keyword">def</span> <span class="title">clocked</span><span class="params">(*_args)</span>:</span> <span class="comment"># &lt;3&gt;</span></span><br><span class="line">            t0 = time.time()</span><br><span class="line">            _result = func(*_args)  <span class="comment"># &lt;4&gt;</span></span><br><span class="line">            elapsed = time.time() - t0</span><br><span class="line">            name = func.__name__</span><br><span class="line">            args = <span class="string">', '</span>.join(repr(arg) <span class="keyword">for</span> arg <span class="keyword">in</span> _args)  <span class="comment"># &lt;5&gt;</span></span><br><span class="line">            result = repr(_result)  <span class="comment"># &lt;6&gt;</span></span><br><span class="line">            print(fmt.format(**locals()))  <span class="comment"># &lt;7&gt;</span></span><br><span class="line">            <span class="keyword">return</span> _result  <span class="comment"># &lt;8&gt;</span></span><br><span class="line">        <span class="keyword">return</span> clocked  <span class="comment"># &lt;9&gt;</span></span><br><span class="line">    <span class="keyword">return</span> decorate  <span class="comment"># &lt;10&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line"></span><br><span class="line"><span class="meta">    @clock()  # &lt;11&gt;</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">snooze</span><span class="params">(seconds)</span>:</span></span><br><span class="line">        time.sleep(seconds)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">        snooze(<span class="number">.123</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># END CLOCKDECO_PARAM</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ python3 clockdeco_param.py</span><br><span class="line">[0.12412500s] snooze(0.123) -&gt; None</span><br><span class="line">[0.12411904s] snooze(0.123) -&gt; None</span><br><span class="line">[0.12410498s] snooze(0.123) -&gt; None</span><br></pre></td></tr></table></figure>
+<p>使用了 clockdeco_param 模块中的新功能， 随后是两个模块输出的结果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> clockdeco_param <span class="keyword">import</span> clock</span><br><span class="line"></span><br><span class="line"><span class="meta">@clock('&#123;name&#125;: &#123;elapsed&#125;s')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">snooze</span><span class="params">(seconds)</span>:</span></span><br><span class="line">    time.sleep(seconds)</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">    snooze(<span class="number">.123</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ python3 clockdeco_param_demo1.py</span><br><span class="line">snooze: <span class="number">0.12414693832397461</span>s</span><br><span class="line">snooze: <span class="number">0.1241159439086914</span>s</span><br><span class="line">snooze: <span class="number">0.12412118911743164</span>s</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="刘韬 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>一分也是情，一分也是爱！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/python/" rel="tag"># python</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/13/horizondevelop1/" rel="next" title="horizon 二次开发环境配置">
+                <i class="fa fa-chevron-left"></i> horizon 二次开发环境配置
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/13/strategy/" rel="prev" title="使用一等函数实现设计模式">
+                使用一等函数实现设计模式 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="刘韬" />
+          <p class="site-author-name" itemprop="name">刘韬</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kusole" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/83381421/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liu-tao-86-26-47/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/6193724399/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-装饰器初试"><span class="nav-number">1.</span> <span class="nav-text">1 装饰器初试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-装饰器基础知识"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 装饰器基础知识</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-Python何时执行装饰器"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 Python何时执行装饰器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-装饰器改进“策略”模式"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 装饰器改进“策略”模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-闭包"><span class="nav-number">2.</span> <span class="nav-text">2 闭包</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-闭包的使用"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 闭包的使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-nonloacl声明"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 nonloacl声明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-实现一个简单的装饰器"><span class="nav-number">3.</span> <span class="nav-text">3 实现一个简单的装饰器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-参数化装饰器"><span class="nav-number">4.</span> <span class="nav-text">4 参数化装饰器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-1-一个参数化的注册装饰器"><span class="nav-number">4.1.</span> <span class="nav-text">4.1 一个参数化的注册装饰器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-参数化clock装饰器"><span class="nav-number">4.2.</span> <span class="nav-text">4.2 参数化clock装饰器</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <!--
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘韬</span>
+  -->
+</div>
+
+
+<!-- <div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+-->
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,956 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="go语言基础," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="Go语言内置基础数据类型在自然界里面，有猫，有狗，有猪。有各种动物。每种动物都是不同的。比如猫会喵喵叫，狗会旺旺叫，猪会哼哼叫。。。Stop!!!好了，大家毕竟不是幼儿园的小朋友。介绍到这里就可以了。">
+<meta name="keywords" content="go语言基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go语言基础--数据类型、变量、控制">
+<meta property="og:url" content="http://yoursite.com/2017/07/06/goeasylearn1/index.html">
+<meta property="og:site_name" content="不知归期的故人">
+<meta property="og:description" content="Go语言内置基础数据类型在自然界里面，有猫，有狗，有猪。有各种动物。每种动物都是不同的。比如猫会喵喵叫，狗会旺旺叫，猪会哼哼叫。。。Stop!!!好了，大家毕竟不是幼儿园的小朋友。介绍到这里就可以了。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-13T14:39:56.279Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="go语言基础--数据类型、变量、控制">
+<meta name="twitter:description" content="Go语言内置基础数据类型在自然界里面，有猫，有狗，有猪。有各种动物。每种动物都是不同的。比如猫会喵喵叫，狗会旺旺叫，猪会哼哼叫。。。Stop!!!好了，大家毕竟不是幼儿园的小朋友。介绍到这里就可以了。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/06/goeasylearn1/"/>
+
+
+
+
+
+  <title> go语言基础--数据类型、变量、控制 | 不知归期的故人 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?bf3223fddf5f9c71af0da2bd98d7f981";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不知归期的故人</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">乘风破浪会有时，直挂云帆济沧海。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/06/goeasylearn1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘韬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不知归期的故人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                go语言基础--数据类型、变量、控制
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-06T10:43:48+08:00">
+                2017-07-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go语言学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">go语言学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Go语言内置基础数据类型"><a href="#Go语言内置基础数据类型" class="headerlink" title="Go语言内置基础数据类型"></a>Go语言内置基础数据类型</h1><p>在自然界里面，有猫，有狗，有猪。有各种动物。每种动物都是不同的。<br>比如猫会喵喵叫，狗会旺旺叫，猪会哼哼叫。。。<br>Stop!!!<br>好了，大家毕竟不是幼儿园的小朋友。介绍到这里就可以了。<br><a id="more"></a><br>论点就是每个东西都有自己归属的类别(Type)。<br>那么在Go语言里面，每个变量也都是有类别的，这种类别叫做<code>数据类型(Data Type)</code>。<br>Go的数据类型有两种：一种是<code>语言内置的数据类型</code>，另外一种是<code>通过语言提供的自定义数据类型方法自己定义的自定义数据类型</code>。</p>
+<p>先看看语言<code>内置的基础数据类型</code></p>
+<h2 id="数值型-Number"><a href="#数值型-Number" class="headerlink" title="数值型(Number)"></a>数值型(Number)</h2><p>数值型有<code>三种</code>，一种是<code>整数类型</code>，另外一种是<code>带小数的类型</code>(一般计算机里面叫做<code>浮点数类型</code>)，还有一种<code>虚数类型</code>。  </p>
+<p>整数类型不用说了，和数学里面的是一样的。和数学里面不同的地方在于计算机里面<code>正整数和零</code>统称为<code>无符号整型</code>，而<code>负整数</code>则称为<code>有符号整型</code>。  </p>
+<p>Go的内置整型有<code>uint8</code>, <code>uint16</code>, <code>uint32</code>, <code>uint64</code>, <code>int8</code>, <code>int16</code>, <code>int32</code>和<code>int64</code>。其中<code>u</code>开头的类型就是<code>无符号整型</code>。无符号类型能够表示正整数和零。而有符号类型除了能够表示正整数和零外，还可以表示负整数。<br>另外还有一些别名类型，比如<code>byte</code>类型，这个类型和<code>uint8</code>是一样的，表示<code>字节类型</code>。另外一个是<code>rune类型</code>，这个类型和<code>int32</code>是一样的，用来表示<code>unicode的代码点</code>，就是unicode字符所对应的整数。</p>
+<p>Go还定义了三个<code>依赖系统</code>的类型，<code>uint</code>，<code>int</code>和<code>uintptr</code>。因为在32位系统和64位系统上用来表示这些类型的位数是不一样的。</p>
+<p><em>对于32位系统</em></p>
+<p>uint=uint32<br>int=int32<br>uintptr为32位的指针  </p>
+<p><em>对于64位系统</em></p>
+<p>uint=uint64<br>int=int64<br>uintptr为64位的指针  </p>
+<p>至于类型后面跟的数字8，16，32或是64则表示用来表示这个类型的位不同，<code>位越多，能表示的整数范围越大</code>。<br>比如对于用N位来表示的整数，如果是<code>有符号的整数</code>，能够表示的整数范围为<code>-2^(N-1) ~ 2^(N-1)－1</code>；如果是<code>无符号的整数</code>，则能表示的整数范围为<code>0 ～ 2^N</code>。</p>
+<p>Go的浮点数类型有两种，<code>float32</code>和<code>float64</code>。float32又叫<code>单精度浮点型</code>，float64又叫做<code>双精度浮点型</code>。其<code>最主要的区别就是小数点后面能跟的小数位数不同</code>。</p>
+<p>另外Go还有两个其他语言所没有的类型，<code>虚数类型</code>。<code>complex64</code>和<code>complex128</code>。</p>
+<p>对于数值类型，其所共有的操作为<code>加法(＋)</code>，<code>减法(－)</code>，<code>乘法(＊)</code>和<code>除法(/)</code>。另外对于<code>整数类型</code>，还定义了<code>求余运算(%)</code></p>
+<p>求余运算为整型所独有。如果对浮点数使用求余，比如这样<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> a <span class="keyword">float64</span> = <span class="number">12</span></span><br><span class="line">    <span class="keyword">var</span> b <span class="keyword">float64</span> = <span class="number">3</span></span><br><span class="line"></span><br><span class="line">    fmt.Println(a % b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译时候会报错</p>
+<pre><code>invalid operation: a % b (operator % not defined on float64)
+</code></pre><p>所以，这里我们可以知道所谓的<code>数据类型有两层意思</code>，一个是定义了<code>该类型所能表示的数</code>，另一个是定义了<code>该类型所能进行的操作</code>。<br>简单地说，对于一只小狗，你能想到的一定是狗的面貌和它会汪汪叫，而不是猫的面容和喵喵叫。</p>
+<h2 id="字符串类型-String"><a href="#字符串类型-String" class="headerlink" title="字符串类型(String)"></a>字符串类型(String)</h2><p>字符串就是一串固定长度的字符连接起来的字符序列。Go的字符串是由<code>单个字节</code>连接起来的。（对于汉字，通常由多个字节组成）。这就是说，传统的字符串是由字符组成的，而<code>Go的字符串不同</code>，是<code>由字节组成</code>的。这一点需要注意。</p>
+<p>字符串的表示很简单。用(双引号””)或者(``号)来描述。</p>
+<pre><code>&quot;hello world&quot;
+</code></pre><p>或者</p>
+<pre><code>`hello world`
+</code></pre><p>唯一的区别是，<strong>双引号之间的转义字符会被转义，而``号之间的转义字符保持原样不变</strong>。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="string">"hello \n world"</span></span><br><span class="line">    <span class="keyword">var</span> b = <span class="string">`hello \n world`</span></span><br><span class="line"></span><br><span class="line">    fmt.Println(a)</span><br><span class="line">    fmt.Println(<span class="string">"----------"</span>)</span><br><span class="line">    fmt.Println(b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果为<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hello </span><br><span class="line"> world</span><br><span class="line">----------</span><br><span class="line">hello \n world</span><br></pre></td></tr></table></figure></p>
+<p>字符串所能进行的一些基本操作包括:<br>（1）<code>获取字符长度</code><br>（2）<code>获取字符串中单个字节</code><br>（3）<code>字符串连接</code><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> a <span class="keyword">string</span> = <span class="string">"hello"</span></span><br><span class="line">    <span class="keyword">var</span> b <span class="keyword">string</span> = <span class="string">"world"</span></span><br><span class="line"></span><br><span class="line">    fmt.Println(<span class="built_in">len</span>(a))</span><br><span class="line">    fmt.Println(a[<span class="number">1</span>])</span><br><span class="line">    fmt.Println(a + b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出如下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">5</span><br><span class="line">101</span><br><span class="line">helloworld</span><br></pre></td></tr></table></figure></p>
+<p>这里我们看到a[1]得到的是一个整数，这就证明了上面<code>&quot;Go的字符串是由字节组成的这句话&quot;</code>。我们还可以再验证一下。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> a <span class="keyword">string</span> = <span class="string">"你"</span></span><br><span class="line">	<span class="keyword">var</span> b <span class="keyword">string</span> = <span class="string">"好"</span></span><br><span class="line">	fmt.Println(<span class="built_in">len</span>(a))</span><br><span class="line">	fmt.Println(<span class="built_in">len</span>(b))</span><br><span class="line">	fmt.Println(<span class="built_in">len</span>(a + b))</span><br><span class="line">	fmt.Println(a[<span class="number">0</span>])</span><br><span class="line">	fmt.Println(a[<span class="number">1</span>])</span><br><span class="line">	fmt.Println(a[<span class="number">2</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">3</span><br><span class="line">3</span><br><span class="line">6</span><br><span class="line">228</span><br><span class="line">189</span><br><span class="line">160</span><br></pre></td></tr></table></figure></p>
+<p>我们开始的时候，从上面的三行输出知道，”你”和”好”分别是用三个字节组成的。我们依次获取a的三个字节，输出，得到结果。</p>
+<h2 id="布尔型-Bool"><a href="#布尔型-Bool" class="headerlink" title="布尔型(Bool)"></a>布尔型(Bool)</h2><p>布尔型是表示<code>真值</code>和<code>假值</code>的类型。可选值为<code>true</code>和<code>false</code>。</p>
+<p>所能进行的操作如下：<br><code>&amp;&amp; and 与</code><br><code>|| or 或</code><br><code>!  not 非</code></p>
+<p>Go的布尔型取值<code>就是true</code>或<code>false</code>。<code>任何空值(nil)或者零值(0, 0.0, &quot;&quot;)都不能作为布尔型来直接判断</code>。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">   	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   	<span class="keyword">var</span> equal <span class="keyword">bool</span></span><br><span class="line">   	<span class="keyword">var</span> a <span class="keyword">int</span> = <span class="number">10</span></span><br><span class="line">   	<span class="keyword">var</span> b <span class="keyword">int</span> = <span class="number">20</span></span><br><span class="line">   	equal = (a == b)</span><br><span class="line">   	fmt.Println(equal)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果</p>
+<pre><code>false
+</code></pre><p>下面是错误的用法<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">   	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">   	<span class="keyword">if</span> <span class="number">0</span> &#123;</span><br><span class="line">       	fmt.Println(<span class="string">"hello world"</span>)</span><br><span class="line">   	&#125;</span><br><span class="line">   	<span class="keyword">if</span> <span class="literal">nil</span> &#123;</span><br><span class="line">       	fmt.Println(<span class="string">"hello world"</span>)</span><br><span class="line">   	&#125;</span><br><span class="line">   	<span class="keyword">if</span> <span class="string">""</span> &#123;</span><br><span class="line">    		fmt.Println(<span class="string">"hello world"</span>)</span><br><span class="line">   	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>编译错误<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">./t.go:8: non-bool 0 (type untyped number) used as if condition</span><br><span class="line">./t.go:11: non-bool nil used as if condition</span><br><span class="line">./t.go:14: non-bool &quot;&quot; (type untyped string) used as if condition</span><br></pre></td></tr></table></figure></p>
+<p>上面介绍的是Go语言内置的基础数据类型。</p>
+<h1 id="变量和常量定义"><a href="#变量和常量定义" class="headerlink" title="变量和常量定义"></a>变量和常量定义</h1><p>现在我们讨论一下Go语言的变量定义。</p>
+<h2 id="变量定义"><a href="#变量定义" class="headerlink" title="变量定义"></a>变量定义</h2><p>所谓的变量就是一个拥有指定<code>名称</code>和<code>类型</code>的<code>数据存储位置</code>。<br>在上面我们使用过变量的定义，现在我们来仔细看一个例子。<br> <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x <span class="keyword">string</span> = <span class="string">"hello world"</span></span><br><span class="line">	fmt.Println(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>变量的定义首先使用<code>var</code>关键字，然后指定变量的名称<code>x</code>，再指定变量的类型<code>string</code>，在本例中，还对变量<code>x</code>进行了赋值，然后在命令行输出该变量。Go这种变量定义的方式和其他的语言有些不同，但是在使用的过程中，你会逐渐喜欢的。当然上面的变量定义方式还可以如下，即先定义变量，再赋值。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x <span class="keyword">string</span></span><br><span class="line">	x = <span class="string">"hello world"</span></span><br><span class="line">	fmt.Println(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>或者是直接赋值，让Go语言推断变量的类型。如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x = <span class="string">"hello world"</span></span><br><span class="line">	fmt.Println(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当然，上面变量的定义还有一种<code>快捷方式</code>。如果你知道变量的初始值，完全可以像下面这样定义变量，完全让<code>Go来推断语言的类型</code>。这种定义的方式连关键字<code>var</code>都省略掉了。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	x := <span class="string">"hello world"</span></span><br><span class="line">	fmt.Println(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意：上面这种使用<code>:=</code>方式定义变量的方式<code>只能用在函数内部</code>。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">x:=<span class="string">"hello world"</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	y := <span class="number">10</span></span><br><span class="line">	fmt.Println(x)</span><br><span class="line">	fmt.Println(y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>对于上面的变量定义x是无效的。会导致编译错误：</p>
+<pre><code>./test_var_quick.go:7: non-declaration statement outside function body
+</code></pre><p>不过我们对上面的例子做下修改，比如这样是可以的。也就是使用var关键字定义的时候，如果给出初始值，就不需要显式指定变量类型。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x = <span class="string">"hello world"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	y := <span class="number">10</span></span><br><span class="line">	fmt.Println(x)</span><br><span class="line">	fmt.Println(y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>变量</code>之所以称为变量，就是因为<code>它们的值在程序运行过程中可以发生变化</code>，但是<code>它们的变量类型是无法改变的</code>。因为<code>Go语言是静态语言</code>，并<code>不支持</code>程序运行过程中<code>变量类型发生变化</code>。比如如果你强行将一个字符串值赋值给定义为int的变量，那么会发生编译错误。即使是强制类型转换也是不可以的。<code>强制类型转换只支持同类的变量类型</code>。比如数值类型之间强制转换。</p>
+<p>下面我们看几个例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x <span class="keyword">string</span> = <span class="string">"hello world"</span></span><br><span class="line">	fmt.Println(x)</span><br><span class="line">	x = <span class="string">"i love go language"</span></span><br><span class="line">	fmt.Println(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>本例子演示变量的值在程序运行过程中发生变化，结果输出为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello world</span><br><span class="line">i love go language</span><br></pre></td></tr></table></figure></p>
+<p>我们尝试不同类型的变量之间转换<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x <span class="keyword">string</span> = <span class="string">"hello world"</span></span><br><span class="line">	fmt.Println(x)</span><br><span class="line">	x = <span class="number">11</span></span><br><span class="line">	fmt.Println(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在本例子中，如果试图将一个数值赋予字符串变量x，那么会发生错误：</p>
+<pre><code>./test_var.go:10: cannot use 11 (type int) as type string in assignment
+</code></pre><p>上面的意思就是无法将整型数值11当作字符串赋予给字符串变量。</p>
+<p>但是同类的变量之间是可以强制转换的，如浮点型和整型之间的转换。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x <span class="keyword">float64</span> = <span class="number">32.35</span></span><br><span class="line">	fmt.Println(x)</span><br><span class="line">	fmt.Println(<span class="keyword">int</span>(x))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出的结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">32.35   </span><br><span class="line">32</span><br></pre></td></tr></table></figure></p>
+<h2 id="变量命名"><a href="#变量命名" class="headerlink" title="变量命名"></a>变量命名</h2><p>上面我们看了一些变量的使用方法，那么定义一个变量名称，有哪些要求呢？<br>这里我们要注意，<code>Go的变量名称必须以字母或下划线(_)开头，后面可以跟字母，数字，或者下划线(_)</code>。除此之外，Go语言并不关心你如何定义变量。我们通用的做法是定义一个用户友好的变量。假设你需要定义一个狗狗的年龄，那么使用dog_age作为变量名称要好于用x来定义变量。</p>
+<h2 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h2><p>现在我们再来讨论一下变量的作用域。所谓作用域就是可以有效访问变量的区域。比如很简单的，你不可能在一个函数func_a里面访问另一个函数func_b里面定义的局部变量x。所以变量的作用域目前分为两类，一个是<code>全局变量</code>，另一个是<code>局部变量</code>。下面我们看个全局变量的例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x <span class="keyword">string</span> = <span class="string">"hello world"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里变量x定义在main函数之外，但是main函数仍然可以访问x。全局变量的作用域是该包中所有的函数。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x <span class="keyword">string</span> = <span class="string">"hello world"</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">change</span><span class="params">()</span></span> &#123;</span><br><span class="line">	x = <span class="string">"i love go"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(x)</span><br><span class="line">	change()</span><br><span class="line">	fmt.Println(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子用，我们用了change函数改变了x的值。输出结果如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hello world</span><br><span class="line">i love go</span><br></pre></td></tr></table></figure></p>
+<p>我们再看一下局部变量的例子。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">change</span><span class="params">()</span></span> &#123;</span><br><span class="line">	x := <span class="string">"i love go"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>该例子中main函数试图访问change函数中定义的局部变量x，结果发生了下面的错误(未定义的变量x)：</p>
+<pre><code>./test_var.go:11: undefined: x
+</code></pre><h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><p>Go语言也支持常量定义。所谓<code>常量就是在程序运行过程中保持值不变的变量定义</code>。常量的定义和变量类似，只是用<code>const</code>关键字替换了var关键字，另外常量在定义的时候<code>必须有初始值</code>。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">const</span> x <span class="keyword">string</span> = <span class="string">"hello world"</span></span><br><span class="line">	<span class="keyword">const</span> y = <span class="string">"hello world"</span></span><br><span class="line">	fmt.Println(x)</span><br><span class="line">	fmt.Println(y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这里有一点需要注意，变量定义的类型推断方式<code>:=</code>不能够用来定义常量。因为常量的值是在编译的时候就已经确定的，但是变量的值则是运行的时候才使用的。这样常量定义就无法使用变量类型推断的方式了。</p>
+<p>常量的值在运行过程中是无法改变的，强制改变常量的值是无效的。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">const</span> x <span class="keyword">string</span> = <span class="string">"hello world"</span></span><br><span class="line">	fmt.Println(x)</span><br><span class="line">	x = <span class="string">"i love go language"</span></span><br><span class="line">	fmt.Println(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>比如上面的例子就会报错</p>
+<pre><code>./test_var.go:10: cannot assign to x
+</code></pre><p>我们再看一个Go包math里面定义的常量Pi，用它来求圆的面积。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"math"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> radius <span class="keyword">float64</span> = <span class="number">10</span></span><br><span class="line">	<span class="keyword">var</span> area = math.Pow(radius, <span class="number">2</span>) * math.Pi</span><br><span class="line">	fmt.Println(area)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="多变量或常量定义"><a href="#多变量或常量定义" class="headerlink" title="多变量或常量定义"></a>多变量或常量定义</h2><p>Go还提供了一种<code>同时定义多个变量或者常量</code>的快捷方式。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> (</span><br><span class="line">		a <span class="keyword">int</span>     = <span class="number">10</span></span><br><span class="line">		b <span class="keyword">float64</span> = <span class="number">32.45</span></span><br><span class="line">		c <span class="keyword">bool</span>    = <span class="literal">true</span></span><br><span class="line">	)</span><br><span class="line">	<span class="keyword">const</span> (</span><br><span class="line">		Pi   <span class="keyword">float64</span> = <span class="number">3.14</span></span><br><span class="line">		True <span class="keyword">bool</span>    = <span class="literal">true</span></span><br><span class="line">	)</span><br><span class="line"></span><br><span class="line">	fmt.Println(a, b, c)</span><br><span class="line">	fmt.Println(Pi, True)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="程序控制结构"><a href="#程序控制结构" class="headerlink" title="程序控制结构"></a>程序控制结构</h1><p>虽然剧透可耻，但是为了体现Go语言的设计简洁之处，必须要先剧透一下。</p>
+<p>Go语言的控制结构关键字只有</p>
+<p><code>if..else if..else</code>，<code>for</code> 和 <code>switch</code>。</p>
+<p>而且在Go中，为了避免格式化战争，对程序结构做了统一的强制的规定。看下下面的例子。</p>
+<p>请比较一下A程序和B程序的不同之处。</p>
+<p><strong>A程序</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"hello world"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>B程序</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	fmt.Println(<span class="string">"hello world"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>还记得我们前面的例子中，<code>{}</code>的格式是怎么样的么？在上面的两个例子中只有A例的写法是对的。因为在Go语言中，强制了<code>{}</code>的格式。如果我们试图去编译B程序，那么会发生如下的错误提示。</p>
+<pre><code>./test_format.go:9: syntax error: unexpected semicolon or newline before {
+</code></pre><h2 id="if-else-if-else"><a href="#if-else-if-else" class="headerlink" title="if..else if..else"></a>if..else if..else</h2><p>if..else if..else 用来判断一个或者多个条件，然后根据条件的结果执行不同的程序块。举个简单的例子。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> dog_age = <span class="number">10</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> dog_age &gt; <span class="number">10</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"A big dog"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> dog_age &gt; <span class="number">1</span> &amp;&amp; dog_age &lt;= <span class="number">10</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"A small dog"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"A baby dog"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的例子判断狗狗的年龄如果<code>(if)</code>大于10就是一个大狗；否则判断<code>(else if)</code>狗狗的年龄是否小于等于10且大于1，这个时候狗狗是小狗狗。否则<code>(else)</code>的话（就是默认狗狗的年龄小于等于1岁），那么狗狗是Baby狗狗。</p>
+<p>在上面的例子中，我们还可以发现Go的if..else if..else语句的判断条件一般都不需要使用<code>()</code>。当然如果你还是愿意写，也是对的。另外如果为了将某两个或多个条件绑定在一起判断的话，还是需要括号<code>()</code>的。</p>
+<p>比如下面的例子也是对的。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">const</span> Male = <span class="string">'M'</span></span><br><span class="line">	<span class="keyword">const</span> Female = <span class="string">'F'</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> dog_age = <span class="number">10</span></span><br><span class="line">	<span class="keyword">var</span> dog_sex = <span class="string">'M'</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (dog_age == <span class="number">10</span> &amp;&amp; dog_sex == <span class="string">'M'</span>) &#123;</span><br><span class="line">		fmt.Println(<span class="string">"dog"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是如果你使用Go提供的格式化工具来格式化这段代码的话，Go会智能判断你的括号是否必须有，否则的话，会帮你去掉的。你可以试试。</p>
+<pre><code>go fmt test_bracket.go
+</code></pre><p>然后你会发现，咦？！果真被去掉了。</p>
+<p>另外因为每个判断条件的结果要么是true要么是false，所以可以使用<code>&amp;&amp;</code>，<code>||</code>来连接不同的条件。使用<code>!</code>来对一个条件取反。</p>
+<h2 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h2><p>switch的出现是为了解决某些情况下使用if判断语句带来的繁琐之处。</p>
+<p>例如下面的例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//score 为 [0,100]之间的整数</span></span><br><span class="line">	<span class="keyword">var</span> score <span class="keyword">int</span> = <span class="number">69</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> score &gt;= <span class="number">90</span> &amp;&amp; score &lt;= <span class="number">100</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"优秀"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> score &gt;= <span class="number">80</span> &amp;&amp; score &lt; <span class="number">90</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"良好"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> score &gt;= <span class="number">70</span> &amp;&amp; score &lt; <span class="number">80</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"一般"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> score &gt;= <span class="number">60</span> &amp;&amp; score &lt; <span class="number">70</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"及格"</span>)</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		fmt.Println(<span class="string">"不及格"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子中，我们用if..else if..else来对分数进行分类。这个只是一般的情况下if判断条件的数量。如果if..else if..else的条件太多的话，我们可以使用switch来优化程序。比如上面的程序我们还可以这样写：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="comment">//score 为 [0,100]之间的整数</span></span><br><span class="line">	<span class="keyword">var</span> score <span class="keyword">int</span> = <span class="number">69</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">switch</span> score / <span class="number">10</span> &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="number">10</span>:</span><br><span class="line">	<span class="keyword">case</span> <span class="number">9</span>:</span><br><span class="line">		fmt.Println(<span class="string">"优秀"</span>)</span><br><span class="line">	<span class="keyword">case</span> <span class="number">8</span>:</span><br><span class="line">		fmt.Println(<span class="string">"良好"</span>)</span><br><span class="line">	<span class="keyword">case</span> <span class="number">7</span>:</span><br><span class="line">		fmt.Println(<span class="string">"一般"</span>)</span><br><span class="line">	<span class="keyword">case</span> <span class="number">6</span>:</span><br><span class="line">		fmt.Println(<span class="string">"及格"</span>)</span><br><span class="line">	<span class="keyword">default</span>:</span><br><span class="line">		fmt.Println(<span class="string">"不及格"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>关于switch的几点说明如下：</p>
+<p>(1) switch的判断条件可以为任何数据类型。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> dog_sex = <span class="string">"F"</span></span><br><span class="line">	<span class="keyword">switch</span> dog_sex &#123;</span><br><span class="line">	<span class="keyword">case</span> <span class="string">"M"</span>:</span><br><span class="line">		fmt.Println(<span class="string">"A male dog"</span>)</span><br><span class="line">	<span class="keyword">case</span> <span class="string">"F"</span>:</span><br><span class="line">		fmt.Println(<span class="string">"A female dog"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>(2) 每个case后面跟的是一个完整的程序块，该程序块<code>不需要{}</code>，也<code>不需要break结尾</code>，因为每个case都是独立的。</p>
+<p>(3) 可以为switch提供一个默认选项default，在上面所有的case都没有满足的情况下，默认执行default后面的语句。</p>
+<h2 id="for"><a href="#for" class="headerlink" title="for"></a>for</h2><p>for用在Go语言的循环条件里面。比如说要你输出1…100之间的自然数。最笨的方法就是直接这样。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="number">1</span>)</span><br><span class="line">	fmt.Println(<span class="number">2</span>)</span><br><span class="line">	...</span><br><span class="line">	fmt.Println(<span class="number">100</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个不由地让我想起一个笑话。</p>
+<blockquote>
+<p>以前一个地主的儿子学习写字，只学了三天就把老师赶走了。因为在这三天里面他学写了一，二，三。他觉得写字真的太简单了，不就是画横线嘛。于是有一天老爹过寿，让他来记送礼的人名单。直到中午还没有记完，老爹很奇怪就去问他怎么了。他哭着说，“不知道这个人有什么毛病，姓什么不好，姓万”。</p>
+</blockquote>
+<p>哈哈，回来继续。我们看到上面的例子也是如地主的儿子那样就不好了。所以，我们必须使用循环结构。我们用for的循环语句来实现上面的例子。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> i <span class="keyword">int</span> = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> ; i &lt;= <span class="number">100</span>; i++ &#123;</span><br><span class="line">		fmt.Println(i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子中，首先初始化变量i为1，然后在for循环里面判断是否小于等于100，如果是的话，输出i，然后再使用i++来将i的值自增1。上面的例子，还有一个更好的写法，就是将i的定义和初始化也放在for里面。如下：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">1</span>; i &lt;= <span class="number">100</span>; i++ &#123;</span><br><span class="line">		fmt.Println(i)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在Go里面没有提供while关键字，如果你怀念while的写法也可以这样：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> i <span class="keyword">int</span> = <span class="number">1</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i &lt;= <span class="number">100</span> &#123;</span><br><span class="line">		fmt.Println(i)</span><br><span class="line">		i++</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>或许你会问，如果我要死循环呢？是不是<code>for true</code>？呵呵，不用了，直接这样。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以上就是Go提供的全部控制流程了。</p>
+<p>再复习一下，Go只提供了：</p>
+<p><strong>if</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ...&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;<span class="keyword">else</span> <span class="keyword">if</span> ...&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>switch</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span>(...)&#123;</span><br><span class="line"><span class="keyword">case</span> ...:</span><br><span class="line">		 ...</span><br><span class="line"><span class="keyword">case</span> ...:</span><br><span class="line">		 ...</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="keyword">default</span>:</span><br><span class="line">		  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><strong>for</strong><br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> ...; ...; ...&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> ...&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span>&#123;</span><br><span class="line">	...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="数组，切片和字典"><a href="#数组，切片和字典" class="headerlink" title="数组，切片和字典"></a>数组，切片和字典</h1><p>在上面的章节里面，我们讲过Go内置的基本数据类型。现在我们来看一下Go内置的高级数据类型，数组，切片和字典。</p>
+<h2 id="数组-Array"><a href="#数组-Array" class="headerlink" title="数组(Array)"></a>数组(Array)</h2><p>数组是一个具有<code>相同数据类型</code>的元素组成的<code>固定长度</code>的<code>有序集合</code>。比如下面的例子</p>
+<pre><code>var x [5]int
+</code></pre><p>表示数组x是一个整型数组，而且数值的长度为5。</p>
+<p><code>Go提供了几种不同的数组定义方法。</code></p>
+<p><code>最基本的方式就是使用var关键字来定义，然后依次给元素赋值</code>。<code>对于没有赋值的元素，默认为零值</code>。比如对于整数，零值就是0，浮点数，零值就是0.0，字符串，零值就是””，对象零值就是nil。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x [<span class="number">5</span>]<span class="keyword">int</span></span><br><span class="line">	x[<span class="number">0</span>] = <span class="number">2</span></span><br><span class="line">	x[<span class="number">1</span>] = <span class="number">3</span></span><br><span class="line">	x[<span class="number">2</span>] = <span class="number">3</span></span><br><span class="line">	x[<span class="number">3</span>] = <span class="number">2</span></span><br><span class="line">	x[<span class="number">4</span>] = <span class="number">12</span></span><br><span class="line">	<span class="keyword">var</span> sum <span class="keyword">int</span></span><br><span class="line">	<span class="keyword">for</span> _, elem := <span class="keyword">range</span> x &#123;</span><br><span class="line">		sum += elem</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(sum)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子中，我们首先使用<code>var</code>关键字来声明，然后给出数组名称<code>x</code>，最后说明数组为整型数组，长度为5。然后我们使用索引方式给数组元素赋值。在上面的例子中，我们还使用了一种遍历数组元素的方法。该方法利用Go语言提供的内置函数range来遍历数组元素。<code>range函数可以用在数组，切片和字典上面</code>。当<code>range来遍历数组的时候返回数组的索引和元素值</code>。在这里我们是对数组元素求和，所以我们对索引不感兴趣。在Go语言里面，<code>当你对一个函数返回值不感兴趣的话，可以使用下划线(_)来替代它</code>。另外这里如果我们真的定义了一个索引，在循环结构里面却没有使用索引，Go语言编译的时候还是会报错的。所以用下划线来替代索引变量也是唯一之举了。最后我们输出数组元素的和。</p>
+<p>还有一种方式，如果知道了数组的初始值。可以像下面这样定义。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x = [<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;</span><br><span class="line">	x[<span class="number">4</span>] = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> sum <span class="keyword">int</span></span><br><span class="line">	<span class="keyword">for</span> _, i := <span class="keyword">range</span> x &#123;</span><br><span class="line">		sum += i</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(sum)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>当然，即使你不知道数组元素的初始值，也可以使用这样的定义方式。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x = [<span class="number">5</span>]<span class="keyword">int</span>&#123;&#125;</span><br><span class="line">	x[<span class="number">0</span>] = <span class="number">1</span></span><br><span class="line">	x[<span class="number">1</span>] = <span class="number">2</span></span><br><span class="line">	x[<span class="number">2</span>] = <span class="number">3</span></span><br><span class="line">	x[<span class="number">3</span>] = <span class="number">4</span></span><br><span class="line">	x[<span class="number">4</span>] = <span class="number">5</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">var</span> sum <span class="keyword">int</span></span><br><span class="line">	<span class="keyword">for</span> _, i := <span class="keyword">range</span> x &#123;</span><br><span class="line">		sum += i</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(sum)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>在这里我们需要特别重视数组的一个特点，就是数组是有固定长度的。</code></p>
+<p>但是如果我们有的时候也可以不显式指定数组的长度，而是使用<code>...</code>来替代数组长度，Go语言会自动计算出数组的长度。不过这种方式定义的数组一定是有初始化的值的。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x = [...]<span class="keyword">string</span>&#123;</span><br><span class="line">		<span class="string">"Monday"</span>,</span><br><span class="line">		<span class="string">"Tuesday"</span>,</span><br><span class="line">		<span class="string">"Wednesday"</span>,</span><br><span class="line">		<span class="string">"Thursday"</span>,</span><br><span class="line">		<span class="string">"Friday"</span>,</span><br><span class="line">		<span class="string">"Saturday"</span>,</span><br><span class="line">		<span class="string">"Sunday"</span>&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> _, day := <span class="keyword">range</span> x &#123;</span><br><span class="line">		fmt.Println(day)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子中，还需要注意一点就是如果将数组元素定义在不同行上面，那么最后一个元素后面必须跟上<code>}</code>或者<code>,</code>。上面的例子也可以是这样的。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x = [...]<span class="keyword">string</span>&#123;</span><br><span class="line">		<span class="string">"Monday"</span>,</span><br><span class="line">		<span class="string">"Tuesday"</span>,</span><br><span class="line">		<span class="string">"Wednesday"</span>,</span><br><span class="line">		<span class="string">"Thursday"</span>,</span><br><span class="line">		<span class="string">"Friday"</span>,</span><br><span class="line">		<span class="string">"Saturday"</span>,</span><br><span class="line">		<span class="string">"Sunday"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> _, day := <span class="keyword">range</span> x &#123;</span><br><span class="line">		fmt.Println(day)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>Go提供的这种可以自动计算数组长度的方法在调试程序的时候特别方便，假设我们注释掉上面数组x的最后一个元素，我们甚至不需要去修改数组的长度。</code></p>
+<h2 id="切片-Slice"><a href="#切片-Slice" class="headerlink" title="切片(Slice)"></a>切片(Slice)</h2><p>在上面我们说过数组是有固定长度的有序集合。这也就是说一旦数组长度定义，你将无法在数组里面多添加哪怕一个元素。数组的这种特点有的时候会成为很大的缺点，尤其是当数组的元素个数不确定的情况下。</p>
+<p>所以<code>切片</code>诞生了。</p>
+<p>切片和数组很类似，甚至你可以理解成数组的子集。但是<code>切片有一个数组所没有的特点，那就是切片的长度是可变的</code>。</p>
+<p>严格地讲，切片有<code>容量(capacity)</code>和<code>长度(length)</code>两个属性。</p>
+<p>首先我们来看一下切片的定义。切片有两种定义方式，一种是先声明一个变量是切片，然后使用内置函数make去初始化这个切片。另外一种是通过取数组切片来赋值。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x = <span class="built_in">make</span>([]<span class="keyword">float64</span>, <span class="number">5</span>)</span><br><span class="line">	fmt.Println(<span class="string">"Capcity:"</span>, <span class="built_in">cap</span>(x), <span class="string">"Length:"</span>, <span class="built_in">len</span>(x))</span><br><span class="line">	<span class="keyword">var</span> y = <span class="built_in">make</span>([]<span class="keyword">float64</span>, <span class="number">5</span>, <span class="number">10</span>)</span><br><span class="line">	fmt.Println(<span class="string">"Capcity:"</span>, <span class="built_in">cap</span>(y), <span class="string">"Length:"</span>, <span class="built_in">len</span>(y))</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(x); i++ &#123;</span><br><span class="line">		x[i] = <span class="keyword">float64</span>(i)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(x)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(y); i++ &#123;</span><br><span class="line">		y[i] = <span class="keyword">float64</span>(i)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(y)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Capcity: 5 Length: 5</span><br><span class="line">Capcity: 10 Length: 5</span><br><span class="line">[0 1 2 3 4]</span><br><span class="line">[0 1 2 3 4]</span><br></pre></td></tr></table></figure></p>
+<p>上面我们首先用make函数定义切片x，这个时候x的容量是5，长度也是5。然后使用make函数定义了切片y，这个时候y的容量是10，长度是5。然后我们再分别为切片x和y的元素赋值，最后输出。</p>
+<p>所以使用make函数定义切片的时候，有<code>两种方式</code>，一种<code>只指定长度，这个时候切片的长度和容量是相同的</code>。另外一种是<code>同时指定切片长度和容量</code>。虽然切片的容量可以大于长度，但是<code>赋值的时候要注意最大的索引仍然是len(x)－1</code>。否则会报索引超出边界错误。</p>
+<p>另外一种是通过数组切片赋值，采用<code>[low_index:high_index]</code>的方式获取数值切片，其中切片元素<code>包括low_index的元素</code>，但是<code>不包括high_index的元素</code>。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> arr1 = [<span class="number">5</span>]<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line">	<span class="keyword">var</span> s1 = arr1[<span class="number">2</span>:<span class="number">3</span>]</span><br><span class="line">	<span class="keyword">var</span> s2 = arr1[:<span class="number">3</span>]</span><br><span class="line">	<span class="keyword">var</span> s3 = arr1[<span class="number">2</span>:]</span><br><span class="line">	<span class="keyword">var</span> s4 = arr1[:]</span><br><span class="line">	fmt.Println(s1)</span><br><span class="line">	fmt.Println(s2)</span><br><span class="line">	fmt.Println(s3)</span><br><span class="line">	fmt.Println(s4)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[3]</span><br><span class="line">[1 2 3]</span><br><span class="line">[3 4 5]</span><br><span class="line">[1 2 3 4 5]</span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子中，我们还省略了low_index或high_index。如果省略了low_index，那么等价于从索引0开始；如果省略了high_index，则默认high_index等于len(arr1)，即切片长度。</p>
+<p>这里为了体现切片的长度可以变化，我们看一下下面的例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> arr1 = <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">5</span>, <span class="number">10</span>)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(arr1); i++ &#123;</span><br><span class="line">		arr1[i] = i</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(arr1)</span><br><span class="line"></span><br><span class="line">	arr1 = <span class="built_in">append</span>(arr1, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>)</span><br><span class="line">	fmt.Println(<span class="string">"Capacity:"</span>, <span class="built_in">cap</span>(arr1), <span class="string">"Length:"</span>, <span class="built_in">len</span>(arr1))</span><br><span class="line">	fmt.Println(arr1)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[0 1 2 3 4]</span><br><span class="line">Capacity: 10 Length: 9</span><br><span class="line">[0 1 2 3 4 5 6 7 8]</span><br></pre></td></tr></table></figure></p>
+<p>这里我们初始化arr1为容量10，长度为5的切片，然后为前面的5个元素赋值。然后输出结果。然后我们再使用Go内置方法append来为arr1追加四个元素，这个时候再看一下arr1的容量和长度以及切片元素，我们发现切片的长度确实变了。</p>
+<p>另外我们再用<code>append</code>方法给arr1多追加几个元素，试图超过arr1原来定义的容量大小。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> arr1 = <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">5</span>, <span class="number">10</span>)</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(arr1); i++ &#123;</span><br><span class="line">		arr1[i] = i</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	arr1 = <span class="built_in">append</span>(arr1, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>)</span><br><span class="line">	fmt.Println(<span class="string">"Capacity:"</span>, <span class="built_in">cap</span>(arr1), <span class="string">"Length:"</span>, <span class="built_in">len</span>(arr1))</span><br><span class="line">	fmt.Println(arr1)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Capacity: 20 Length: 11</span><br><span class="line">[0 1 2 3 4 5 6 7 8 9 10]</span><br></pre></td></tr></table></figure></p>
+<p>我们发现arr1的长度变为11，因为元素个数现在为11个。另外我们发现arr1的容量也变了，变为原来的两倍。这是因为<code>Go在默认的情况下，如果追加的元素超过了容量大小，Go会自动地重新为切片分配容量，容量大小为原来的两倍</code>。</p>
+<p>上面我们介绍了，可以<code>使用append函数给切片增加元素</code>，现在我们再来介绍一个<code>copy函数用来从一个切片拷贝元素到另一个切片</code>。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	slice1 := []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>&#125;</span><br><span class="line">	slice2 := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">5</span>, <span class="number">10</span>)</span><br><span class="line">	<span class="built_in">copy</span>(slice2, slice1)</span><br><span class="line">	fmt.Println(slice1)</span><br><span class="line">	fmt.Println(slice2)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[1 2 3 4 5 6]</span><br><span class="line">[1 2 3 4 5]</span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子中，我们将slice1的元素拷贝到slice2，因为slice2的长度为5，所以最多拷贝5个元素。</p>
+<p>总结一下，数组和切片的区别就在于<code>[]</code>里面是否有数字或者<code>...</code>。因为数值长度是固定的，而切片是可变的。</p>
+<h2 id="字典-Map"><a href="#字典-Map" class="headerlink" title="字典(Map)"></a>字典(Map)</h2><p>字典是一组<code>无序的</code>，<code>键值对</code>的<code>集合</code>。</p>
+<p>字典也叫做<code>关联数组</code>，因为数组通过<code>索引</code>来查找元素，而字典通过<code>键</code>来查找元素。当然，很显然的，字典的键是不能重复的。如果试图赋值给同一个键，后赋值的值将覆盖前面赋值的值。</p>
+<p>字典的定义也有两种，一种是<code>初始化数据</code>的定义方式，另一种是<code>使用神奇的make函数</code>来定义。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x = <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>&#123;</span><br><span class="line">		<span class="string">"A"</span>: <span class="string">"Apple"</span>,</span><br><span class="line">		<span class="string">"B"</span>: <span class="string">"Banana"</span>,</span><br><span class="line">		<span class="string">"O"</span>: <span class="string">"Orange"</span>,</span><br><span class="line">		<span class="string">"P"</span>: <span class="string">"Pear"</span>,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> key, val := <span class="keyword">range</span> x &#123;</span><br><span class="line">		fmt.Println(<span class="string">"Key:"</span>, key, <span class="string">"Value:"</span>, val)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Key: A Value: Apple</span><br><span class="line">Key: B Value: Banana</span><br><span class="line">Key: O Value: Orange</span><br><span class="line">Key: P Value: Pear</span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子中，我们定义了一个string:string的字典，其中<code>[]</code>之间的是键类型，右边的是值类型。另外我们还看到了<code>range函数，此函数一样神奇，可以用来迭代字典元素，返回key:value键值对</code>。当然如果你对键或者值不感兴趣，一样可以使用<code>下划线(_)</code>来忽略返回值。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> x <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span></span><br><span class="line"></span><br><span class="line">	x = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>)</span><br><span class="line"></span><br><span class="line">	x[<span class="string">"A"</span>] = <span class="string">"Apple"</span></span><br><span class="line">	x[<span class="string">"B"</span>] = <span class="string">"Banana"</span></span><br><span class="line">	x[<span class="string">"O"</span>] = <span class="string">"Orange"</span></span><br><span class="line">	x[<span class="string">"P"</span>] = <span class="string">"Pear"</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> key, val := <span class="keyword">range</span> x &#123;</span><br><span class="line">		fmt.Println(<span class="string">"Key:"</span>, key, <span class="string">"Value:"</span>, val)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的方式就是使用了make函数来初始化字典，<code>试图为未经过初始化的字典添加元素会导致运行错误</code>，你可以把使用make函数初始化的那一行注释掉，然后看一下。</p>
+<p>当然上面的例子中，我们可以把定义和初始化合成一句。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	x := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">string</span>)</span><br><span class="line"></span><br><span class="line">	x[<span class="string">"A"</span>] = <span class="string">"Apple"</span></span><br><span class="line">	x[<span class="string">"B"</span>] = <span class="string">"Banana"</span></span><br><span class="line">	x[<span class="string">"O"</span>] = <span class="string">"Orange"</span></span><br><span class="line">	x[<span class="string">"P"</span>] = <span class="string">"Pear"</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> key, val := <span class="keyword">range</span> x &#123;</span><br><span class="line">		fmt.Println(<span class="string">"Key:"</span>, key, <span class="string">"Value:"</span>, val)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在我们再来看一下字典的数据访问方式。如果你访问的元素所对应的键存在于字典中，那么没有问题，如果不存在呢？</p>
+<p>这个时候会返回零值。对于字符串零值就是””，对于整数零值就是0。但是对于下面的例子：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	x := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>)</span><br><span class="line"></span><br><span class="line">	x[<span class="string">"A"</span>] = <span class="number">0</span></span><br><span class="line">	x[<span class="string">"B"</span>] = <span class="number">20</span></span><br><span class="line">	x[<span class="string">"O"</span>] = <span class="number">30</span></span><br><span class="line">	x[<span class="string">"P"</span>] = <span class="number">40</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(x[<span class="string">"C"</span>])</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这个例子中，很显然不存在键C，但是程序的输出结果为0，这样就和键A对应的值混淆了。</p>
+<p>Go提供了一种方法来解决这个问题：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	x := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>)</span><br><span class="line"></span><br><span class="line">	x[<span class="string">"A"</span>] = <span class="number">0</span></span><br><span class="line">	x[<span class="string">"B"</span>] = <span class="number">20</span></span><br><span class="line">	x[<span class="string">"O"</span>] = <span class="number">30</span></span><br><span class="line">	x[<span class="string">"P"</span>] = <span class="number">40</span></span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> val, ok := x[<span class="string">"C"</span>]; ok &#123;</span><br><span class="line">		fmt.Println(val)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上面的例子中，我们可以看到事实上使用<code>x[&quot;C&quot;]</code>的返回值有两个，一个是值，另一个是是否存在此键的bool型变量，所以我们看到ok为true的时候就输出键C的值，如果ok为false，那就是字典中不存在这个键。</p>
+<p>现在我们再来看看<code>Go提供的内置函数delete，这个函数可以用来从字典中删除元素</code>。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	x := <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>)</span><br><span class="line"></span><br><span class="line">	x[<span class="string">"A"</span>] = <span class="number">10</span></span><br><span class="line">	x[<span class="string">"B"</span>] = <span class="number">20</span></span><br><span class="line">	x[<span class="string">"C"</span>] = <span class="number">30</span></span><br><span class="line">	x[<span class="string">"D"</span>] = <span class="number">40</span></span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"Before Delete"</span>)</span><br><span class="line">	fmt.Println(<span class="string">"Length:"</span>, <span class="built_in">len</span>(x))</span><br><span class="line">	fmt.Println(x)</span><br><span class="line"></span><br><span class="line">	<span class="built_in">delete</span>(x, <span class="string">"A"</span>)</span><br><span class="line"></span><br><span class="line">	fmt.Println(<span class="string">"After Delete"</span>)</span><br><span class="line">	fmt.Println(<span class="string">"Length:"</span>, <span class="built_in">len</span>(x))</span><br><span class="line">	fmt.Println(x)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Before Delete</span><br><span class="line">Length: 4</span><br><span class="line">map[A:10 B:20 C:30 D:40]</span><br><span class="line">After Delete</span><br><span class="line">Length: 3</span><br><span class="line">map[B:20 C:30 D:40]</span><br></pre></td></tr></table></figure></p>
+<p>我们在删除元素前查看一下字典长度和元素，删除之后再看一下。这里面我们还可以看到<code>len函数也可以用来获取字典的元素个数</code>。当然如果你试图删除一个不存在的键，那么程序也不会报错，只是不会对字典造成任何影响。</p>
+<p>最后我们再用一个稍微复杂的例子来结束字典的介绍。</p>
+<p>我们有一个学生登记表，登记表里面有一组学号，每个学号对应一个学生，每个学生有名字和年龄。<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> facebook = <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>)</span><br><span class="line">	facebook[<span class="string">"0616020432"</span>] = <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>&#123;<span class="string">"Jemy"</span>: <span class="number">25</span>&#125;</span><br><span class="line">	facebook[<span class="string">"0616020433"</span>] = <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>&#123;<span class="string">"Andy"</span>: <span class="number">23</span>&#125;</span><br><span class="line">	facebook[<span class="string">"0616020434"</span>] = <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>&#123;<span class="string">"Bill"</span>: <span class="number">22</span>&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> stu_no, stu_info := <span class="keyword">range</span> facebook &#123;</span><br><span class="line">		fmt.Println(<span class="string">"Student:"</span>, stu_no)</span><br><span class="line">		<span class="keyword">for</span> name, age := <span class="keyword">range</span> stu_info &#123;</span><br><span class="line">			fmt.Println(<span class="string">"Name:"</span>, name, <span class="string">"Age:"</span>, age)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果为<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Student: 0616020432</span><br><span class="line">Name Jemy Age 25</span><br><span class="line"></span><br><span class="line">Student: 0616020433</span><br><span class="line">Name Andy Age 23</span><br><span class="line"></span><br><span class="line">Student: 0616020434</span><br><span class="line">Name Bill Age 22</span><br></pre></td></tr></table></figure></p>
+<p>当然我们也可以用初始化的方式定义字典：<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">var</span> facebook = <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">int</span>&#123;</span><br><span class="line">		<span class="string">"0616020432"</span>: &#123;<span class="string">"Jemy"</span>: <span class="number">25</span>&#125;,</span><br><span class="line">		<span class="string">"0616020433"</span>: &#123;<span class="string">"Andy"</span>: <span class="number">23</span>&#125;,</span><br><span class="line">		<span class="string">"0616020434"</span>: &#123;<span class="string">"Bill"</span>: <span class="number">22</span>&#125;,</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> stu_no, stu_info := <span class="keyword">range</span> facebook &#123;</span><br><span class="line">		fmt.Println(<span class="string">"Student:"</span>, stu_no)</span><br><span class="line">		<span class="keyword">for</span> name, age := <span class="keyword">range</span> stu_info &#123;</span><br><span class="line">			fmt.Println(<span class="string">"Name:"</span>, name, <span class="string">"Age:"</span>, age)</span><br><span class="line">		&#125;</span><br><span class="line">		fmt.Println()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>输出结果是一样的。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="刘韬 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>一分也是情，一分也是爱！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/go语言基础/" rel="tag"># go语言基础</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/05/FerryMan/" rel="next" title="摆渡人">
+                <i class="fa fa-chevron-left"></i> 摆渡人
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/06/goeasylearn2/" rel="prev" title="go语言基础--函数、指针、结构体、接口">
+                go语言基础--函数、指针、结构体、接口 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="刘韬" />
+          <p class="site-author-name" itemprop="name">刘韬</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kusole" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/83381421/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liu-tao-86-26-47/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/6193724399/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Go语言内置基础数据类型"><span class="nav-number">1.</span> <span class="nav-text">Go语言内置基础数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数值型-Number"><span class="nav-number">1.1.</span> <span class="nav-text">数值型(Number)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串类型-String"><span class="nav-number">1.2.</span> <span class="nav-text">字符串类型(String)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#布尔型-Bool"><span class="nav-number">1.3.</span> <span class="nav-text">布尔型(Bool)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#变量和常量定义"><span class="nav-number">2.</span> <span class="nav-text">变量和常量定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#变量定义"><span class="nav-number">2.1.</span> <span class="nav-text">变量定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量命名"><span class="nav-number">2.2.</span> <span class="nav-text">变量命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变量作用域"><span class="nav-number">2.3.</span> <span class="nav-text">变量作用域</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#常量"><span class="nav-number">2.4.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多变量或常量定义"><span class="nav-number">2.5.</span> <span class="nav-text">多变量或常量定义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#程序控制结构"><span class="nav-number">3.</span> <span class="nav-text">程序控制结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#if-else-if-else"><span class="nav-number">3.1.</span> <span class="nav-text">if..else if..else</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#switch"><span class="nav-number">3.2.</span> <span class="nav-text">switch</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#for"><span class="nav-number">3.3.</span> <span class="nav-text">for</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数组，切片和字典"><span class="nav-number">4.</span> <span class="nav-text">数组，切片和字典</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数组-Array"><span class="nav-number">4.1.</span> <span class="nav-text">数组(Array)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#切片-Slice"><span class="nav-number">4.2.</span> <span class="nav-text">切片(Slice)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典-Map"><span class="nav-number">4.3.</span> <span class="nav-text">字典(Map)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <!--
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘韬</span>
+  -->
+</div>
+
+
+<!-- <div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+-->
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,817 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="最小可用ID 算法的威力题目：系统中每一个ID具有独特性，有些ID处于使用的状态，有些ID可以分配给新的用户，现在的问题是，怎么样找到最小的可用ID呢？当前正在使用的ID：   [18, 4, 8, 9, 16, 1, 14, 7, 19, 3, 0, 5, 2, 11, 6]">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[初等算法]--前言">
+<meta property="og:url" content="http://yoursite.com/2017/04/03/basicAlg00/index.html">
+<meta property="og:site_name" content="不知归期的故人">
+<meta property="og:description" content="最小可用ID 算法的威力题目：系统中每一个ID具有独特性，有些ID处于使用的状态，有些ID可以分配给新的用户，现在的问题是，怎么样找到最小的可用ID呢？当前正在使用的ID：   [18, 4, 8, 9, 16, 1, 14, 7, 19, 3, 0, 5, 2, 11, 6]">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-13T14:39:56.277Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[初等算法]--前言">
+<meta name="twitter:description" content="最小可用ID 算法的威力题目：系统中每一个ID具有独特性，有些ID处于使用的状态，有些ID可以分配给新的用户，现在的问题是，怎么样找到最小的可用ID呢？当前正在使用的ID：   [18, 4, 8, 9, 16, 1, 14, 7, 19, 3, 0, 5, 2, 11, 6]">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/03/basicAlg00/"/>
+
+
+
+
+
+  <title> [初等算法]--前言 | 不知归期的故人 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?bf3223fddf5f9c71af0da2bd98d7f981";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不知归期的故人</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">乘风破浪会有时，直挂云帆济沧海。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/03/basicAlg00/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘韬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不知归期的故人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                [初等算法]--前言
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-03T16:39:47+08:00">
+                2017-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/初等算法/" itemprop="url" rel="index">
+                    <span itemprop="name">初等算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="最小可用ID-算法的威力"><a href="#最小可用ID-算法的威力" class="headerlink" title="最小可用ID 算法的威力"></a>最小可用ID 算法的威力</h1><p>题目：系统中每一个ID具有独特性，有些ID处于使用的状态，有些ID可以分配给新的用户，现在的问题是，怎么样找到最小的可用ID呢？<br>当前正在使用的ID： </p>
+<blockquote>
+<p>[18, 4, 8, 9, 16, 1, 14, 7, 19, 3, 0, 5, 2, 11, 6]  </p>
+</blockquote>
+<a id="more"></a>
+<h2 id="解法一：暴力搜索"><a href="#解法一：暴力搜索" class="headerlink" title="解法一：暴力搜索"></a>解法一：暴力搜索</h2><p>我们立即可以写出下面的解法：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">brute_force</span> <span class="params">( lst )</span>:</span></span><br><span class="line">    i = <span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">True</span> :</span><br><span class="line">    <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> lst :</span><br><span class="line">        <span class="keyword">return</span> i</span><br><span class="line">    i = i + <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>在个解法在一个几百万个ID系统中表现的性能很差，需要O(N*N)的时间。  </p>
+<h2 id="解法二：时间优化"><a href="#解法二：时间优化" class="headerlink" title="解法二：时间优化"></a>解法二：时间优化</h2><p>改进这一解法的关键基于这一事实:对于任何n个非负整数x 1 , x 2 , …, x n ,如果存在小于n的可用整数,必然存在某个x i 不在[0, n)这个范围内。否则这些整数一定是0, 1, …, n − 1的某个排列,这种情况下,最小的可用整数是n。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">min_free</span><span class="params">(A)</span>:</span></span><br><span class="line">    n = len(A)</span><br><span class="line">    a = [<span class="number">0</span>]*(n+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> A:</span><br><span class="line">        <span class="keyword">if</span> x &lt; n:</span><br><span class="line">            a[x] = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> a.index(<span class="number">0</span>);</span><br></pre></td></tr></table></figure></p>
+<p>缺点：空间上有浪费。</p>
+<h2 id="解法三：分而治之"><a href="#解法三：分而治之" class="headerlink" title="解法三：分而治之"></a>解法三：分而治之</h2><p>我们在速度上的改进是以空间上的消耗为代价的。由于维护了一个长度为n的标志数组,当n很大时,空间上的性能就成了新的瓶颈。分而治之的典型策略是将问题分解为若干规模较小的子问题,然后逐步解决它们以得到最终的结果。我们可以将所有满足xi ≤ ⌊n/2⌋的整数放入一个子序列A′;将剩余的其他整数放入另外一个序列A′′。根据公式1,如果序列A′ 的长度正好是⌊n/2⌋,这说明前一半的整数已经“<code>满了</code>”,最小的可用整数一定可以在A′′中递归地找到。否则,最小的可用整数可以在A′中找到。总之,通过这一划分,问题的规模减小了。  </p>
+<p>需要注意的是,当我们在子序列A′′ 中递归查找时,边界情况发生了一些变化,我们不再是从0开始寻找最小可用整数,查找的下界变成了⌊n/2⌋ + 1。因此我们的算法应定义为minfree(A, l, u),其中l和u分别是上下界。递归结束的边界条件是当待查找的序列变为空的时候,此时我们只需要返回下界作为结果即可。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dc_min_free</span><span class="params">(lst)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> binary_search(lst, <span class="number">0</span>, len(lst)<span class="number">-1</span>)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binary_search</span><span class="params">(lst, l, u)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> lst == []:</span><br><span class="line">        <span class="keyword">return</span> l</span><br><span class="line">    m = (l + u ) / <span class="number">2</span></span><br><span class="line">    xs = [x <span class="keyword">for</span> x <span class="keyword">in</span> lst <span class="keyword">if</span> x &lt;= m]</span><br><span class="line">    ys = [x <span class="keyword">for</span> x <span class="keyword">in</span> lst <span class="keyword">if</span> x &gt; m]</span><br><span class="line">    <span class="keyword">if</span> len(xs) == m - l + <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> binary_search(ys, m+<span class="number">1</span>, u)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> binary_search(xs, l, m)</span><br></pre></td></tr></table></figure></p>
+<p>时间复杂度为O(n)，空间复杂度为O(logn)。</p>
+<hr>
+<h1 id="丑数-数据结构的威力"><a href="#丑数-数据结构的威力" class="headerlink" title="丑数 数据结构的威力"></a>丑数 数据结构的威力</h1><p>如果说最小可用ID问题还有一些应用价值,那么接下来这个问题就纯粹是为了“有趣”了。我们要寻找第1500个“丑数”。所谓丑数,就是只含有2、3或5这三个因子的自然数。前三个丑数按照定义分别是2、3和5。数字60 = 2x2x3x5是第25个丑数。数字21 = 3x7 由于含有因子7,所以不是丑数。前10个丑数如下表:2,3,4,5,6,8,9,10,12,15<br>如果我们认为1也是一个合法的丑数,则1就是第一个丑数。  </p>
+<h2 id="暴力解法"><a href="#暴力解法" class="headerlink" title="暴力解法"></a>暴力解法</h2><p>这道题目看起来并不复杂,我们可以从1开始,逐一检查所有自然数,对于每个整数,我们把所有的2、3和5的因子都除去,如果结果是1,则找到了一个丑数,当遇到第n= 1500个丑数时就找到答案了。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">valid</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">while</span> x%<span class="number">2</span>==<span class="number">0</span>:</span><br><span class="line">        x=x/<span class="number">2</span></span><br><span class="line">    <span class="keyword">while</span> x%<span class="number">3</span>==<span class="number">0</span>:</span><br><span class="line">        x=x/<span class="number">3</span></span><br><span class="line">    <span class="keyword">while</span> x%<span class="number">5</span>==<span class="number">0</span>:</span><br><span class="line">        x=x/<span class="number">5</span></span><br><span class="line">    <span class="keyword">if</span> x==<span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_number</span><span class="params">(n)</span>:</span></span><br><span class="line">    x=<span class="number">1</span></span><br><span class="line">    i=<span class="number">0</span></span><br><span class="line">    <span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">        <span class="keyword">if</span> valid(x):</span><br><span class="line">            i=i+<span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span> i==n:</span><br><span class="line">            <span class="keyword">return</span> x</span><br><span class="line">        x=x+<span class="number">1</span>;</span><br></pre></td></tr></table></figure></p>
+<h2 id="改进一"><a href="#改进一" class="headerlink" title="改进一"></a>改进一</h2><p>我们的思路是先把1作为唯一的元素放入队列,然后我们不断从队列另一侧取出元素,分别乘以2、3和5,这样就得到了3个新的元素。然后把它们按照大小顺序放入队列。注意,这样产生的整数有可能已经在队列中存在了。这种情况下,我们需要丢弃重复产生的元素。另外新产生的整数还有可能小于队列尾部的某些元素,所以我们在插入时,需要保持它们在队列中的大小顺序。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">get_number</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; Q;</span><br><span class="line">    <span class="keyword">int</span> t;</span><br><span class="line">    Q.push(<span class="number">1</span>);</span><br><span class="line">    <span class="keyword">while</span>(n &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        t=Q.front();</span><br><span class="line">        Q.pop();</span><br><span class="line">        unique_enqueue(Q,<span class="number">2</span>*t);</span><br><span class="line">        unique_enqueue(Q,<span class="number">3</span>*t);</span><br><span class="line">        unique_enqueue(Q,<span class="number">4</span>*t);</span><br><span class="line">        n--;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">unique_enqueue</span><span class="params">(<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; *Q, <span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; Q-&gt;size() &amp;&amp; Q[i] &lt; x)&#123;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(i &lt; Q-&gt;size() &amp;&amp; Q[i]==x)&#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    insert(Q,i,x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="改进二"><a href="#改进二" class="headerlink" title="改进二"></a>改进二</h2><p>我们可以用三个队列来进行改进。这三个队列表示为Q 2 ,Q 3 和Q 5 。它们初<br>始化为Q 2 = {2},Q 3 = {3}和Q 5 = {5}。我们每次从这三个队列的头部选择最小的一个元素x取出,然后进行下面的检查:</p>
+<ul>
+<li>如果x是从Q2取出的,我们将2x加入Q2 ,3x加入Q3 ,5x加入Q5。</li>
+<li>如果x是从Q3取出的,我们只将3x加入Q3,5x加入Q5,而不需要将2x加<br>入Q2。这是因为2x已经在Q3中了。</li>
+<li>如果x是从Q5取出的,我们只将5x加入Q5 ,而不需要处理2x和3x了。</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> Integer;</span><br><span class="line"><span class="function">Integer <span class="title">get_number</span><span class="params">(<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(n==<span class="number">1</span>)</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">queue</span>&lt;Integer&gt; Q2, Q3, Q5;</span><br><span class="line">    Q2.push(<span class="number">2</span>);</span><br><span class="line">    Q3.push(<span class="number">3</span>);</span><br><span class="line">    Q5.push(<span class="number">5</span>);</span><br><span class="line">    Integer x;</span><br><span class="line">    <span class="keyword">while</span>(n-- &gt; <span class="number">1</span>) &#123;</span><br><span class="line">        x = min(min(Q2.front(), Q3.front()), Q5.front());</span><br><span class="line">        <span class="keyword">if</span>(x==Q2.front()) &#123;</span><br><span class="line">            Q2.pop();</span><br><span class="line">            Q2.push(x∗<span class="number">2</span>);</span><br><span class="line">            Q3.push(x∗<span class="number">3</span>);</span><br><span class="line">            Q5.push(x∗<span class="number">5</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span>(x==Q3.front()) &#123;</span><br><span class="line">            Q3.pop();</span><br><span class="line">            Q3.push(x∗<span class="number">3</span>);</span><br><span class="line">            Q5.push(x∗<span class="number">5</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            Q5.pop();</span><br><span class="line">            Q5.push(x∗<span class="number">5</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="改进三"><a href="#改进三" class="headerlink" title="改进三"></a>改进三</h2><p>首先，第一个丑数为“1”，后面的每一个丑数都是有前一个丑数乘2、3、5或7而来，那么后一个丑数就是前一个乘这四个数得到的最小值，for example：第一个：1，第二个：1*2、1*3、1*5或1*7，显然为2，第三个：2*2,1*3,1*5或1*7，显然是3，第四个：2*2,,2*3,1*5,1*7为4，第五个：3*2,2*3,1*5,1*7……  </p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> a[<span class="number">5850</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">int</span> p2,p3,p5;</span><br><span class="line">    p2=p3=p5=<span class="number">1</span>;</span><br><span class="line">    a[<span class="number">1</span>]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span>(n&lt;<span class="number">5843</span>)<span class="comment">//枚举5842个丑数，放在数组a里。</span></span><br><span class="line">    &#123;</span><br><span class="line">        a[++n]=min4(<span class="number">2</span>*a[p2],<span class="number">3</span>*a[p3],<span class="number">5</span>*a[p5]);<span class="comment">//从现在枚举的3个丑数里，先选择小的放在a里。</span></span><br><span class="line">        <span class="keyword">if</span>(a[n]==<span class="number">2</span>*a[p2])p2++;<span class="comment">//如果a[n]==2*a[p2],2*a[p2]可能是吧a[n]枚举出的数，这样p2++,也可能是重复的枚举，这样也是p2++,总之p2++。</span></span><br><span class="line">        <span class="keyword">if</span>(a[n]==<span class="number">3</span>*a[p3])p3++;<span class="comment">//同理。</span></span><br><span class="line">        <span class="keyword">if</span>(a[n]==<span class="number">5</span>*a[p5])p5++;<span class="comment">//同理。</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)&amp;&amp;n)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,a[n]);<span class="comment">//要谁找谁。</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="刘韬 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>一分也是情，一分也是爱！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/03/LeVoleur/" rel="next" title="偷影子的人">
+                <i class="fa fa-chevron-left"></i> 偷影子的人
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/03/basicAlg01/" rel="prev" title="[初等算法]--树">
+                [初等算法]--树 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="刘韬" />
+          <p class="site-author-name" itemprop="name">刘韬</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kusole" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/83381421/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liu-tao-86-26-47/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/6193724399/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#最小可用ID-算法的威力"><span class="nav-number">1.</span> <span class="nav-text">最小可用ID 算法的威力</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#解法一：暴力搜索"><span class="nav-number">1.1.</span> <span class="nav-text">解法一：暴力搜索</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法二：时间优化"><span class="nav-number">1.2.</span> <span class="nav-text">解法二：时间优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解法三：分而治之"><span class="nav-number">1.3.</span> <span class="nav-text">解法三：分而治之</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#丑数-数据结构的威力"><span class="nav-number">2.</span> <span class="nav-text">丑数 数据结构的威力</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#暴力解法"><span class="nav-number">2.1.</span> <span class="nav-text">暴力解法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进一"><span class="nav-number">2.2.</span> <span class="nav-text">改进一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进二"><span class="nav-number">2.3.</span> <span class="nav-text">改进二</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进三"><span class="nav-number">2.4.</span> <span class="nav-text">改进三</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <!--
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘韬</span>
+  -->
+</div>
+
+
+<!-- <div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+-->
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,839 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="二叉搜索树,数据结构中的”hello world”我们使用二叉搜索树(BST)作为数据结构中的“hello world”。Jon Bentley在他的《编程珠玑》一书中,曾给了这样一个有趣的题目:如何统计一段文字中每个单词出现的次数?下面的C++程序展示了一个解法。123456789int main(int, char∗∗ )&amp;#123;    map&amp;lt;string, int&amp;gt; dic">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[初等算法]--树">
+<meta property="og:url" content="http://yoursite.com/2017/04/03/basicAlg01/index.html">
+<meta property="og:site_name" content="不知归期的故人">
+<meta property="og:description" content="二叉搜索树,数据结构中的”hello world”我们使用二叉搜索树(BST)作为数据结构中的“hello world”。Jon Bentley在他的《编程珠玑》一书中,曾给了这样一个有趣的题目:如何统计一段文字中每个单词出现的次数?下面的C++程序展示了一个解法。123456789int main(int, char∗∗ )&amp;#123;    map&amp;lt;string, int&amp;gt; dic">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://otl4ekdmf.bkt.clouddn.com/BST.png">
+<meta property="og:image" content="http://otl4ekdmf.bkt.clouddn.com/succpred.png">
+<meta property="og:updated_time" content="2018-10-13T14:39:56.277Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[初等算法]--树">
+<meta name="twitter:description" content="二叉搜索树,数据结构中的”hello world”我们使用二叉搜索树(BST)作为数据结构中的“hello world”。Jon Bentley在他的《编程珠玑》一书中,曾给了这样一个有趣的题目:如何统计一段文字中每个单词出现的次数?下面的C++程序展示了一个解法。123456789int main(int, char∗∗ )&amp;#123;    map&amp;lt;string, int&amp;gt; dic">
+<meta name="twitter:image" content="http://otl4ekdmf.bkt.clouddn.com/BST.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/03/basicAlg01/"/>
+
+
+
+
+
+  <title> [初等算法]--树 | 不知归期的故人 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?bf3223fddf5f9c71af0da2bd98d7f981";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不知归期的故人</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">乘风破浪会有时，直挂云帆济沧海。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/03/basicAlg01/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘韬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不知归期的故人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                [初等算法]--树
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-03T20:08:28+08:00">
+                2017-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/初等算法/" itemprop="url" rel="index">
+                    <span itemprop="name">初等算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="二叉搜索树-数据结构中的”hello-world”"><a href="#二叉搜索树-数据结构中的”hello-world”" class="headerlink" title="二叉搜索树,数据结构中的”hello world”"></a>二叉搜索树,数据结构中的”hello world”</h2><p>我们使用二叉搜索树(BST)作为数据结构中的“hello world”。Jon Bentley在他的《编程珠玑》一书中,曾给了这样一个有趣的题目:如何统计一段文字中每个单词出现的次数?下面的C++程序展示了一个解法。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">char</span>∗∗ )</span></span>&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; dict;</span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;s)</span><br><span class="line">        ++dict[s];</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt;::iterator it=dict.begin();</span><br><span class="line">    <span class="keyword">for</span>(; it!=dict.end(); ++it)</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;it-&gt;first&lt;&lt;<span class="string">": "</span>&lt;&lt;it-&gt;second&lt;&lt;<span class="string">"λn"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+ <a id="more"></a>  
+<p>C++标准库中提供的map是一种用平衡二叉树实现的字典数据结构。例子中用单词作为key,用单词出现的次数作为值。<br>一棵<code>二叉搜索树</code>是一棵满足下面条件的二叉树:</p>
+<ul>
+<li>所有左侧分支的值都小于本节点的值,</li>
+<li>本节点的值小于所有右侧分支的值。<br><img src="http://otl4ekdmf.bkt.clouddn.com/BST.png" alt=""></li>
+</ul>
+<h3 id="节点数据结构"><a href="#节点数据结构" class="headerlink" title="节点数据结构"></a>节点数据结构</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    node(T x):key(x), left(<span class="number">0</span>), right(<span class="number">0</span>), parent(<span class="number">0</span>)&#123;&#125;</span><br><span class="line">    ~node()&#123;</span><br><span class="line">        <span class="keyword">delete</span> left;</span><br><span class="line">        <span class="keyword">delete</span> right;</span><br><span class="line">    &#125;</span><br><span class="line">    node∗ left;</span><br><span class="line">    node∗ right;</span><br><span class="line">    node∗ parent; <span class="comment">//Optional, it's helpful for succ and pred</span></span><br><span class="line">    T key;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="插入"><a href="#插入" class="headerlink" title="插入"></a>插入</h3><p>我们可以使用下述算法向一个二叉搜索树中插入一个键k(在实际应用中,有时会同时插入一对键和值):</p>
+<ul>
+<li>如果树为空,创建一个叶子节点,令该节点的key = k;</li>
+<li>如果k小于根节点的key,将它插入到左子树中;</li>
+<li>如果k大于根节点的key,将它插入到右子树中。</li>
+</ul>
+<h3 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h3><p>遍历是指依次访问二叉树中的每个元素。有三种遍历方法,分别是前序遍历、中序遍历和后序遍历。它们是按照访问根节点和子节点的先后顺序命名的。</p>
+<ul>
+<li>前序遍历:先访问key,然后访问左子树,最后访问右子树;</li>
+<li>中序遍历:先访问左子树,然后访问key,最后访问右子树;</li>
+<li>后序遍历:先访问左子树,然后访问右子树,最后访问key。</li>
+</ul>
+<p>所有的“访问”操作都是递归的。先访问根后访问子分支称为先序,在访问左右分支的中间访问根称为中序,先访问子分支后访问根称为后序。对于图中的二叉树,下面分别列出了三种遍历的结果:</p>
+<ul>
+<li>前序遍历:4, 3, 1, 2, 8, 7, 16, 10, 9, 14;</li>
+<li>中序遍历:1, 2, 3, 4, 7, 8, 9, 10, 14, 16;</li>
+<li>后序遍历:2, 1, 3, 7, 9, 14, 10, 16, 8, 4。  </li>
+</ul>
+<p>对二叉搜索树进行中序遍历,元素就会按照从小到大的顺序输出。<br>中序遍历的算法可以描述为:</p>
+<ul>
+<li>如果树为空,则返回;</li>
+<li>否则先中序遍历左子树,然后访问key,最后再中序遍历右子树。</li>
+</ul>
+<h3 id="搜索"><a href="#搜索" class="headerlink" title="搜索"></a>搜索</h3><h4 id="Look-up"><a href="#Look-up" class="headerlink" title="Look up"></a>Look up</h4><p>二叉搜索树的定义使得它非常适合进行元素的搜索。可以按照下面描述的方法在树中搜索一个key:</p>
+<ul>
+<li>如果树为空,搜索失败;</li>
+<li>如果根节点的key等于待搜索的值,搜索成功,返回根节点作为结果;</li>
+<li>如果待搜索的值小于根节点的key,继续在左子树中递归搜索;</li>
+<li>否则,待搜索的值大于根节点的key,继续在右子树中递归搜索。  </li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">node</span>&lt;T&gt;∗ <span class="title">search</span>(<span class="title">node</span>&lt;T&gt;∗ <span class="title">t</span>, <span class="title">T</span> <span class="title">x</span>)&#123;</span></span><br><span class="line">    <span class="keyword">while</span>(t &amp;&amp; t-&gt;key!=x)&#123;</span><br><span class="line">    <span class="keyword">if</span>(x &lt; t-&gt;key) t=t-&gt;left;</span><br><span class="line">        <span class="keyword">else</span> t=t-&gt;right;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> t;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="最小元素和最大元素"><a href="#最小元素和最大元素" class="headerlink" title="最小元素和最大元素"></a>最小元素和最大元素</h4><p>为了获取最小元素,我们可以不断向左侧前进,直到左侧分支为空。类似地,我们可以通过不断向右侧前进获取最大元素。</p>
+<h4 id="前驱-Successor-和后继-predecessor"><a href="#前驱-Successor-和后继-predecessor" class="headerlink" title="前驱(Successor)和后继(predecessor)"></a>前驱(Successor)和后继(predecessor)</h4><p>给定元素x,它的后继元素y是满足y &gt; x的最小值。有两种情况:如果x所在的节点有一个非空的右子树,则右子树中的最小值就是答案。如图所示,8的后继元素为9,它是元素8的右子树中的最小值。另外一种情况是,如果x没有非空的右子树,我们需要向上回溯,找到最近的一个祖先,使得该祖先的左侧孩子,也为x的祖先。元素2所在的节点没有右侧分支,我们向上回溯一步找到元素1,但是1没有左侧分支,因此需要继续向上查找,这次我们到达了元素3所在的节点。而3的左侧孩子,同样也是2的祖先。至此,我们找到了2的后继元素3。<br><img src="http://otl4ekdmf.bkt.clouddn.com/succpred.png" alt=""><br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">succ</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> x.right <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>: <span class="keyword">return</span> tree_min(x.right)</span><br><span class="line">    p = x.parent</span><br><span class="line">    <span class="keyword">while</span> p <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">and</span> p.left != x:</span><br><span class="line">        x = p</span><br><span class="line">        p = p.parent</span><br><span class="line">    <span class="keyword">return</span> p</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">pred</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> x.left <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>: <span class="keyword">return</span> tree_max(x.left)</span><br><span class="line">    p = x.parent</span><br><span class="line">    <span class="keyword">while</span> p <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span> <span class="keyword">and</span> p.right != x:</span><br><span class="line">        x = p</span><br><span class="line">        p = p.parent</span><br><span class="line">    <span class="keyword">return</span> p</span><br></pre></td></tr></table></figure></p>
+<h3 id="代码如下："><a href="#代码如下：" class="headerlink" title="代码如下："></a>代码如下：</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;sstream&gt;</span></span></span><br><span class="line"><span class="comment">//#include &lt;boost/lambda/lambda.hpp&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">    node(T x):key(x), left(<span class="number">0</span>), right(<span class="number">0</span>), parent(<span class="number">0</span>)&#123;&#125;</span><br><span class="line">    ~node()&#123; <span class="comment">// for convinient, use functional approach</span></span><br><span class="line">        <span class="keyword">delete</span> left;</span><br><span class="line">        <span class="keyword">delete</span> right;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    node* left;</span><br><span class="line">    node* right;</span><br><span class="line">    node* parent; <span class="comment">//parent is optional, it's helpful for succ/pred</span></span><br><span class="line">    T key;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// in-order tree walk</span></span><br><span class="line"><span class="comment">// easy implemented by using functional approach</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>, <span class="title">class</span> <span class="title">F</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">in_order_walk</span>(<span class="title">node</span>&lt;T&gt;* <span class="title">t</span>, <span class="title">F</span> <span class="title">f</span>)&#123;</span></span><br><span class="line">    <span class="keyword">if</span>(t)&#123;</span><br><span class="line">        in_order_walk(t-&gt;left, f);</span><br><span class="line">        f(t-&gt;key);</span><br><span class="line">        in_order_walk(t-&gt;right, f);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">node</span>&lt;T&gt;* <span class="title">search</span>(<span class="title">node</span>&lt;T&gt;* <span class="title">t</span>, <span class="title">T</span> <span class="title">x</span>)&#123;</span></span><br><span class="line">    <span class="keyword">while</span>(t &amp;&amp; t-&gt;key!=x)&#123;</span><br><span class="line">        <span class="keyword">if</span>(x &lt; t-&gt;key) t=t-&gt;left;</span><br><span class="line">        <span class="keyword">else</span> t=t-&gt;right;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> t;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">node</span>&lt;T&gt;* <span class="title">min</span>(<span class="title">node</span>&lt;T&gt;* <span class="title">x</span>)&#123;</span></span><br><span class="line">    <span class="keyword">while</span>(x &amp;&amp; x-&gt;left)</span><br><span class="line">        x = x-&gt;left;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">node</span>&lt;T&gt;* <span class="title">max</span>(<span class="title">node</span>&lt;T&gt;* <span class="title">x</span>)&#123;</span></span><br><span class="line">    <span class="keyword">while</span>(x &amp;&amp; x-&gt;right)</span><br><span class="line">        x = x-&gt;right;</span><br><span class="line">    <span class="keyword">return</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">node</span>&lt;T&gt;* <span class="title">succ</span>(<span class="title">node</span>&lt;T&gt;* <span class="title">x</span>)&#123;</span></span><br><span class="line">    <span class="keyword">if</span>(x)&#123;</span><br><span class="line">        <span class="keyword">if</span>(x-&gt;right) <span class="keyword">return</span> min(x-&gt;right);</span><br><span class="line">        <span class="comment">//find an ancestor, whose left child contains x</span></span><br><span class="line">        node&lt;T&gt;* p = x-&gt;parent;</span><br><span class="line">        <span class="keyword">while</span>(p &amp;&amp; p-&gt;right==x)&#123;</span><br><span class="line">            x = p;</span><br><span class="line">            p = p-&gt;parent;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">node</span>&lt;T&gt;* <span class="title">pred</span>(<span class="title">node</span>&lt;T&gt;* <span class="title">x</span>)&#123;</span></span><br><span class="line">    <span class="keyword">if</span>(x)&#123;</span><br><span class="line">        <span class="keyword">if</span>(x-&gt;left) <span class="keyword">return</span> max(x-&gt;left);</span><br><span class="line">        <span class="comment">//find an ancestor, whose right child contains x</span></span><br><span class="line">        node&lt;T&gt;* p = x-&gt;parent;</span><br><span class="line">        <span class="keyword">while</span>(p &amp;&amp; p-&gt;left==x)&#123;</span><br><span class="line">            x = p;</span><br><span class="line">            p = p-&gt;parent;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> p;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">node</span>&lt;T&gt;* <span class="title">insert</span>(<span class="title">node</span>&lt;T&gt;* <span class="title">tree</span>, <span class="title">T</span> <span class="title">key</span>)&#123;</span></span><br><span class="line">    node&lt;T&gt;* root(tree);</span><br><span class="line">    node&lt;T&gt;* x = <span class="keyword">new</span> node&lt;T&gt;(key);</span><br><span class="line">    node&lt;T&gt;* parent(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">while</span>(tree)&#123;</span><br><span class="line">        parent = tree;</span><br><span class="line">        <span class="keyword">if</span>(key &lt; tree-&gt;key)</span><br><span class="line">            tree = tree -&gt; left;</span><br><span class="line">        <span class="keyword">else</span> <span class="comment">//assert there is no duplicated key inserted.</span></span><br><span class="line">            tree = tree -&gt; right;</span><br><span class="line">    &#125;</span><br><span class="line">    x-&gt;parent = parent;</span><br><span class="line">    <span class="keyword">if</span>( parent == <span class="number">0</span> ) <span class="comment">//tree is empty</span></span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>( key &lt; parent-&gt;key)</span><br><span class="line">        parent-&gt;left = x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        parent-&gt;right = x;</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// cut the node off the tree, then delete it.</span></span><br><span class="line"><span class="comment">// it can prevent dtor removed children of a node</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">void</span> <span class="title">remove_node</span>(<span class="title">node</span>&lt;T&gt;* <span class="title">x</span>)&#123;</span></span><br><span class="line">    <span class="keyword">if</span>(x)</span><br><span class="line">        x-&gt;left = x-&gt;right = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">delete</span> x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// The algorithm described in CLRS isn't used here.</span></span><br><span class="line"><span class="comment">// I used the algorithm as below (refer to Annotated STL, P 235 (by Hou Jie)</span></span><br><span class="line"><span class="comment">//   if x has only one child: just splice x out</span></span><br><span class="line"><span class="comment">//   if x has two children: use min(right) to replace x</span></span><br><span class="line"><span class="comment">// @return root of the tree</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">node</span>&lt;T&gt;* <span class="title">del</span>(<span class="title">node</span>&lt;T&gt;* <span class="title">tree</span>, <span class="title">node</span>&lt;T&gt;* <span class="title">x</span>)&#123;</span></span><br><span class="line">    <span class="keyword">if</span>(!x)</span><br><span class="line">        <span class="keyword">return</span> tree;</span><br><span class="line"></span><br><span class="line">    node&lt;T&gt;* root(tree);</span><br><span class="line">    node&lt;T&gt;* old_x(x);</span><br><span class="line">    node&lt;T&gt;* parent(x-&gt;parent);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(x-&gt;left == <span class="number">0</span>)</span><br><span class="line">        x = x-&gt;right;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(x-&gt;right == <span class="number">0</span>)</span><br><span class="line">        x = x-&gt;left;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        node&lt;T&gt;* y=min(x-&gt;right);</span><br><span class="line">        x-&gt;key = y-&gt;key;</span><br><span class="line">        <span class="keyword">if</span>(y-&gt;parent != x)</span><br><span class="line">            y-&gt;parent-&gt;left = y-&gt;right;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            x-&gt;right = y-&gt;right;</span><br><span class="line"></span><br><span class="line">        remove_node(y);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(x)</span><br><span class="line">        x-&gt;parent = parent;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(!parent)</span><br><span class="line">        root = x; <span class="comment">//remove node of a tree</span></span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    <span class="keyword">if</span>(parent-&gt;left == old_x)</span><br><span class="line">        parent-&gt;left = x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        parent-&gt;right = x;</span><br><span class="line"></span><br><span class="line">    remove_node(old_x);</span><br><span class="line">    <span class="keyword">return</span> root;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//for testing</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">Coll</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">node</span>&lt;typename Coll::value_type&gt;* <span class="title">build_tree</span>(<span class="title">const</span> <span class="title">Coll</span>&amp; <span class="title">coll</span>)&#123;</span></span><br><span class="line">    node&lt;<span class="keyword">typename</span> Coll::value_type&gt;* tree(<span class="number">0</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">typename</span> Coll::const_iterator it=coll.begin(); it!=coll.end(); ++it)</span><br><span class="line">        tree = insert(tree, *it);</span><br><span class="line">    <span class="keyword">return</span> tree;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">std</span>:</span>:<span class="function"><span class="built_in">string</span> <span class="title">tree_to_str</span><span class="params">(<span class="keyword">const</span> node&lt;T&gt;* tree)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(tree)&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">ostringstream</span> s;</span><br><span class="line">        s&lt;&lt;<span class="string">"("</span>&lt;&lt;tree_to_str(tree-&gt;left)&lt;&lt;<span class="string">"), "</span>&lt;&lt;tree-&gt;key</span><br><span class="line">         &lt;&lt;<span class="string">", ("</span>&lt;&lt;tree_to_str(tree-&gt;right)&lt;&lt;<span class="string">")"</span>;</span><br><span class="line">        <span class="keyword">return</span> s.str();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"empty"</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class"><span class="title">node</span>&lt;T&gt;* <span class="title">clone_tree</span>(<span class="title">const</span> <span class="title">node</span>&lt;T&gt;* <span class="title">t</span>, <span class="title">node</span>&lt;T&gt;* <span class="title">parent</span>=0)&#123;</span></span><br><span class="line">    <span class="keyword">if</span>(t)&#123;</span><br><span class="line">        node&lt;T&gt;* t1 = <span class="keyword">new</span> node&lt;T&gt;(t-&gt;key);</span><br><span class="line">        t1-&gt;left = clone_tree(t-&gt;left, t1);</span><br><span class="line">        t1-&gt;right = clone_tree(t-&gt;right, t1);</span><br><span class="line">        t1-&gt;parent = parent;</span><br><span class="line">        <span class="keyword">return</span> t1;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">static_cast</span>&lt;node&lt;T&gt;*&gt;(<span class="number">0</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//test helper</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">test</span>&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    test()&#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">int</span> buf[]=&#123;<span class="number">15</span>, <span class="number">6</span>, <span class="number">18</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">17</span>, <span class="number">20</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">13</span>, <span class="number">9</span>&#125;;</span><br><span class="line">        tree = build_tree(<span class="built_in">std</span>::<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(buf, buf+<span class="keyword">sizeof</span>(buf)/<span class="keyword">sizeof</span>(<span class="keyword">int</span>)));</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;tree_to_str(tree);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    ~test()&#123;</span><br><span class="line">        <span class="keyword">delete</span> tree;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt; <span class="title">void</span> <span class="title">assert_</span>(<span class="title">std</span>:</span>:<span class="built_in">string</span> msg, T x, T y)&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;msg;</span><br><span class="line">        <span class="keyword">if</span>(x==y)</span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;x&lt;&lt;<span class="string">" OK.\n"</span>;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">            <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;x&lt;&lt;<span class="string">"!="</span>&lt;&lt;y&lt;&lt;<span class="string">" Fail.\n"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">run</span><span class="params">()</span></span>&#123;</span><br><span class="line">        test_in_order_walk();</span><br><span class="line">        test_min_max();</span><br><span class="line">        test_search();</span><br><span class="line">        test_succ_pred();</span><br><span class="line">        test_del();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">Print</span>&#123;</span></span><br><span class="line">        <span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span></span><br><span class="line"><span class="class">        <span class="title">void</span> <span class="title">operator</span>()(<span class="title">T</span> <span class="title">x</span>)&#123;</span> <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;x&lt;&lt;<span class="string">", "</span>; &#125;</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">test_in_order_walk</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;<span class="string">"\ntest in order walk with print functor: "</span>;</span><br><span class="line">        in_order_walk(tree, Print());</span><br><span class="line">        <span class="comment">//this can be simplified by using boost</span></span><br><span class="line">        <span class="comment">//using namespace boost::lambda;</span></span><br><span class="line">        <span class="comment">//in_order_walk(tree, std::cout&lt;&lt;_1&lt;&lt;", ");</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">test_min_max</span><span class="params">()</span></span>&#123;</span><br><span class="line">        node&lt;<span class="keyword">int</span>&gt;* empty(<span class="number">0</span>);</span><br><span class="line">        assert_(<span class="string">"min(empty)="</span>, min(empty), empty);</span><br><span class="line">        assert_(<span class="string">"min(tree)="</span>, min(tree)-&gt;key, <span class="number">2</span>);</span><br><span class="line">        assert_(<span class="string">"max(empty)="</span>,max(empty), empty);</span><br><span class="line">        assert_(<span class="string">"max(tree)="</span>, max(tree)-&gt;key, <span class="number">20</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">test_search</span><span class="params">()</span></span>&#123;</span><br><span class="line">        node&lt;<span class="keyword">int</span>&gt;* empty(<span class="number">0</span>);</span><br><span class="line">        assert_(<span class="string">"search empty: "</span>, search(empty, <span class="number">3</span>), empty);</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;<span class="string">"search exist key: "</span>&lt;&lt;tree_to_str(search(tree, <span class="number">18</span>))&lt;&lt;<span class="string">"\n"</span>;</span><br><span class="line">        assert_(<span class="string">"search non-exist: "</span>, search(tree, <span class="number">5</span>), empty);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">test_succ_pred</span><span class="params">()</span></span>&#123;</span><br><span class="line">        node&lt;<span class="keyword">int</span>&gt;* empty(<span class="number">0</span>);</span><br><span class="line">        assert_(<span class="string">"succ 7: "</span>, succ(search(tree, <span class="number">7</span>))-&gt;key, <span class="number">9</span>);</span><br><span class="line">        assert_(<span class="string">"succ 13: "</span>, succ(search(tree, <span class="number">13</span>))-&gt;key, <span class="number">15</span>);</span><br><span class="line">        assert_(<span class="string">"succ 20: "</span>, succ(search(tree, <span class="number">20</span>)), empty);</span><br><span class="line">        assert_(<span class="string">"pred 6: "</span>, pred(search(tree, <span class="number">6</span>))-&gt;key, <span class="number">4</span>);</span><br><span class="line">        assert_(<span class="string">"pred 7: "</span>, pred(search(tree, <span class="number">7</span>))-&gt;key, <span class="number">6</span>);</span><br><span class="line">        assert_(<span class="string">"pred 2: "</span>, pred(search(tree, <span class="number">2</span>)), empty);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">test_del_n</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">        node&lt;<span class="keyword">int</span>&gt;* empty(<span class="number">0</span>);</span><br><span class="line">        node&lt;<span class="keyword">int</span>&gt;* t1=clone_tree(tree);</span><br><span class="line">        t1=del(t1, search(t1, n));</span><br><span class="line">        <span class="built_in">std</span>::<span class="built_in">cout</span>&lt;&lt;<span class="string">"del "</span>&lt;&lt;n&lt;&lt;<span class="string">":\n"</span>&lt;&lt;tree_to_str(t1)&lt;&lt;<span class="string">"\n"</span>;</span><br><span class="line">        assert_(<span class="string">"search after del: "</span>, search(t1, n), empty);</span><br><span class="line">        <span class="keyword">delete</span> t1;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">test_del</span><span class="params">()</span></span>&#123;</span><br><span class="line">        test_del_n(<span class="number">17</span>);</span><br><span class="line">        test_del_n(<span class="number">7</span>);</span><br><span class="line">        test_del_n(<span class="number">6</span>);</span><br><span class="line">        test_del_n(<span class="number">15</span>);</span><br><span class="line">        test_del_n(<span class="number">1</span>); <span class="comment">//try to del a non-exist val</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    node&lt;<span class="keyword">int</span>&gt;* tree;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">char</span>**)</span></span>&#123;</span><br><span class="line">    test().run();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="插入排序的进化"><a href="#插入排序的进化" class="headerlink" title="插入排序的进化"></a>插入排序的进化</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">isort</span><span class="params">(Key∗ xs, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, j;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>; i&lt;n; ++i)</span><br><span class="line">        <span class="keyword">for</span>(j=i<span class="number">-1</span>; j≥<span class="number">0</span> &amp;&amp; xs[j+<span class="number">1</span>] &lt; xs[j]; --j)</span><br><span class="line">            swap(xs, j, j+<span class="number">1</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="改进一"><a href="#改进一" class="headerlink" title="改进一"></a>改进一</h3><p>任何时刻,我们手中的牌都是已序的,因此我们可以用二分查找来搜索插入位置。<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">isort</span><span class="params">(xs)</span>:</span></span><br><span class="line">    n = len(xs)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, n):</span><br><span class="line">        x = xs[i]</span><br><span class="line">        p = binary_search(xs[:i], x)</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(i, p, <span class="number">-1</span>):</span><br><span class="line">            xs[j] = xs[j<span class="number">-1</span>]</span><br><span class="line">        xs[p] = x</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">binary_search</span><span class="params">(xs, x)</span>:</span></span><br><span class="line">    l = <span class="number">0</span></span><br><span class="line">    u = len(xs)</span><br><span class="line">    <span class="keyword">while</span> l &lt; u:</span><br><span class="line">        m = (l+u)/<span class="number">2</span></span><br><span class="line">        <span class="keyword">if</span> xs[m] == x:</span><br><span class="line">            <span class="keyword">return</span> m</span><br><span class="line">        <span class="keyword">elif</span> xs[m] &lt; x:</span><br><span class="line">            l = m + <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            u = m</span><br><span class="line">    <span class="keyword">return</span> l</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用二叉搜索树的最终改进"><a href="#使用二叉搜索树的最终改进" class="headerlink" title="使用二叉搜索树的最终改进"></a>使用二叉搜索树的最终改进</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function Sort(A)</span><br><span class="line">    T &lt;- φ</span><br><span class="line">    <span class="keyword">for</span> each x ∈ A do</span><br><span class="line">        T &lt;- Insert-Tree(T, x)</span><br><span class="line">    <span class="keyword">return</span> To-List(T)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="刘韬 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>一分也是情，一分也是爱！</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/03/basicAlg00/" rel="next" title="[初等算法]--前言">
+                <i class="fa fa-chevron-left"></i> [初等算法]--前言
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/05/aboutwuhan/" rel="prev" title="关于武汉的记忆">
+                关于武汉的记忆 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="刘韬" />
+          <p class="site-author-name" itemprop="name">刘韬</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kusole" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/83381421/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liu-tao-86-26-47/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/6193724399/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉搜索树-数据结构中的”hello-world”"><span class="nav-number">1.</span> <span class="nav-text">二叉搜索树,数据结构中的”hello world”</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#节点数据结构"><span class="nav-number">1.1.</span> <span class="nav-text">节点数据结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入"><span class="nav-number">1.2.</span> <span class="nav-text">插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历"><span class="nav-number">1.3.</span> <span class="nav-text">遍历</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#搜索"><span class="nav-number">1.4.</span> <span class="nav-text">搜索</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Look-up"><span class="nav-number">1.4.1.</span> <span class="nav-text">Look up</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#最小元素和最大元素"><span class="nav-number">1.4.2.</span> <span class="nav-text">最小元素和最大元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#前驱-Successor-和后继-predecessor"><span class="nav-number">1.4.3.</span> <span class="nav-text">前驱(Successor)和后继(predecessor)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码如下："><span class="nav-number">1.5.</span> <span class="nav-text">代码如下：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插入排序的进化"><span class="nav-number">2.</span> <span class="nav-text">插入排序的进化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#改进一"><span class="nav-number">2.1.</span> <span class="nav-text">改进一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用二叉搜索树的最终改进"><span class="nav-number">2.2.</span> <span class="nav-text">使用二叉搜索树的最终改进</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  <!--
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘韬</span>
+  -->
+</div>
+
+
+<!-- <div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+-->
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
