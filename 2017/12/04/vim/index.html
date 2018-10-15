@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html class="theme-next pisces" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -32,7 +30,9 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
 
 
 
@@ -72,7 +72,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
@@ -83,10 +85,12 @@
 
 
 
+  <link rel="alternate" href="/atom.xml" title="不知归期的故人" type="application/atom+xml" />
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
 
 
 
@@ -126,15 +130,15 @@
     scheme: 'Pisces',
     sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
-    motion: true,
+    motion: false,
     duoshuo: {
       userId: '0',
       author: '博主'
     },
     algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
+      applicationID: '{TDX48RCCW2}',
+      apiKey: 'c3d7b633326fdd900bbf90992810ea52',
+      indexName: 'kusole',
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
@@ -271,9 +275,47 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
   
 </nav>
 
@@ -558,7 +600,7 @@
 </ul>
 <p>（注：可视化选择是一个很有意思的命令，你可以先按v，然后移动光标，你就会看到文本被选择，然后，你可能d，也可y，也可以变大写等）</p>
 <h3 id="第四级-–-Vim-超能力"><a href="#第四级-–-Vim-超能力" class="headerlink" title="第四级 – Vim 超能力"></a>第四级 – Vim 超能力</h3><p>你只需要掌握前面的命令，你就可以很舒服的使用VIM了。但是，现在，我们向你介绍的是VIM杀手级的功能。下面这些功能是我只用vim的原因。</p>
-<h4 id="在当前行上移动光标-0-f-F-t-T"><a href="#在当前行上移动光标-0-f-F-t-T" class="headerlink" title="在当前行上移动光标: 0 ^ ####f`F t T , ;"></a>在当前行上移动光标: <code>0</code> <code>^</code> <code>####</code>f<code>`F</code> <code>t</code> <code>T</code> <code>,</code> <code>;</code></h4><blockquote>
+<h4 id="在当前行上移动光标-0-fFtT"><a href="#在当前行上移动光标-0-fFtT" class="headerlink" title="在当前行上移动光标: 0 ^ ####fFtT,;`"></a>在当前行上移动光标: <code>0</code> <code>^</code> <code>####</code>f<code></code>F<code></code>t<code></code>T<code></code>,<code></code>;`</h4><blockquote>
 <ul>
 <li><code>0</code> → 到行头</li>
 <li><code>^</code> → 到本行的第一个非blank字符</li>
@@ -599,7 +641,7 @@
 <p><img src="http://upload-images.jianshu.io/upload_images/3101171-8b093a0f65707949.gif?imageMogr2/auto-orient/strip" alt="Rectangular blocks"></p>
 <p>在Windows下的vim，你需要使用 <code>&lt;C-q&gt;</code> 而不是 <code>&lt;C-v&gt;</code> ，<code>&lt;C-v&gt;</code> 是拷贝剪贴板。</p>
 <h4 id="自动提示：-lt-C-n-gt-和-lt-C-p-gt"><a href="#自动提示：-lt-C-n-gt-和-lt-C-p-gt" class="headerlink" title="自动提示： &lt;C-n&gt; 和 &lt;C-p&gt;"></a>自动提示： <code>&lt;C-n&gt;</code> 和 <code>&lt;C-p&gt;</code></h4><p>在 Insert 模式下，你可以输入一个词的开头，然后按 <code>&lt;C-p&gt;或是&lt;C-n&gt;，自动补齐功能就出现了……</code></p>
-<p>``<img src="http://upload-images.jianshu.io/upload_images/3101171-e2ae877e67880ff7.gif?imageMogr2/auto-orient/strip" alt="Completion"></p>
+<p><code></code><img src="http://upload-images.jianshu.io/upload_images/3101171-e2ae877e67880ff7.gif?imageMogr2/auto-orient/strip" alt="Completion"></p>
 <h4 id="宏录制：-qa-操作序列-q-a"><a href="#宏录制：-qa-操作序列-q-a" class="headerlink" title="宏录制： qa 操作序列 q, @a, @@"></a>宏录制： <code>qa</code> 操作序列 <code>q</code>, <code>@a</code>, <code>@@</code></h4><ul>
 <li><code>qa</code> 把你的操作记录在寄存器 <code>a。</code></li>
 <li>于是 <code>@a</code> 会replay被录制的宏。</li>
@@ -613,7 +655,6 @@
 </li>
 </ul>
 </blockquote>
-<p>&gt;</p>
 <blockquote>
 <p>  →</p>
 <ul>
@@ -744,6 +785,8 @@
           
   <div class="comments" id="comments">
     
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MDI5My8xNjgyMA=="></div>
+    
   </div>
 
 
@@ -821,6 +864,13 @@
         </nav>
 
         
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
 
         <div class="links-of-author motion-element">
           
@@ -885,7 +935,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vim-学习笔记"><span class="nav-number">1.</span> <span class="nav-text">Vim 学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是-vim"><span class="nav-number">1.1.1.</span> <span class="nav-text">什么是 vim</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vim-的模式"><span class="nav-number">1.1.2.</span> <span class="nav-text">Vim 的模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#命令模式"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">命令模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入模式"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">插入模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#底线命令模式"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">底线命令模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vim-渐进学习"><span class="nav-number">1.2.</span> <span class="nav-text">Vim 渐进学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一级-–-存活"><span class="nav-number">1.2.1.</span> <span class="nav-text">第一级 – 存活</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二级-–-感觉良好"><span class="nav-number">1.2.2.</span> <span class="nav-text">第二级 – 感觉良好</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三级-–-更好，更强，更快"><span class="nav-number">1.2.3.</span> <span class="nav-text">第三级 – 更好，更强，更快</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#更好"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">更好</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更强"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">更强</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更快"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">更快</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四级-–-Vim-超能力"><span class="nav-number">1.2.4.</span> <span class="nav-text">第四级 – Vim 超能力</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在当前行上移动光标-0-f-F-t-T"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">在当前行上移动光标: 0 ^ ####f`F t T , ;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#区域选择-lt-action-gt-a-lt-object-gt-或-lt-action-gt-i-lt-object-gt"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">区域选择 &lt;action&gt;a&lt;object&gt; 或 &lt;action&gt;i&lt;object&gt;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#块操作-lt-C-v-gt"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">块操作: &lt;C-v&gt;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自动提示：-lt-C-n-gt-和-lt-C-p-gt"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">自动提示： &lt;C-n&gt; 和 &lt;C-p&gt;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#宏录制：-qa-操作序列-q-a"><span class="nav-number">1.2.4.5.</span> <span class="nav-text">宏录制： qa 操作序列 q, @a, @@</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可视化选择：-v-V-lt-C-v-gt"><span class="nav-number">1.2.4.6.</span> <span class="nav-text">可视化选择： v,V,&lt;C-v&gt;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分屏-split-和-vsplit"><span class="nav-number">1.2.4.7.</span> <span class="nav-text">分屏: :split 和 vsplit.</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vim-命令"><span class="nav-number">1.3.</span> <span class="nav-text">Vim 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资料"><span class="nav-number">1.4.</span> <span class="nav-text">资料</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Vim-学习笔记"><span class="nav-number">1.</span> <span class="nav-text">Vim 学习笔记</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">1.1.</span> <span class="nav-text">概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是-vim"><span class="nav-number">1.1.1.</span> <span class="nav-text">什么是 vim</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Vim-的模式"><span class="nav-number">1.1.2.</span> <span class="nav-text">Vim 的模式</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#命令模式"><span class="nav-number">1.1.2.1.</span> <span class="nav-text">命令模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入模式"><span class="nav-number">1.1.2.2.</span> <span class="nav-text">插入模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#底线命令模式"><span class="nav-number">1.1.2.3.</span> <span class="nav-text">底线命令模式</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vim-渐进学习"><span class="nav-number">1.2.</span> <span class="nav-text">Vim 渐进学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一级-–-存活"><span class="nav-number">1.2.1.</span> <span class="nav-text">第一级 – 存活</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二级-–-感觉良好"><span class="nav-number">1.2.2.</span> <span class="nav-text">第二级 – 感觉良好</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三级-–-更好，更强，更快"><span class="nav-number">1.2.3.</span> <span class="nav-text">第三级 – 更好，更强，更快</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#更好"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">更好</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更强"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">更强</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更快"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">更快</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四级-–-Vim-超能力"><span class="nav-number">1.2.4.</span> <span class="nav-text">第四级 – Vim 超能力</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#在当前行上移动光标-0-fFtT"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">在当前行上移动光标: 0 ^ ####fFtT,;`</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#区域选择-lt-action-gt-a-lt-object-gt-或-lt-action-gt-i-lt-object-gt"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">区域选择 &lt;action&gt;a&lt;object&gt; 或 &lt;action&gt;i&lt;object&gt;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#块操作-lt-C-v-gt"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">块操作: &lt;C-v&gt;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自动提示：-lt-C-n-gt-和-lt-C-p-gt"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">自动提示： &lt;C-n&gt; 和 &lt;C-p&gt;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#宏录制：-qa-操作序列-q-a"><span class="nav-number">1.2.4.5.</span> <span class="nav-text">宏录制： qa 操作序列 q, @a, @@</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可视化选择：-v-V-lt-C-v-gt"><span class="nav-number">1.2.4.6.</span> <span class="nav-text">可视化选择： v,V,&lt;C-v&gt;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分屏-split-和-vsplit"><span class="nav-number">1.2.4.7.</span> <span class="nav-text">分屏: :split 和 vsplit.</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vim-命令"><span class="nav-number">1.3.</span> <span class="nav-text">Vim 命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资料"><span class="nav-number">1.4.</span> <span class="nav-text">资料</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -906,14 +956,14 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright" >
-  <!--
+  
   &copy;  2016 - 
   <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">刘韬</span>
-  -->
+
 </div>
 
 
@@ -931,6 +981,14 @@
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
 
         
       </div>
@@ -969,22 +1027,22 @@
 
 
   
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
 
   
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
 
   
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
 
   
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
 
   
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
 
   
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
 
 
   
@@ -1046,6 +1104,17 @@
 
 
   
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
 
 
 
@@ -1055,6 +1124,19 @@
   
 
 
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
 
 
 

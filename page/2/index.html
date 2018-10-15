@@ -2,10 +2,8 @@
 
 
 
-  
 
-
-<html class="theme-next pisces use-motion" lang="zh-Hans">
+<html class="theme-next pisces" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -32,7 +30,9 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
 
 
 
@@ -72,7 +72,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
 
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
@@ -83,10 +85,12 @@
 
 
 
+  <link rel="alternate" href="/atom.xml" title="不知归期的故人" type="application/atom+xml" />
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
 
 
 
@@ -110,15 +114,15 @@
     scheme: 'Pisces',
     sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
     fancybox: true,
-    motion: true,
+    motion: false,
     duoshuo: {
       userId: '0',
       author: '博主'
     },
     algolia: {
-      applicationID: '',
-      apiKey: '',
-      indexName: '',
+      applicationID: '{TDX48RCCW2}',
+      apiKey: 'c3d7b633326fdd900bbf90992810ea52',
+      indexName: 'kusole',
       hits: {"per_page":10},
       labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
     }
@@ -257,9 +261,47 @@
       
 
       
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
     </ul>
   
 
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
   
 </nav>
 
@@ -284,7 +326,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/05/FerryMan/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/13/horizondevelop1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="刘韬">
@@ -306,8 +348,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/07/05/FerryMan/" itemprop="url">
-                  摆渡人
+                <a class="post-title-link" href="/2017/11/13/horizondevelop1/" itemprop="url">
+                  horizon 二次开发环境配置
                 </a>
               
             
@@ -323,8 +365,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-05T14:39:16+08:00">
-                2017-07-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-13T11:30:48+08:00">
+                2017-11-13
               </time>
             
 
@@ -346,8 +388,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
+                  <a href="/categories/openstack学习/" itemprop="url" rel="index">
+                    <span itemprop="name">openstack学习</span>
                   </a>
                 </span>
 
@@ -382,10 +424,10 @@
 
       
         
-          <p>《摆渡人》是英国著名实力作家—克莱儿.麦克福尔的著作，凭借此著作，她一举获得了五项世界文学大奖。故事发生在神话背景下，以穿越荒原为主线，展现了人物灵魂成长的踪迹。  </p>
+          <h2 id="openstack源代码的获取"><a href="#openstack源代码的获取" class="headerlink" title="openstack源代码的获取"></a>openstack源代码的获取</h2><p>我们可以从<a href="https://releases.openstack.org/" target="_blank" rel="noopener"><strong><em>OpenStack Releases</em></strong></a>下载所有发行版本的openstack，openstack每6个月发行一个版本。选择相应的openstac版本和相应组件版本。<br></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/07/05/FerryMan/#more" rel="contents">
+            <a class="btn" href="/2017/11/13/horizondevelop1/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -431,7 +473,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/05/myMemory/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/28/basicAlg02/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="刘韬">
@@ -453,8 +495,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/07/05/myMemory/" itemprop="url">
-                  我在回忆
+                <a class="post-title-link" href="/2017/07/28/basicAlg02/" itemprop="url">
+                  [初等算法]--红黑树
                 </a>
               
             
@@ -470,309 +512,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-05T14:09:39+08:00">
-                2017-07-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/生活小记/" itemprop="url" rel="index">
-                    <span itemprop="name">生活小记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <center>我在回忆，在珍惜，在憧憬</center>  
-
-<h4 id="回忆"><a href="#回忆" class="headerlink" title="回忆"></a>回忆</h4><blockquote>
-<p>在爱人的眼里，一千里的距离不过一里。是距离让我们的心更靠近。<br>我们的爱情，经历了信任、猜疑、信任、猜疑…最后我们还是选择了信任。我感谢你。  </p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/05/myMemory/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/05/aboutwuhan/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘韬">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不知归期的故人">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/07/05/aboutwuhan/" itemprop="url">
-                  关于武汉的记忆
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-05T13:36:27+08:00">
-                2017-07-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/生活小记/" itemprop="url" rel="index">
-                    <span itemprop="name">生活小记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>爱情的奇妙在于，说分手的那个偏偏爱着，不爱的那个用沉默回答。天天害怕失去的那个人最先离开。<br>你是这个世界给我的情书，也是爱情的遗书。</p>
-</blockquote>
-<center><br>关于武汉我知道的不多，为了爱情曾经去过那里<br>多少次火车上路过这城市，一个人悄悄的想起你<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/07/05/aboutwuhan/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/03/basicAlg01/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘韬">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不知归期的故人">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/03/basicAlg01/" itemprop="url">
-                  [初等算法]--树
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-03T20:08:28+08:00">
-                2017-04-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-28T10:03:57+08:00">
+                2017-07-28
               </time>
             
 
@@ -830,10 +571,16 @@
 
       
         
-          <h2 id="二叉搜索树-数据结构中的”hello-world”"><a href="#二叉搜索树-数据结构中的”hello-world”" class="headerlink" title="二叉搜索树,数据结构中的”hello world”"></a>二叉搜索树,数据结构中的”hello world”</h2><p>我们使用二叉搜索树(BST)作为数据结构中的“hello world”。Jon Bentley在他的《编程珠玑》一书中,曾给了这样一个有趣的题目:如何统计一段文字中每个单词出现的次数?下面的C++程序展示了一个解法。<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span>, <span class="keyword">char</span>∗∗ )</span></span>&#123;</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt; dict;</span><br><span class="line">    <span class="built_in">string</span> s;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;s)</span><br><span class="line">        ++dict[s];</span><br><span class="line">    <span class="built_in">map</span>&lt;<span class="built_in">string</span>, <span class="keyword">int</span>&gt;::iterator it=dict.begin();</span><br><span class="line">    <span class="keyword">for</span>(; it!=dict.end(); ++it)</span><br><span class="line">        <span class="built_in">cout</span>&lt;&lt;it-&gt;first&lt;&lt;<span class="string">": "</span>&lt;&lt;it-&gt;second&lt;&lt;<span class="string">"λn"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+          <h2 id="红黑树的定义"><a href="#红黑树的定义" class="headerlink" title="红黑树的定义"></a>红黑树的定义</h2><p>红黑树是一种自平衡二叉搜索树。通过对节点进行着色和旋转,红黑树可以很容易地保持树的平衡。我们需要在二叉搜索树上增加一个额外的颜色信息。节点可以被涂成红色或黑色。如果一棵二叉搜索树满足下面的全部5条性质,我们称之为红黑树。</p>
+<ul>
+<li>任一节点要么是红色,要么是黑色。</li>
+<li>根节点为黑色。</li>
+<li>所有的叶节点(NIL节点)为黑色。</li>
+<li>如果一个节点为红色,则它的两个子节点都是黑色。</li>
+<li>对任一节点,从它出发到所有叶子节点的路径上包含相同数量的黑色节点。</li></ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/04/03/basicAlg01/#more" rel="contents">
+            <a class="btn" href="/2017/07/28/basicAlg02/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -879,7 +626,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/03/basicAlg00/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/06/goeasylearn3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="刘韬">
@@ -901,8 +648,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/04/03/basicAlg00/" itemprop="url">
-                  [初等算法]--前言
+                <a class="post-title-link" href="/2017/07/06/goeasylearn3/" itemprop="url">
+                  go语言基础--并行计算、包、测试
                 </a>
               
             
@@ -918,8 +665,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-03T16:39:47+08:00">
-                2017-04-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-06T11:40:38+08:00">
+                2017-07-06
               </time>
             
 
@@ -941,8 +688,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/初等算法/" itemprop="url" rel="index">
-                    <span itemprop="name">初等算法</span>
+                  <a href="/categories/go语言学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">go语言学习笔记</span>
                   </a>
                 </span>
 
@@ -977,13 +724,14 @@
 
       
         
-          <h1 id="最小可用ID-算法的威力"><a href="#最小可用ID-算法的威力" class="headerlink" title="最小可用ID 算法的威力"></a>最小可用ID 算法的威力</h1><p>题目：系统中每一个ID具有独特性，有些ID处于使用的状态，有些ID可以分配给新的用户，现在的问题是，怎么样找到最小的可用ID呢？<br>当前正在使用的ID： </p>
+          <h1 id="Go并行计算"><a href="#Go并行计算" class="headerlink" title="Go并行计算"></a>Go并行计算</h1><p>如果说Go有什么让人一见钟情的特性，那大概就是并行计算了吧。</p>
+<p>做个题目</p>
 <blockquote>
-<p>[18, 4, 8, 9, 16, 1, 14, 7, 19, 3, 0, 5, 2, 11, 6]  </p>
+<p>如果我们列出10以下所有能够被3或者5整除的自然数，那么我们得到的是3，5，6和9。这四个数的和是23。<br>那么请计算1000以下（不包括1000）的所有能够被3或者5整除的自然数的和。</p>
 </blockquote>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/04/03/basicAlg00/#more" rel="contents">
+            <a class="btn" href="/2017/07/06/goeasylearn3/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1029,7 +777,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/03/LeVoleur/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/06/goeasylearn2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="刘韬">
@@ -1051,8 +799,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/04/03/LeVoleur/" itemprop="url">
-                  偷影子的人
+                <a class="post-title-link" href="/2017/07/06/goeasylearn2/" itemprop="url">
+                  go语言基础--函数、指针、结构体、接口
                 </a>
               
             
@@ -1068,8 +816,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-03T15:00:34+08:00">
-                2017-04-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-06T11:10:36+08:00">
+                2017-07-06
               </time>
             
 
@@ -1091,8 +839,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
+                  <a href="/categories/go语言学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">go语言学习笔记</span>
                   </a>
                 </span>
 
@@ -1127,14 +875,11 @@
 
       
         
-          <blockquote>
-<p>有些人只拥吻影子，于是只拥有幸福的幻影。—-莎士比亚  </p>
-<p>爱情里面最需要的，是想象力。每个人必须要用尽全力和全部的想象力来形塑对方，并丝毫不向现实低头。那么，当双方幻想相遇……就再也没有比这更美的景象了。—-罗曼.加里  </p>
-</blockquote>
-<p>&#160; &#160; &#160; &#160; 如果你能偷我的影子，那么我的影子会告诉你什么呢？  </p>
+          <h1 id="Go函数"><a href="#Go函数" class="headerlink" title="Go函数"></a>Go函数</h1><p>是时候讨论一下Go的函数定义了。</p>
+<h2 id="什么是函数"><a href="#什么是函数" class="headerlink" title="什么是函数"></a>什么是函数</h2><p>函数，简单来讲就是一段将<code>输入数据</code>转换为<code>输出数据</code>的<code>公用代码块</code>。当然有的时候函数的返回值为空，那么就是说输出数据为空。而真正的处理过程在函数内部已经完成了。<br></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/04/03/LeVoleur/#more" rel="contents">
+            <a class="btn" href="/2017/07/06/goeasylearn2/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1180,7 +925,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/04/03/markdownLearn/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/07/06/goeasylearn1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="刘韬">
@@ -1202,8 +947,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/04/03/markdownLearn/" itemprop="url">
-                  markdown学习
+                <a class="post-title-link" href="/2017/07/06/goeasylearn1/" itemprop="url">
+                  go语言基础--数据类型、变量、控制
                 </a>
               
             
@@ -1219,8 +964,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-03T14:13:40+08:00">
-                2017-04-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-06T10:43:48+08:00">
+                2017-07-06
               </time>
             
 
@@ -1242,8 +987,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MD学习/" itemprop="url" rel="index">
-                    <span itemprop="name">MD学习</span>
+                  <a href="/categories/go语言学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">go语言学习笔记</span>
                   </a>
                 </span>
 
@@ -1278,13 +1023,10 @@
 
       
         
-          <blockquote>
-<p><del>简书居然没有官方 Markdown 教程，我来写一个</del>。原来官方是有的。。。<a href="http://jianshu.io/p/q81RER" target="_blank" rel="noopener">献给写作者的 Markdown 新手指南</a>。不过我这个更简，而且还有独门秘籍。</p>
-</blockquote>
-<p>首先，“Markdown 其实很简单。在简书上学习 Markdown 最方便。”  </p>
+          <h1 id="Go语言内置基础数据类型"><a href="#Go语言内置基础数据类型" class="headerlink" title="Go语言内置基础数据类型"></a>Go语言内置基础数据类型</h1><p>在自然界里面，有猫，有狗，有猪。有各种动物。每种动物都是不同的。<br>比如猫会喵喵叫，狗会旺旺叫，猪会哼哼叫。。。<br>Stop!!!<br>好了，大家毕竟不是幼儿园的小朋友。介绍到这里就可以了。<br></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/04/03/markdownLearn/#more" rel="contents">
+            <a class="btn" href="/2017/07/06/goeasylearn1/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1325,7 +1067,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1401,6 +1143,13 @@
         </nav>
 
         
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
 
         <div class="links-of-author motion-element">
           
@@ -1470,14 +1219,14 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright" >
-  <!--
+  
   &copy;  2016 - 
   <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">刘韬</span>
-  -->
+
 </div>
 
 
@@ -1495,6 +1244,14 @@
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
 
         
       </div>
@@ -1533,22 +1290,22 @@
 
 
   
-  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
 
   
-  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
 
   
-  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
 
   
-  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
 
   
-  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
 
   
-  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
 
 
   
@@ -1606,6 +1363,17 @@
 
 
   
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
 
 
 
@@ -1615,6 +1383,19 @@
   
 
 
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.0"></script>
 
 
 
