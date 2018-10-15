@@ -105,14 +105,14 @@
 <meta property="og:site_name" content="不知归期的故人">
 <meta property="og:description" content="openstack源代码的获取我们可以从OpenStack Releases下载所有发行版本的openstack，openstack每6个月发行一个版本。选择相应的openstac版本和相应组件版本。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://otl4ekdmf.bkt.clouddn.com/openstackrelease.png">
-<meta property="og:image" content="http://otl4ekdmf.bkt.clouddn.com/horilogin.png">
-<meta property="og:image" content="http://otl4ekdmf.bkt.clouddn.com/horizonmainpage.png">
-<meta property="og:updated_time" content="2018-10-13T14:39:56.280Z">
+<meta property="og:image" content="http://yoursite.com/2017/11/13/horizondevelop1/openstackrelease.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/13/horizondevelop1/horilogin.png">
+<meta property="og:image" content="http://yoursite.com/2017/11/13/horizondevelop1/horizonmainpage.png">
+<meta property="og:updated_time" content="2018-10-15T01:49:54.168Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="horizon 二次开发环境配置">
 <meta name="twitter:description" content="openstack源代码的获取我们可以从OpenStack Releases下载所有发行版本的openstack，openstack每6个月发行一个版本。选择相应的openstac版本和相应组件版本。">
-<meta name="twitter:image" content="http://otl4ekdmf.bkt.clouddn.com/openstackrelease.png">
+<meta name="twitter:image" content="http://yoursite.com/2017/11/13/horizondevelop1/openstackrelease.png">
 
 
 
@@ -428,7 +428,7 @@
 
       
         <h2 id="openstack源代码的获取"><a href="#openstack源代码的获取" class="headerlink" title="openstack源代码的获取"></a>openstack源代码的获取</h2><p>我们可以从<a href="https://releases.openstack.org/" target="_blank" rel="noopener"><strong><em>OpenStack Releases</em></strong></a>下载所有发行版本的openstack，openstack每6个月发行一个版本。选择相应的openstac版本和相应组件版本。<br><a id="more"></a></p>
-<p><img src="http://otl4ekdmf.bkt.clouddn.com/openstackrelease.png" alt=""></p>
+<p><img src="/2017/11/13/horizondevelop1/openstackrelease.png" alt=""></p>
 <h2 id="Horizon-UI开发环境部署"><a href="#Horizon-UI开发环境部署" class="headerlink" title="Horizon UI开发环境部署"></a>Horizon UI开发环境部署</h2><p>这里认为以及部署好一个openstack ocata基础环境，仅演示手动部署horizon ui开发环境</p>
 <h3 id="开发准备"><a href="#开发准备" class="headerlink" title="开发准备"></a>开发准备</h3><h4 id="安装pip"><a href="#安装pip" class="headerlink" title="安装pip"></a>安装pip</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install python-pip</span><br><span class="line">sudo apt-get install -y libxml2-dev libxslt1-dev zlib1g-dev python3-pip</span><br></pre></td></tr></table></figure>
 <h4 id="下载horizon源码"><a href="#下载horizon源码" class="headerlink" title="下载horizon源码:"></a>下载horizon源码:</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/openstack/horizon.git</span><br><span class="line">cd horizon/</span><br></pre></td></tr></table></figure>
@@ -442,8 +442,8 @@
 <p>2.编译<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd horizon/openstack_dashboard</span><br><span class="line">django-admin compilemessages</span><br></pre></td></tr></table></figure></p>
 <p>3.done</p>
 <p><code>注意</code>：以上的环境为python3.5和pip3</p>
-<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p>打开pycharm，加载运行horizon源码，选择编译器版本为python3,安装requirements.txt中的依赖，安装以上步骤配置完成后，点击运行，得到如下效果：<br><img src="http://otl4ekdmf.bkt.clouddn.com/horilogin.png" alt=""></p>
-<p>登录进去效果如下:<br><img src="http://otl4ekdmf.bkt.clouddn.com/horizonmainpage.png" alt=""></p>
+<h3 id="运行效果"><a href="#运行效果" class="headerlink" title="运行效果"></a>运行效果</h3><p>打开pycharm，加载运行horizon源码，选择编译器版本为python3,安装requirements.txt中的依赖，安装以上步骤配置完成后，点击运行，得到如下效果：<br><img src="/2017/11/13/horizondevelop1/horilogin.png" alt=""></p>
+<p>登录进去效果如下:<br><img src="/2017/11/13/horizondevelop1/horizonmainpage.png" alt=""></p>
 
       
     </div>

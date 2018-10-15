@@ -105,21 +105,21 @@
 <meta property="og:site_name" content="不知归期的故人">
 <meta property="og:description" content="Vim 学习笔记概念什么是 vim Vim是从 vi 发展出来的一个文本编辑器。代码补完、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。和Emacs并列成为类Unix系统用户最喜欢的编辑器。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3101171-46f752c581d79057.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3101171-00835b8316330c58.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3101171-0b109d66a6111c83.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3101171-8b093a0f65707949.gif?imageMogr2/auto-orient/strip">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3101171-e2ae877e67880ff7.gif?imageMogr2/auto-orient/strip">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3101171-f1889f8bca723964.gif?imageMogr2/auto-orient/strip">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3101171-fe1e19983fca213f.gif?imageMogr2/auto-orient/strip">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3101171-b192601247334c4e.gif?imageMogr2/auto-orient/strip">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3101171-f329d01e299cb366.gif?imageMogr2/auto-orient/strip">
-<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/3101171-d11e01e8ebb89308.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
-<meta property="og:updated_time" content="2018-10-13T14:39:56.283Z">
+<meta property="og:image" content="http://yoursite.com/2017/12/04/vim/wordmove.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/12/04/vim/linemove.jpg">
+<meta property="og:image" content="http://yoursite.com/2017/12/04/vim/textobject.png">
+<meta property="og:image" content="http://yoursite.com/2017/12/04/vim/rectangular.gif">
+<meta property="og:image" content="http://yoursite.com/2017/12/04/vim/completion.gif">
+<meta property="og:image" content="http://yoursite.com/2017/12/04/vim/macros.gif">
+<meta property="og:image" content="http://yoursite.com/2017/12/04/vim/autoindent.gif">
+<meta property="og:image" content="http://yoursite.com/2017/12/04/vim/manylines.gif">
+<meta property="og:image" content="http://yoursite.com/2017/12/04/vim/split.gif">
+<meta property="og:image" content="http://yoursite.com/2017/12/04/vim/vimkey.png">
+<meta property="og:updated_time" content="2018-10-15T02:45:40.671Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vim 学习笔记">
 <meta name="twitter:description" content="Vim 学习笔记概念什么是 vim Vim是从 vi 发展出来的一个文本编辑器。代码补完、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。和Emacs并列成为类Unix系统用户最喜欢的编辑器。">
-<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/3101171-46f752c581d79057.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta name="twitter:image" content="http://yoursite.com/2017/12/04/vim/wordmove.jpg">
 
 
 
@@ -568,7 +568,7 @@
 </ol>
 <p>> 如果你认为单词是由默认方式，那么就用小写的e和w。默认上来说，一个单词由字母，数字和下划线组成（注：程序变量）</p>
 <p>> 如果你认为单词是由blank字符分隔符，那么你需要使用大写的E和W。（注：程序语句）</p>
-<p><img src="http://upload-images.jianshu.io/upload_images/3101171-46f752c581d79057.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Word moves example"></p>
+<p><img src="/2017/12/04/vim/wordmove.jpg" alt="Word moves example"></p>
 </blockquote>
 </li>
 </ol>
@@ -609,7 +609,7 @@
 <li><code>fa</code> → 到下一个为a的字符处，你也可以fs到下一个为s的字符。</li>
 <li><code>t,</code> → 到逗号前的第一个字符。逗号可以变成其它字符。</li>
 <li><code>3fa</code> → 在当前行查找第三个出现的a。</li>
-<li><code>F</code> 和 <code>T</code> → 和 <code>f</code> 和 <code>t</code> 一样，只不过是相反方向。<br><img src="http://upload-images.jianshu.io/upload_images/3101171-00835b8316330c58.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Line moves"></li>
+<li><code>F</code> 和 <code>T</code> → 和 <code>f</code> 和 <code>t</code> 一样，只不过是相反方向。<br><img src="/2017/12/04/vim/linemove.jpg" alt="Line moves"></li>
 </ul>
 </blockquote>
 <p>还有一个很有用的命令是 <code>dt&quot;</code> → 删除所有的内容，直到遇到双引号—— <code>&quot;。</code></p>
@@ -630,7 +630,7 @@
 <li><code>v2a)</code> → 会选择 <code>(map (+) (&quot;foo&quot;))</code></li>
 </ul>
 </blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/3101171-0b109d66a6111c83.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Text objects selection"></p>
+<p><img src="/2017/12/04/vim/textobject.png" alt="Text objects selection"></p>
 <h4 id="块操作-lt-C-v-gt"><a href="#块操作-lt-C-v-gt" class="headerlink" title="块操作: &lt;C-v&gt;"></a>块操作: <code>&lt;C-v&gt;</code></h4><p>块操作，典型的操作： <code>0 &lt;C-v&gt; &lt;C-d&gt; I-- [ESC]</code></p>
 <ul>
 <li><code>^</code> → 到行头</li>
@@ -638,10 +638,10 @@
 <li><code>&lt;C-d&gt;</code> → 向下移动 (你也可以使用hjkl来移动光标，或是使用%，或是别的)</li>
 <li><code>I-- [ESC]</code> → I是插入，插入“<code>--</code>”，按ESC键来为每一行生效。</li>
 </ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/3101171-8b093a0f65707949.gif?imageMogr2/auto-orient/strip" alt="Rectangular blocks"></p>
+<p><img src="/2017/12/04/vim/rectangular.gif" alt="Rectangular blocks"></p>
 <p>在Windows下的vim，你需要使用 <code>&lt;C-q&gt;</code> 而不是 <code>&lt;C-v&gt;</code> ，<code>&lt;C-v&gt;</code> 是拷贝剪贴板。</p>
 <h4 id="自动提示：-lt-C-n-gt-和-lt-C-p-gt"><a href="#自动提示：-lt-C-n-gt-和-lt-C-p-gt" class="headerlink" title="自动提示： &lt;C-n&gt; 和 &lt;C-p&gt;"></a>自动提示： <code>&lt;C-n&gt;</code> 和 <code>&lt;C-p&gt;</code></h4><p>在 Insert 模式下，你可以输入一个词的开头，然后按 <code>&lt;C-p&gt;或是&lt;C-n&gt;，自动补齐功能就出现了……</code></p>
-<p><code></code><img src="http://upload-images.jianshu.io/upload_images/3101171-e2ae877e67880ff7.gif?imageMogr2/auto-orient/strip" alt="Completion"></p>
+<p><code></code><img src="/2017/12/04/vim/completion.gif" alt="Completion"></p>
 <h4 id="宏录制：-qa-操作序列-q-a"><a href="#宏录制：-qa-操作序列-q-a" class="headerlink" title="宏录制： qa 操作序列 q, @a, @@"></a>宏录制： <code>qa</code> 操作序列 <code>q</code>, <code>@a</code>, <code>@@</code></h4><ul>
 <li><code>qa</code> 把你的操作记录在寄存器 <code>a。</code></li>
 <li>于是 <code>@a</code> 会replay被录制的宏。</li>
@@ -672,14 +672,14 @@
 </li>
 </ul>
 </blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/3101171-f1889f8bca723964.gif?imageMogr2/auto-orient/strip" alt="Macros"></p>
+<p><img src="/2017/12/04/vim/macros.gif" alt="Macros"></p>
 <h4 id="可视化选择：-v-V-lt-C-v-gt"><a href="#可视化选择：-v-V-lt-C-v-gt" class="headerlink" title="可视化选择： v,V,&lt;C-v&gt;"></a>可视化选择： <code>v</code>,<code>V</code>,<code>&lt;C-v&gt;</code></h4><p>前面，我们看到了 <code>&lt;C-v&gt;</code>的示例 （在Windows下应该是<c-q>），我们可以使用 <code>v</code> 和 <code>V</code>。一但被选好了，你可以做下面的事：</c-q></p>
 <ul>
 <li><code>J</code> → 把所有的行连接起来（变成一行）</li>
 <li><code>&lt;</code> 或 <code>&gt;</code> → 左右缩进</li>
 <li><code>=</code> → 自动给缩进 （注：这个功能相当强大，我太喜欢了）</li>
 </ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/3101171-fe1e19983fca213f.gif?imageMogr2/auto-orient/strip" alt="Autoindent"></p>
+<p><img src="/2017/12/04/vim/autoindent.gif" alt="Autoindent"></p>
 <p>在所有被选择的行后加上点东西：</p>
 <ul>
 <li><code>&lt;C-v&gt;</code></li>
@@ -687,7 +687,7 @@
 <li><code>$</code> 到行最后</li>
 <li><code>A</code>, 输入字符串，按 <code>ESC。</code></li>
 </ul>
-<p><img src="http://upload-images.jianshu.io/upload_images/3101171-b192601247334c4e.gif?imageMogr2/auto-orient/strip" alt="Append to many lines"></p>
+<p><img src="/2017/12/04/vim/manylines.gif" alt="Append to many lines"></p>
 <h4 id="分屏-split-和-vsplit"><a href="#分屏-split-和-vsplit" class="headerlink" title="分屏: :split 和 vsplit."></a>分屏: <code>:split</code> 和 <code>vsplit</code>.</h4><p>下面是主要的命令，你可以使用VIM的帮助 <code>:help split</code>. 你可以参考本站以前的一篇文章<a href="https://coolshell.cn/articles/1679.html" target="_blank" rel="noopener">VIM分屏</a>。</p>
 <blockquote>
 <ul>
@@ -697,8 +697,8 @@
 <li><code>&lt;C-w&gt;+</code> (或 <code>&lt;C-w&gt;-</code>) : 增加尺寸</li>
 </ul>
 </blockquote>
-<p><img src="http://upload-images.jianshu.io/upload_images/3101171-f329d01e299cb366.gif?imageMogr2/auto-orient/strip" alt="Split"></p>
-<h2 id="Vim-命令"><a href="#Vim-命令" class="headerlink" title="Vim 命令"></a>Vim 命令</h2><p><img src="http://upload-images.jianshu.io/upload_images/3101171-d11e01e8ebb89308.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p><img src="/2017/12/04/vim/split.gif" alt="Split"></p>
+<h2 id="Vim-命令"><a href="#Vim-命令" class="headerlink" title="Vim 命令"></a>Vim 命令</h2><p><img src="/2017/12/04/vim/vimkey.png" alt="image.png"></p>
 <h2 id="资料"><a href="#资料" class="headerlink" title="资料"></a>资料</h2><ul>
 <li><a href="https://coolshell.cn/articles/5426.html" target="_blank" rel="noopener">简明 VIM 练级攻略</a> ，Vim 渐进学习内容来源于这篇文章，作为 Vim 新手，我觉得入门效果很好。</li>
 </ul>
