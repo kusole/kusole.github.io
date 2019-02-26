@@ -1,0 +1,1118 @@
+<!doctype html>
+
+
+
+
+<html class="theme-next pisces" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="不知归期的故人" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="字符串（一）字符串考点字符串考点">
+<meta name="keywords" content="算法">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[牛客网算法]--字符串">
+<meta property="og:url" content="https://kusole.github.io/2018/04/13/NCstring/index.html">
+<meta property="og:site_name" content="不知归期的故人">
+<meta property="og:description" content="字符串（一）字符串考点字符串考点">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://kusole.github.io/2018/04/13/NCstring/1523606992058.png">
+<meta property="og:image" content="https://kusole.github.io/2018/04/13/NCstring/1523607029011.png">
+<meta property="og:image" content="https://kusole.github.io/2018/04/13/NCstring/1523607070040.png">
+<meta property="og:image" content="https://kusole.github.io/2018/04/13/NCstring/1523607133544.png">
+<meta property="og:image" content="https://kusole.github.io/2018/04/13/NCstring/1523607202209.png">
+<meta property="og:image" content="https://kusole.github.io/2018/04/13/NCstring/1523607261018.png">
+<meta property="og:image" content="https://kusole.github.io/2018/04/13/NCstring/1523607347174.png">
+<meta property="og:image" content="https://kusole.github.io/2018/04/13/NCstring/1523607379918.png">
+<meta property="og:image" content="https://kusole.github.io/2018/04/13/NCstring/1523607449889.png">
+<meta property="og:image" content="https://kusole.github.io/2018/04/13/NCstring/1523607507332.png">
+<meta property="og:image" content="https://kusole.github.io/2018/04/13/NCstring/1523607540371.png">
+<meta property="og:image" content="https://kusole.github.io/2018/04/13/NCstring/1523607598713.png">
+<meta property="og:image" content="https://kusole.github.io/2018/04/13/NCstring/1523607666586.png">
+<meta property="og:image" content="https://kusole.github.io/2018/04/13/NCstring/1523607765287.png">
+<meta property="og:image" content="https://kusole.github.io/2018/04/13/NCstring/1523608138471.png">
+<meta property="og:updated_time" content="2019-02-26T07:39:16.476Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="[牛客网算法]--字符串">
+<meta name="twitter:description" content="字符串（一）字符串考点字符串考点">
+<meta name="twitter:image" content="https://kusole.github.io/2018/04/13/NCstring/1523606992058.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: false,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://kusole.github.io/2018/04/13/NCstring/"/>
+
+
+
+
+
+  <title> [牛客网算法]--字符串 | 不知归期的故人 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?124e5902fa6b3c1d89682ed1fa0441ac";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">不知归期的故人</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">乘风破浪会有时，直挂云帆济沧海。</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2018/04/13/NCstring/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘韬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不知归期的故人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                [牛客网算法]--字符串
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-13T16:39:47+08:00">
+                2018-04-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工作面试/" itemprop="url" rel="index">
+                    <span itemprop="name">工作面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="字符串（一）字符串考点"><a href="#字符串（一）字符串考点" class="headerlink" title="字符串（一）字符串考点"></a>字符串（一）字符串考点</h1><h2 id="字符串考点"><a href="#字符串考点" class="headerlink" title="字符串考点"></a>字符串考点</h2><p><img src="/2018/04/13/NCstring/1523606992058.png" alt="Alt text"></p>
+<a id="more"></a>
+<p><img src="/2018/04/13/NCstring/1523607029011.png" alt="Alt text"></p>
+<p><img src="/2018/04/13/NCstring/1523607070040.png" alt="Alt text"><br><img src="/2018/04/13/NCstring/1523607133544.png" alt="Alt text"><br><img src="/2018/04/13/NCstring/1523607202209.png" alt="Alt text"><br><img src="/2018/04/13/NCstring/1523607261018.png" alt="Alt text"><br><img src="/2018/04/13/NCstring/1523607347174.png" alt="Alt text"><br><img src="/2018/04/13/NCstring/1523607379918.png" alt="Alt text"><br><img src="/2018/04/13/NCstring/1523607449889.png" alt="Alt text"><br><img src="/2018/04/13/NCstring/1523607507332.png" alt="Alt text"></p>
+<h2 id="拓扑结构相同的子树"><a href="#拓扑结构相同的子树" class="headerlink" title="拓扑结构相同的子树"></a>拓扑结构相同的子树</h2><p><code>题目</code><br><img src="/2018/04/13/NCstring/1523607540371.png" alt="Alt text"><br><code>普通过程</code><br><img src="/2018/04/13/NCstring/1523607598713.png" alt="Alt text"><br><code>最优过程</code><br><img src="/2018/04/13/NCstring/1523607666586.png" alt="Alt text"><br><code>代码</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">struct TreeNode &#123;</span></span><br><span class="line"><span class="comment">    int val;</span></span><br><span class="line"><span class="comment">    struct TreeNode *left;</span></span><br><span class="line"><span class="comment">    struct TreeNode *right;</span></span><br><span class="line"><span class="comment">    TreeNode(int x) :</span></span><br><span class="line"><span class="comment">            val(x), left(NULL), right(NULL) &#123;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;;*/</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IdenticalTree</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">chkIdentical</span><span class="params">(TreeNode* A, TreeNode* B)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="词语变形练习"><a href="#词语变形练习" class="headerlink" title="词语变形练习"></a>词语变形练习</h2><p><code>题目</code><br><img src="/2018/04/13/NCstring/1523607765287.png" alt="Alt text"></p>
+<p><code>过程</code><br><img src="/2018/04/13/NCstring/1523608138471.png" alt="Alt text"></p>
+<p><code>代码</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Transform</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">chkTransform</span><span class="params">(<span class="built_in">string</span> A, <span class="keyword">int</span> lena, <span class="built_in">string</span> B, <span class="keyword">int</span> lenb)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        <span class="keyword">if</span>(lena!=lenb) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">int</span> hashA[<span class="number">256</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> hashB[<span class="number">256</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">        <span class="keyword">int</span> i;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span> ;i&lt;lena;i++)&#123;</span><br><span class="line">            hashA[A[i]]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;lenb;i++)&#123;</span><br><span class="line">            hashB[B[i]]++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">256</span>;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(hashA[i]!=hashB[i])<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h1 id="字符串（二）习题"><a href="#字符串（二）习题" class="headerlink" title="字符串（二）习题"></a>字符串（二）习题</h1><h2 id="两串旋转练习题"><a href="#两串旋转练习题" class="headerlink" title="两串旋转练习题"></a>两串旋转练习题</h2><p><code>题目</code><br>给定两个字符串，把字符串str前面任意部分挪到后面去形成的字符串叫做str的旋转词。比如str=”1234”，str的旋转词为”1234”，”2341”，”3412”，”4123”。给定两个字符串a和b，请判断a和b是否互为旋转词</p>
+<ul>
+<li>1、a=”cdab”，b=”abcd”，返回true</li>
+<li>2、a=”1ab2”，b=”ab12”，返回false</li>
+<li>3、a=”2ab1”，b=”ab12”，返回true<blockquote>
+<p>输入：”cdab”,4,”abcd”,4<br>返回：true</p>
+</blockquote>
+</li>
+</ul>
+<p><code>过程</code><br>最优解为O(n)</p>
+<ul>
+<li>1、判断str1和str2是否程度相等</li>
+<li>2、如果长度相等，生成str1+str2大字符串</li>
+<li>3、用KMP算法判断大字符串中是否含有str2</li>
+</ul>
+<p><code>代码</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Rotation</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">chkRotation</span><span class="params">(<span class="built_in">string</span> A, <span class="keyword">int</span> lena, <span class="built_in">string</span> B, <span class="keyword">int</span> lenb)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        <span class="keyword">if</span>(lena!=lenb)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        A+=A;</span><br><span class="line">        <span class="keyword">if</span>(A.find(B)!=<span class="number">-1</span>)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="句子的逆序练习题"><a href="#句子的逆序练习题" class="headerlink" title="句子的逆序练习题"></a>句子的逆序练习题</h2><p><code>题目</code><br>给定一个字符串str，请在单词间做逆序调整</p>
+<p>举例：<br>“pig loves dog”逆序成”dog loves pig”</p>
+<blockquote>
+<p>输入：”cdab”,4,”abcd”,4<br>返回：true</p>
+</blockquote>
+<p><code>过程</code></p>
+<ul>
+<li>1、实现将字符串局部所有字符逆序的函数f</li>
+<li>2、利用f将字符串所有字符逆序<br>   “pig loves dog”–&gt;”god sevol gip”</li>
+<li>3、找到逆序后的字符串中每一个单词的区域，利用f将每一个单词的区域逆序。</li>
+</ul>
+<p><code>代码</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Reverse</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">reverseSentence</span><span class="params">(<span class="built_in">string</span> A, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        <span class="keyword">int</span> i,j;</span><br><span class="line">        <span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            j=i;</span><br><span class="line">            <span class="keyword">while</span>(j&lt;n&amp;&amp;A[j]!=<span class="string">' '</span>)&#123;</span><br><span class="line">                j++;</span><br><span class="line">            &#125;</span><br><span class="line">            reverse(A, i,j<span class="number">-1</span>);</span><br><span class="line">            i=j;</span><br><span class="line">        &#125;</span><br><span class="line">        reverse(A,<span class="number">0</span>,n<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">return</span> A;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">reverse</span><span class="params">(<span class="built_in">string</span> &amp;A, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">        <span class="keyword">char</span> t;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;j)&#123;</span><br><span class="line">            t=A[i];</span><br><span class="line">            A[i]=A[j];</span><br><span class="line">            A[j]=t;</span><br><span class="line">            i++;j--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="字符串移位练习题"><a href="#字符串移位练习题" class="headerlink" title="字符串移位练习题"></a>字符串移位练习题</h2><p><code>题目</code><br>给定一个字符串str，和一个整数i。i代表str中的位置。将str[0…i]移到右侧，str[i+1…n-1]移到左侧。</p>
+<p>举例：str=”abcde”，i=2。将str调整为”deabc”。</p>
+<blockquote>
+<p>输入：”ABCDE”,5,3<br>返回：”DEABC”</p>
+</blockquote>
+<p><code>过程</code></p>
+<ul>
+<li>1、将str[0…i]字符做逆序调整。</li>
+<li>2、将str[i+1…n-1]字符做逆序调整</li>
+<li>3、将整个字符做逆序调整</li>
+</ul>
+<p><code>代码</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Translation</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">stringTranslation</span><span class="params">(<span class="built_in">string</span> A, <span class="keyword">int</span> n, <span class="keyword">int</span> len)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        reverse(A,<span class="number">0</span>,len<span class="number">-1</span>);</span><br><span class="line">        reverse(A,len,n<span class="number">-1</span>);</span><br><span class="line">        reverse(A,<span class="number">0</span>,n<span class="number">-1</span>);</span><br><span class="line">        <span class="keyword">return</span> A;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">reverse</span><span class="params">(<span class="built_in">string</span> &amp;A, <span class="keyword">int</span> i, <span class="keyword">int</span> j)</span></span>&#123;</span><br><span class="line">        <span class="keyword">char</span> t;</span><br><span class="line">        <span class="keyword">while</span>(i&lt;j)&#123;</span><br><span class="line">            t=A[i];</span><br><span class="line">            A[i]=A[j];</span><br><span class="line">            A[j]=t;</span><br><span class="line">            i++;j--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="拼接最小字典序练习题"><a href="#拼接最小字典序练习题" class="headerlink" title="拼接最小字典序练习题"></a>拼接最小字典序练习题</h2><p><code>题目</code><br>给定一个字符串数组strs，请找到一种拼接顺序，使得所有字符串拼接起来组成的打字符串所有可能性中字典顺序最小的，并返回这个大字符串。</p>
+<p>举例：</p>
+<ul>
+<li>strs=[“abc”，”de”]，可以拼接成”abcde”，也可以拼接成”deabc”,返回”abcde” </li>
+<li>strs=[“b”，”ba”]，可以拼接成”bba”，也可以拼接成”bab”,返回”bab”<blockquote>
+<p>输入：[“abc”,”de”],2<br>返回：”abcde”</p>
+</blockquote>
+</li>
+</ul>
+<p><code>过程</code></p>
+<ul>
+<li>字符串str1和str2按照如下方式比较排序：<br>如果str1+str2&lt;str2+str1，则str1放在前面，否则str2放在前面</li>
+</ul>
+<p><code>代码</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Prior</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">findSmallest</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="built_in">string</span>&gt; strs, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        <span class="built_in">string</span> ret;</span><br><span class="line">        sort(strs.begin(),strs.end(),cmp);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i =<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            ret+=strs[i];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="built_in">string</span> A, <span class="built_in">string</span> B)</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (A+B)&lt;(B+A);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="空格替换练习题"><a href="#空格替换练习题" class="headerlink" title="空格替换练习题"></a>空格替换练习题</h2><p><code>题目</code><br>请编写一个方法，将字符串中的空格全部替换为“%20”。假定该字符串有足够的空间存放新增的字符，并且知道字符串的真实长度(小于等于1000)，同时保证字符串由大小写的英文字母组成。</p>
+<p>给定一个string iniString 为原始的串，以及串的长度 int len, 返回替换后的string。</p>
+<blockquote>
+<p>输入：”Mr John Smith”,13<br>返回：”Mr%20John%20Smith”<br>输入：”Hello  World”,12<br>返回：”Hello%20%20World”</p>
+</blockquote>
+<p><code>过程</code></p>
+<ul>
+<li>统计空格的数量，将字符串的长度加上2倍的空格数量，得到替换后的总长度</li>
+<li>从字符串末端开始移位，如果遇到空格，将空格替换为%20</li>
+<li>如果没遇到空格，将原字符移动到尾端指针</li>
+</ul>
+<p><code>代码</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Replacement</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="built_in">string</span> <span class="title">replaceSpace</span><span class="params">(<span class="built_in">string</span> iniString, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">            <span class="keyword">int</span> countSpace = countspace(iniString, length);</span><br><span class="line">        <span class="keyword">if</span> (countSpace == <span class="number">0</span>)<span class="keyword">return</span> iniString;</span><br><span class="line">        iniString.insert(iniString.size(), <span class="number">2</span> * countSpace, <span class="string">' '</span>);</span><br><span class="line">        <span class="keyword">int</span> countLength = iniString.length() - <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = length - <span class="number">1</span>; i &gt;= <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="keyword">if</span> (iniString[i] == <span class="string">' '</span>) &#123;</span><br><span class="line">                iniString[countLength--] = <span class="string">'0'</span>;</span><br><span class="line">                iniString[countLength--] = <span class="string">'2'</span>;</span><br><span class="line">                iniString[countLength--] = <span class="string">'%'</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                iniString[countLength--] = iniString[i];</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> iniString;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">countspace</span><span class="params">(<span class="built_in">string</span> iniString, <span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; length; i++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (iniString[i] == <span class="string">' '</span>)count += <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="合法括号序列判断练习题"><a href="#合法括号序列判断练习题" class="headerlink" title="合法括号序列判断练习题"></a>合法括号序列判断练习题</h2><p><code>题目</code><br>对于一个字符串，请设计一个算法，判断其是否为一个合法的括号串。<br>给定一个字符串A和它的长度n，请返回一个bool值代表它是否为一个合法的括号串。</p>
+<blockquote>
+<p>输入：”()())”,6<br>返回：true<br>输入：”()(()()”,7<br>返回：false</p>
+</blockquote>
+<p><code>过程</code></p>
+<ul>
+<li>从头到尾遍历，如果遇到左括号，num++；如果遇到右括号，num–；</li>
+<li>返回 num==0；</li>
+</ul>
+<p><code>代码</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Parenthesis</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">chkParenthesis</span><span class="params">(<span class="built_in">string</span> A, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        <span class="keyword">int</span> num=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(A[i]==<span class="string">'('</span>)&#123;</span><br><span class="line">                num++;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(A[i]==<span class="string">')'</span>)&#123;</span><br><span class="line">                num--;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> num==<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h2 id="最长无重复字符子串练习题"><a href="#最长无重复字符子串练习题" class="headerlink" title="最长无重复字符子串练习题"></a>最长无重复字符子串练习题</h2><p><code>题目</code><br>对于一个字符串,请设计一个高效算法，找到字符串的最长无重复字符的子串长度。</p>
+<p>给定一个字符串A及它的长度n，请返回它的最长无重复字符子串长度。保证A中字符全部为小写英文字符，且长度小于等于500。</p>
+<blockquote>
+<p>输入：”aabcb”,5<br>返回：3</p>
+</blockquote>
+<p><code>过程</code></p>
+<p><code>代码</code><br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DistinctSubstring</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">longestSubstring</span><span class="params">(String A, <span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (A == <span class="keyword">null</span> || n == <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">char</span>[] chas = A.toCharArray();</span><br><span class="line">		<span class="keyword">int</span>[] map = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">256</span>];</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">256</span>; i++) &#123;</span><br><span class="line">			map[i] = -<span class="number">1</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">int</span> len = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">int</span> pre = -<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> cur = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">			pre = Math.max(pre, map[chas[i]]);</span><br><span class="line">			cur = i - pre;</span><br><span class="line">			len = Math.max(len, cur);</span><br><span class="line">			map[chas[i]] = i;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> len;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>如果文章对您有帮助，请随意打赏</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="https://i.loli.net/2018/10/15/5bc436827b4bc.png" alt="刘韬 WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="https://i.loli.net/2018/10/15/5bc4368266e2b.png" alt="刘韬 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/04/vim/" rel="next" title="Vim 学习笔记">
+                <i class="fa fa-chevron-left"></i> Vim 学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/18/NCstack/" rel="prev" title="[牛客网算法]--栈和队列">
+                [牛客网算法]--栈和队列 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MDI5My8xNjgyMA=="></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.png"
+               alt="刘韬" />
+          <p class="site-author-name" itemprop="name">刘韬</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/kusole" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.douban.com/people/83381421/" target="_blank" title="豆瓣">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  豆瓣
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/liu-tao-86-26-47/activities" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/6193724399/profile?topnav=1&wvr=6&is_all=1" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串（一）字符串考点"><span class="nav-number">1.</span> <span class="nav-text">字符串（一）字符串考点</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串考点"><span class="nav-number">1.1.</span> <span class="nav-text">字符串考点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拓扑结构相同的子树"><span class="nav-number">1.2.</span> <span class="nav-text">拓扑结构相同的子树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#词语变形练习"><span class="nav-number">1.3.</span> <span class="nav-text">词语变形练习</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#字符串（二）习题"><span class="nav-number">2.</span> <span class="nav-text">字符串（二）习题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#两串旋转练习题"><span class="nav-number">2.1.</span> <span class="nav-text">两串旋转练习题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#句子的逆序练习题"><span class="nav-number">2.2.</span> <span class="nav-text">句子的逆序练习题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串移位练习题"><span class="nav-number">2.3.</span> <span class="nav-text">字符串移位练习题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拼接最小字典序练习题"><span class="nav-number">2.4.</span> <span class="nav-text">拼接最小字典序练习题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空格替换练习题"><span class="nav-number">2.5.</span> <span class="nav-text">空格替换练习题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合法括号序列判断练习题"><span class="nav-number">2.6.</span> <span class="nav-text">合法括号序列判断练习题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最长无重复字符子串练习题"><span class="nav-number">2.7.</span> <span class="nav-text">最长无重复字符子串练习题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">刘韬</span>
+
+</div>
+
+
+<div class="Hosted-by">
+  由 <a class="theme-link" href="https://pages.github.com/">GitHub Pages</a> 强力驱动
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+<!-- <div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+-->
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+
+  
+
+</body>
+</html>

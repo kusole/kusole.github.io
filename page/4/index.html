@@ -322,7 +322,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2017/04/03/basicAlg00/">
+    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2017/07/06/goeasylearn3/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="刘韬">
@@ -344,8 +344,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/04/03/basicAlg00/" itemprop="url">
-                  [初等算法]--前言
+                <a class="post-title-link" href="/2017/07/06/goeasylearn3/" itemprop="url">
+                  go语言基础--并行计算、包、测试
                 </a>
               
             
@@ -361,8 +361,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-03T16:39:47+08:00">
-                2017-04-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-06T11:40:38+08:00">
+                2017-07-06
               </time>
             
 
@@ -384,8 +384,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/初等算法/" itemprop="url" rel="index">
-                    <span itemprop="name">初等算法</span>
+                  <a href="/categories/go语言学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">go语言学习笔记</span>
                   </a>
                 </span>
 
@@ -420,13 +420,14 @@
 
       
         
-          <h1 id="最小可用ID-算法的威力"><a href="#最小可用ID-算法的威力" class="headerlink" title="最小可用ID 算法的威力"></a>最小可用ID 算法的威力</h1><p>题目：系统中每一个ID具有独特性，有些ID处于使用的状态，有些ID可以分配给新的用户，现在的问题是，怎么样找到最小的可用ID呢？<br>当前正在使用的ID： </p>
+          <h1 id="Go并行计算"><a href="#Go并行计算" class="headerlink" title="Go并行计算"></a>Go并行计算</h1><p>如果说Go有什么让人一见钟情的特性，那大概就是并行计算了吧。</p>
+<p>做个题目</p>
 <blockquote>
-<p>[18, 4, 8, 9, 16, 1, 14, 7, 19, 3, 0, 5, 2, 11, 6]  </p>
+<p>如果我们列出10以下所有能够被3或者5整除的自然数，那么我们得到的是3，5，6和9。这四个数的和是23。<br>那么请计算1000以下（不包括1000）的所有能够被3或者5整除的自然数的和。</p>
 </blockquote>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/04/03/basicAlg00/#more" rel="contents">
+            <a class="btn" href="/2017/07/06/goeasylearn3/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -472,7 +473,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2017/04/03/LeVoleur/">
+    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2017/07/06/goeasylearn2/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="刘韬">
@@ -494,8 +495,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/04/03/LeVoleur/" itemprop="url">
-                  偷影子的人
+                <a class="post-title-link" href="/2017/07/06/goeasylearn2/" itemprop="url">
+                  go语言基础--函数、指针、结构体、接口
                 </a>
               
             
@@ -511,8 +512,303 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-03T15:00:34+08:00">
-                2017-04-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-06T11:10:36+08:00">
+                2017-07-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go语言学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">go语言学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="Go函数"><a href="#Go函数" class="headerlink" title="Go函数"></a>Go函数</h1><p>是时候讨论一下Go的函数定义了。</p>
+<h2 id="什么是函数"><a href="#什么是函数" class="headerlink" title="什么是函数"></a>什么是函数</h2><p>函数，简单来讲就是一段将<code>输入数据</code>转换为<code>输出数据</code>的<code>公用代码块</code>。当然有的时候函数的返回值为空，那么就是说输出数据为空。而真正的处理过程在函数内部已经完成了。<br></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/06/goeasylearn2/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2017/07/06/goeasylearn1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘韬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不知归期的故人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/06/goeasylearn1/" itemprop="url">
+                  go语言基础--数据类型、变量、控制
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-06T10:43:48+08:00">
+                2017-07-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go语言学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">go语言学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="Go语言内置基础数据类型"><a href="#Go语言内置基础数据类型" class="headerlink" title="Go语言内置基础数据类型"></a>Go语言内置基础数据类型</h1><p>在自然界里面，有猫，有狗，有猪。有各种动物。每种动物都是不同的。<br>比如猫会喵喵叫，狗会旺旺叫，猪会哼哼叫。。。<br>Stop!!!<br>好了，大家毕竟不是幼儿园的小朋友。介绍到这里就可以了。<br></p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/07/06/goeasylearn1/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2017/07/05/FerryMan/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘韬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不知归期的故人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/07/05/FerryMan/" itemprop="url">
+                  摆渡人
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-05T14:39:16+08:00">
+                2017-07-05
               </time>
             
 
@@ -570,16 +866,10 @@
 
       
         
-          <blockquote>
-<p>有些人只拥吻影子，于是只拥有幸福的幻影。—-莎士比亚  </p>
-</blockquote>
-<blockquote>
-<p>爱情里面最需要的，是想象力。每个人必须要用尽全力和全部的想象力来形塑对方，并丝毫不向现实低头。那么，当双方幻想相遇……就再也没有比这更美的景象了。—-罗曼.加里  </p>
-</blockquote>
-<p>&#160; &#160; &#160; &#160; 如果你能偷我的影子，那么我的影子会告诉你什么呢？  </p>
+          <p>《摆渡人》是英国著名实力作家—克莱儿.麦克福尔的著作，凭借此著作，她一举获得了五项世界文学大奖。故事发生在神话背景下，以穿越荒原为主线，展现了人物灵魂成长的踪迹。  </p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/04/03/LeVoleur/#more" rel="contents">
+            <a class="btn" href="/2017/07/05/FerryMan/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -625,7 +915,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2017/04/03/markdownLearn/">
+    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2017/07/05/myMemory/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="刘韬">
@@ -647,8 +937,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/04/03/markdownLearn/" itemprop="url">
-                  markdown学习
+                <a class="post-title-link" href="/2017/07/05/myMemory/" itemprop="url">
+                  我在回忆
                 </a>
               
             
@@ -664,8 +954,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-03T14:13:40+08:00">
-                2017-04-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-05T14:09:39+08:00">
+                2017-07-05
               </time>
             
 
@@ -687,8 +977,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/MD学习/" itemprop="url" rel="index">
-                    <span itemprop="name">MD学习</span>
+                  <a href="/categories/生活小记/" itemprop="url" rel="index">
+                    <span itemprop="name">生活小记</span>
                   </a>
                 </span>
 
@@ -723,13 +1013,14 @@
 
       
         
-          <blockquote>
-<p><del>简书居然没有官方 Markdown 教程，我来写一个</del>。原来官方是有的。。。<a href="http://jianshu.io/p/q81RER" target="_blank" rel="noopener">献给写作者的 Markdown 新手指南</a>。不过我这个更简，而且还有独门秘籍。</p>
+          <center>我在回忆，在珍惜，在憧憬</center>  
+
+<h4 id="回忆"><a href="#回忆" class="headerlink" title="回忆"></a>回忆</h4><blockquote>
+<p>在爱人的眼里，一千里的距离不过一里。是距离让我们的心更靠近。<br>我们的爱情，经历了信任、猜疑、信任、猜疑…最后我们还是选择了信任。我感谢你。  </p>
 </blockquote>
-<p>首先，“Markdown 其实很简单。在简书上学习 Markdown 最方便。”  </p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/04/03/markdownLearn/#more" rel="contents">
+            <a class="btn" href="/2017/07/05/myMemory/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -770,7 +1061,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -815,7 +1106,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -826,7 +1117,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>

@@ -322,7 +322,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2019/02/26/nc_linklist/">
+    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2018/06/02/NCbstree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="刘韬">
@@ -344,8 +344,8 @@
             
               
                 
-                <a class="post-title-link" href="/2019/02/26/nc_linklist/" itemprop="url">
-                  未命名
+                <a class="post-title-link" href="/2018/06/02/NCbstree/" itemprop="url">
+                  [牛客网算法]--二叉树
                 </a>
               
             
@@ -361,259 +361,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-26T11:27:26+08:00">
-                2019-02-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="链表（一）基础操作"><a href="#链表（一）基础操作" class="headerlink" title="链表（一）基础操作"></a>链表（一）基础操作</h1><h2 id="环形链表插值"><a href="#环形链表插值" class="headerlink" title="环形链表插值"></a>环形链表插值</h2><p><code>题目</code><br>有一个整数val，如何在节点值有序的环形链表中插入一个节点值为val的节点，并且保证这个环形单链表依然有序。<br>给定链表的信息，及元素的值A及对应的nxt指向的元素编号同时给定val，请构造出这个环形链表，并插入该值。</p>
-<blockquote>
-<p>输入：[1,3,4,5,7],[1,2,3,4,0],2<br>返回：{1,2,3,4,5,7}</p>
-</blockquote>
-<p><code>代码</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">next</span>;</span></span><br><span class="line"></span><br><span class="line">    ListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">InsertValue</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">insert</span><span class="params">(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; A, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nxt, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        ListNode *phead = createList(A, nxt);</span><br><span class="line">        <span class="keyword">if</span> (!phead) &#123;</span><br><span class="line">            phead = <span class="keyword">new</span> ListNode(val);</span><br><span class="line">            phead-&gt;next = phead;</span><br><span class="line">            <span class="keyword">return</span> phead;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode *pnode = phead;</span><br><span class="line">        <span class="keyword">while</span> (val &gt; pnode-&gt;val) &#123;</span><br><span class="line">            pnode = pnode-&gt;next;</span><br><span class="line">            <span class="keyword">if</span> (pnode == phead)<span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode *ptep = <span class="keyword">new</span> ListNode(pnode-&gt;val);</span><br><span class="line">        ptep-&gt;next = pnode-&gt;next;</span><br><span class="line">        pnode-&gt;next = ptep;</span><br><span class="line">        pnode-&gt;val = val;</span><br><span class="line">        <span class="keyword">if</span> (phead == pnode) <span class="keyword">return</span> (pnode-&gt;val &gt; ptep-&gt;val ? ptep : phead);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> phead;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">ListNode *<span class="title">createList</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;val, <span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;nxt)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (val.empty() || nxt.empty() || val.size() != nxt.size())</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        ListNode *head = <span class="keyword">new</span> ListNode(val[<span class="number">0</span>]);</span><br><span class="line">        ListNode *node = head;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::size_type index = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span> (index = <span class="number">0</span>; index &lt; nxt.size(); index++) &#123;</span><br><span class="line">            node-&gt;next = <span class="keyword">new</span> ListNode(val[nxt[index]]);</span><br><span class="line">            node = node-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        node-&gt;next = head-&gt;next;</span><br><span class="line">        ListNode *p = head;</span><br><span class="line">        head = node;</span><br><span class="line">        <span class="keyword">delete</span> p;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">printList</span><span class="params">(<span class="keyword">const</span> ListNode *head)</span> </span>&#123;</span><br><span class="line">        ListNode *p;</span><br><span class="line">        <span class="keyword">if</span> (head) &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; head-&gt;val &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            <span class="keyword">for</span> (p = head-&gt;next; p != head; p = p-&gt;next) &#123;</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; p-&gt;val &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; A = &#123;<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">7</span>&#125;;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; nxt = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">0</span>&#125;;</span><br><span class="line">    ListNode *p = <span class="literal">nullptr</span>;</span><br><span class="line">    InsertValue ins;</span><br><span class="line">    p = ins.insert(A, nxt, <span class="number">0</span>);</span><br><span class="line">    ins.printList(p);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><code>注意</code><br>如何在当前节点之后插入一个值：</p>
-<ul>
-<li>分配一个节点，将插入值存入该节点</li>
-<li>插入节点的next指向当前节点的next；当前节点的next指向插入节点。</li>
-</ul>
-<p>如何在当前节点之前插入一个值：</p>
-<ul>
-<li>分配一个节点，值为当前节点的复制</li>
-<li>新增节点的next指向当前节点的next；</li>
-<li>当前节点的next指向新增节点，当前节点的值赋值为插入值。</li>
-</ul>
-<p>循环有序链表插入问题：</p>
-<ul>
-<li>如果插入值为定位在头节点之前，该值要么值最小值，要么是最大值；</li>
-<li>如果是最大值，不需要改变头节点，如果是最小值，将头节点指针指向最小值；</li>
-</ul>
-<h2 id="删除单链表中的一个值"><a href="#删除单链表中的一个值" class="headerlink" title="删除单链表中的一个值"></a>删除单链表中的一个值</h2><p><code>题目</code><br>给定单链表和给定值，删除单链表中的这个值</p>
-<p><code>代码</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> val;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span> *<span class="title">next</span>;</span></span><br><span class="line"></span><br><span class="line">    ListNode(<span class="keyword">int</span> x) : val(x), next(<span class="literal">NULL</span>) &#123;&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Remove</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">removeNode</span><span class="params">(ListNode *pHead, <span class="keyword">int</span> delVal)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        <span class="keyword">if</span> (!pHead)<span class="keyword">return</span> pHead;</span><br><span class="line">        <span class="keyword">if</span> (pHead-&gt;val == delVal) &#123;</span><br><span class="line">            ListNode *p = pHead-&gt;next;</span><br><span class="line">            pHead-&gt;next=<span class="literal">NULL</span>;</span><br><span class="line">            <span class="keyword">delete</span> pHead;</span><br><span class="line">            <span class="keyword">return</span> p;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode *cur = pHead-&gt;next;</span><br><span class="line">        ListNode *pre = pHead;</span><br><span class="line">        <span class="keyword">while</span> (cur != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cur-&gt;val == delVal) &#123;</span><br><span class="line">                pre-&gt;next = cur-&gt;next;</span><br><span class="line">                cur-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">                <span class="keyword">delete</span> cur;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            cur = cur-&gt;next;</span><br><span class="line">            pre = pre-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pHead;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function">ListNode *<span class="title">createList</span><span class="params">(<span class="keyword">const</span> <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;A)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (A.empty())<span class="keyword">return</span> <span class="literal">nullptr</span>;</span><br><span class="line">        ListNode *phead = <span class="keyword">new</span> ListNode(A[<span class="number">0</span>]);</span><br><span class="line">        ListNode *pnode = phead;</span><br><span class="line">        <span class="keyword">for</span> (<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::size_type index = <span class="number">1</span>; index &lt; A.size(); index++) &#123;</span><br><span class="line">            ListNode *ptmp = <span class="keyword">new</span> ListNode(A[index]);</span><br><span class="line">            pnode-&gt;next = ptmp;</span><br><span class="line">            pnode = ptmp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> phead;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">printList</span><span class="params">(ListNode *phead)</span> </span>&#123;</span><br><span class="line">        ListNode *p = phead;</span><br><span class="line">        <span class="keyword">if</span> (p) &#123;</span><br><span class="line">            <span class="built_in">cout</span> &lt;&lt; p-&gt;val &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">            <span class="keyword">while</span> (p) &#123;</span><br><span class="line">                <span class="built_in">cout</span> &lt;&lt; p-&gt;val &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">                p = p-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; A&#123;<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>&#125;;</span><br><span class="line">    Remove R;</span><br><span class="line">    ListNode *p = <span class="literal">NULL</span>;</span><br><span class="line">    p = R.createList(A);</span><br><span class="line">    R.printList(p);</span><br><span class="line">    p = R.removeNode(p, <span class="number">0</span>);</span><br><span class="line">    R.printList(p);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p><code>注意</code><br>假定只能访问删除节点，不能访问删除节点的前一个节点，如何删除</p>
-<ul>
-<li>如果删除节点的后一个节点不为空，则可以将后一个节点的值复制到待删除节点的值，然后将待删除节点指向后一个节点的后一个节点，删除后一个节点即可</li>
-<li>如果删除节点为最后一个节点，则不能删除，会引起系统错误；</li>
-</ul>
-<h1 id="链表（二）习题"><a href="#链表（二）习题" class="headerlink" title="链表（二）习题"></a>链表（二）习题</h1><h2 id="链表的分化练习题"><a href="#链表的分化练习题" class="headerlink" title="链表的分化练习题"></a>链表的分化练习题</h2><p><code>题目</code><br>对于一个链表，我们需要用一个特定阈值完成对它的分化，使得小于等于这个值的结点移到前面，大于该值的结点在后面，同时保证两类结点内部的位置关系不变。</p>
-<p>给定一个链表的头结点head，同时给定阈值val，请返回一个链表，使小于等于它的结点在前，大于等于它的在后，保证结点值不重复。</p>
-<blockquote>
-<p>{1,4,2,5},3<br>{1,2,4,5}</p>
-</blockquote>
-<p><code>过程</code><br><img src="/2019/02/26/nc_linklist/1524102436896.png" alt="Alt text"><br><img src="/2019/02/26/nc_linklist/1524102485570.png" alt="Alt text"></p>
-<p><code>代码</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Divide</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">listDivide</span><span class="params">(ListNode *head, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        ListNode *maxhead = <span class="literal">NULL</span>;</span><br><span class="line">        ListNode *maxtail = <span class="literal">NULL</span>;</span><br><span class="line">        ListNode *minhead = <span class="literal">NULL</span>;</span><br><span class="line">        ListNode *mintail = <span class="literal">NULL</span>;</span><br><span class="line">        ListNode *pnext = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">while</span> (head) &#123;</span><br><span class="line">            pnext = head-&gt;next;</span><br><span class="line">            head-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">            <span class="keyword">if</span> (head-&gt;val &lt;= val) &#123;</span><br><span class="line">                <span class="keyword">if</span> (minhead == <span class="literal">NULL</span>) &#123;</span><br><span class="line">                    minhead = head;</span><br><span class="line">                    mintail = head;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    mintail-&gt;next = head;</span><br><span class="line">                    mintail = head;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span>(maxhead == <span class="literal">NULL</span>)&#123;</span><br><span class="line">                    maxhead = head;</span><br><span class="line">                    maxtail = head;</span><br><span class="line">                &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                    maxtail-&gt;next = head;</span><br><span class="line">                    maxtail = head;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            head = pnext;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(mintail !=<span class="literal">NULL</span>)</span><br><span class="line">            mintail-&gt;next = maxhead;</span><br><span class="line">        <span class="keyword">return</span> minhead!=<span class="literal">NULL</span>? minhead: maxhead;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h2 id="打印两个链表的公共值"><a href="#打印两个链表的公共值" class="headerlink" title="打印两个链表的公共值"></a>打印两个链表的公共值</h2><p><code>题目</code><br>现有两个升序链表，且链表中均无重复元素。请设计一个高效的算法，打印两个链表的公共值部分。</p>
-<p>给定两个链表的头指针headA和headB，请返回一个vector，元素为两个链表的公共部分。请保证返回数组的升序。两个链表的元素个数均小于等于500。保证一定有公共值</p>
-<blockquote>
-<p>{1,2,3,4,5,6,7},{2,4,6,8,10}<br>返回：[2.4.6]</p>
-</blockquote>
-<p><code>过程</code></p>
-<ul>
-<li>如果两个链表其中有一个为空，则返回；</li>
-<li>两个指针分别指向两个链表，如果链表1的值小于链表2的值，则链表1往后移动一个位置</li>
-<li>如果链表2的值小于链表1的值，则链表2往后移动一个位置</li>
-<li>如果值相等，把值存入vector，然后两个链表都往后移动一个位置。</li>
-</ul>
-<p><code>代码</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Common</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; findCommonParts(ListNode* headA, ListNode* headB) &#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; ret;</span><br><span class="line">        ListNode* pa=headA;</span><br><span class="line">        ListNode* pb=headB;</span><br><span class="line">        <span class="keyword">if</span>(pa==<span class="literal">NULL</span> || pb==<span class="literal">NULL</span>)<span class="keyword">return</span>;</span><br><span class="line">        <span class="keyword">while</span>(pa!=<span class="literal">NULL</span>&amp;&amp;pb!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(pa-&gt;val&lt;pb-&gt;val)pa=pa-&gt;next;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(pa-&gt;val&gt;pb-&gt;val)pb=pb-&gt;next;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                ret.push_back(pa-&gt;val);</span><br><span class="line">                pa=pa-&gt;next;</span><br><span class="line">                pb=pb-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h2 id="链表的K逆序练习"><a href="#链表的K逆序练习" class="headerlink" title="链表的K逆序练习"></a>链表的K逆序练习</h2><p><code>题目</code><br>有一个单链表，请设计一个算法，使得每K个节点之间逆序，如果最后不够K个节点一组，则不调整最后几个节点。例如链表1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;6-&gt;7-&gt;8-&gt;null，K=3这个例子。调整后为，3-&gt;2-&gt;1-&gt;6-&gt;5-&gt;4-&gt;7-&gt;8-&gt;null。因为K==3，所以每三个节点之间逆序，但其中的7，8不调整，因为只有两个节点不够一组。</p>
-<p>给定一个单链表的头指针head,同时给定K值，返回逆序后的链表的头指针。</p>
-<p><code>过程</code></p>
-<ul>
-<li>根据区间的程度K求出每一个区段的前一个值，后一个值，开始值，结束值</li>
-<li>然后进行逆序</li>
-</ul>
-<p><code>代码</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">KInverse</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">inverse</span><span class="params">(ListNode *head, <span class="keyword">int</span> k)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        <span class="keyword">if</span> (k &lt; <span class="number">2</span>) <span class="keyword">return</span> head;</span><br><span class="line">        ListNode *cur = head;<span class="comment">//当前值，循环为每一个区段的最后一个值</span></span><br><span class="line">        ListNode *pre = <span class="literal">NULL</span>;<span class="comment">//当前区间的前一个值</span></span><br><span class="line">        ListNode *start = <span class="literal">NULL</span>;<span class="comment">//当前区间的开始值</span></span><br><span class="line">        ListNode *next = <span class="literal">NULL</span>;<span class="comment">//当前值的下一个值，循环为每一个区段的后一个值</span></span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">while</span> (cur != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            next = cur-&gt;next;<span class="comment">//记录当前值的下一个值，用于循环进行</span></span><br><span class="line">            <span class="keyword">if</span> (count == k) &#123;</span><br><span class="line">                start = pre == <span class="literal">NULL</span> ? head : pre-&gt;next;<span class="comment">//如果pre为空，则start为head，否则为pre的next；</span></span><br><span class="line">                head = pre == <span class="literal">NULL</span> ? cur : head;<span class="comment">//如果pre为空，head为第一次逆序的头一个值，即为逆序前的最后一个值cur；否则保持head</span></span><br><span class="line">                resign(pre, start, cur, next);<span class="comment">//逆序</span></span><br><span class="line">                pre = start;<span class="comment">//下一个区段的pre为当前区段的start；</span></span><br><span class="line">                count = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            count++;</span><br><span class="line">            cur = next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">resign</span><span class="params">(ListNode *left, ListNode *start, ListNode *end, ListNode *right)</span> </span>&#123;</span><br><span class="line">        ListNode * pre = start;<span class="comment">//pre为开始值</span></span><br><span class="line">        ListNode * cur = start-&gt;next;<span class="comment">//cur为开始值的next；</span></span><br><span class="line">        ListNode * next = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">while</span>(cur != right)&#123;</span><br><span class="line">            next = cur-&gt;next;<span class="comment">//保存cur的next；用于循环</span></span><br><span class="line">            cur -&gt;next = pre;<span class="comment">//当前值的下一个值为前驱节点pre</span></span><br><span class="line">            pre = cur;<span class="comment">//前驱节点调到cur</span></span><br><span class="line">            cur = next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(left != <span class="literal">NULL</span>)<span class="comment">//如果存在前段区间，则将前段区间的后一个值为end；</span></span><br><span class="line">            left -&gt; next = end;</span><br><span class="line">        start-&gt;next = right;<span class="comment">//start变为当前区段的最后一个值，next指向right；</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="链表指定值清除"><a href="#链表指定值清除" class="headerlink" title="链表指定值清除"></a>链表指定值清除</h2><p><code>题目</code><br>现在有一个单链表。链表中每个节点保存一个整数，再给定一个值val，把所有等于val的节点删掉。</p>
-<p>给定一个单链表的头结点head，同时给定一个值val，请返回清除后的链表的头结点，保证链表中有不等于该值的其它值。请保证其他元素的相对顺序。</p>
-<p><code>过程</code></p>
-<ul>
-<li>删除前几个为指定值的节点，将头节点移动到第一个不为删除值的节点；</li>
-<li>用pre制定为不为val的节点，cur指向pre的后一个节点，如果cur为val，则pre的next指向cur的next；否则pre指向cur； 然后cur跳为下一个；</li>
-</ul>
-<p><code>代码</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClearValue</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode *<span class="title">clear</span><span class="params">(ListNode *head, <span class="keyword">int</span> val)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        <span class="keyword">while</span> (head != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (head-&gt;val != val) &#123;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            head = head-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode *cur = head-&gt;next;</span><br><span class="line">        ListNode *pre = head;</span><br><span class="line">        <span class="keyword">while</span> (cur != <span class="literal">NULL</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (cur-&gt;val == val) &#123;</span><br><span class="line">                pre-&gt;next = cur-&gt;next;</span><br><span class="line">                cur = cur-&gt;next;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                pre = cur;</span><br><span class="line">                cur = cur-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> head;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="链表回文结构"><a href="#链表回文结构" class="headerlink" title="链表回文结构"></a>链表回文结构</h2><p><code>题目</code><br>请编写一个函数，检查链表是否为回文。<br>给定一个链表ListNode* pHead，请返回一个bool，代表链表是否为回文。</p>
-<p><code>过程</code><br>方法一</p>
-<ul>
-<li>遍历链表，将链表的每一个元素压入到栈中；</li>
-<li>第二次遍历链表，比较每一个值和栈中弹出值，如果遇到不相等的则不是回文</li>
-</ul>
-<p>方法二</p>
-<ul>
-<li>定义快慢指针， 快指针一次走两个，慢指针一次走一个，将慢指针的值压入到栈中</li>
-<li>如果快指针的下一个值为空，则为奇数个，应该弹出一个栈顶元素</li>
-<li>慢指针依次向后遍历，比较栈顶元素和链表值，如果遇到不相等的，则不是回文</li>
-</ul>
-<p>方法三</p>
-<ul>
-<li>定义快慢指针，定义快慢指针， 快指针一次走两个，慢指针一次走一个，找到中间值</li>
-<li>将中间值往后的链表元素进行逆转</li>
-<li>从两头往中间遍历链表，比较对应的元素，如果出现不相等的，则不是回文</li>
-</ul>
-<p><code>代码</code></p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Palindrome</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">isPalindrome</span><span class="params">(ListNode *pHead)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        <span class="comment">//方法一：全部压入</span></span><br><span class="line"><span class="comment">//        stack&lt;int&gt; liststack;</span></span><br><span class="line"><span class="comment">//        ListNode *pnode = pHead;</span></span><br><span class="line"><span class="comment">//        while (pnode != NULL) &#123;</span></span><br><span class="line"><span class="comment">//            liststack.push(pnode-&gt;val);</span></span><br><span class="line"><span class="comment">//            pnode = pnode-&gt;next;</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        pnode = pHead;</span></span><br><span class="line"><span class="comment">//        while (pnode != NULL) &#123;</span></span><br><span class="line"><span class="comment">//            if (liststack.top() != pnode-&gt;val) &#123;</span></span><br><span class="line"><span class="comment">//                return false;</span></span><br><span class="line"><span class="comment">//            &#125;;</span></span><br><span class="line"><span class="comment">//            liststack.pop();</span></span><br><span class="line"><span class="comment">//            pnode = pnode-&gt;next;</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        return true;</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">//方法二：快慢指针</span></span><br><span class="line"><span class="comment">//        stack&lt;int&gt; liststack;</span></span><br><span class="line"><span class="comment">//        ListNode *pslownode = pHead;</span></span><br><span class="line"><span class="comment">//        ListNode *pfastnode = pHead;</span></span><br><span class="line"><span class="comment">//        int count = 1;</span></span><br><span class="line"><span class="comment">//        while (pfastnode != NULL) &#123;</span></span><br><span class="line"><span class="comment">//            liststack.push(pslownode-&gt;val);</span></span><br><span class="line"><span class="comment">//            if (pfastnode-&gt;next == NULL)break;</span></span><br><span class="line"><span class="comment">//            if (pfastnode-&gt;next-&gt;next != NULL) &#123;</span></span><br><span class="line"><span class="comment">//                pfastnode = pfastnode-&gt;next-&gt;next;</span></span><br><span class="line"><span class="comment">//                pslownode = pslownode-&gt;next;</span></span><br><span class="line"><span class="comment">//                count++;</span></span><br><span class="line"><span class="comment">//            &#125; else</span></span><br><span class="line"><span class="comment">//                break;</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        if(pfastnode-&gt;next == NULL)</span></span><br><span class="line"><span class="comment">//            liststack.pop();</span></span><br><span class="line"><span class="comment">//        pslownode = pslownode-&gt;next;</span></span><br><span class="line"><span class="comment">//        while(pslownode !=NULL)&#123;</span></span><br><span class="line"><span class="comment">//            if(pslownode-&gt;val == liststack.top())&#123;</span></span><br><span class="line"><span class="comment">//                pslownode = pslownode-&gt;next;</span></span><br><span class="line"><span class="comment">//                liststack.pop();</span></span><br><span class="line"><span class="comment">//            &#125;else return false;</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line"><span class="comment">//        return true;</span></span><br><span class="line">        <span class="comment">//方法三：逆序指针</span></span><br><span class="line">        ListNode *pslownode = pHead;</span><br><span class="line">        ListNode *pfastnode = pHead;</span><br><span class="line">        ListNode *pnode = pHead;</span><br><span class="line">        <span class="keyword">while</span>(pfastnode&amp;&amp;pfastnode-&gt;next)&#123;</span><br><span class="line">            pfastnode = pfastnode-&gt;next-&gt;next;</span><br><span class="line">            pslownode = pslownode-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        ListNode *pre = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">while</span>(pslownode)&#123;</span><br><span class="line">            ListNode *temp = pslownode-&gt;next;</span><br><span class="line">            pslownode-&gt;next = pre;</span><br><span class="line">            pre = pslownode;</span><br><span class="line">            pslownode = temp;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(pre)&#123;</span><br><span class="line">            <span class="keyword">if</span>(pre-&gt;val == pnode -&gt;val)&#123;</span><br><span class="line">                pre= pre-&gt;next;</span><br><span class="line">                pnode = pnode-&gt;next;</span><br><span class="line">            &#125;<span class="keyword">else</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="链表（三）习题"><a href="#链表（三）习题" class="headerlink" title="链表（三）习题"></a>链表（三）习题</h1><h2 id="复杂链表的复制练习题"><a href="#复杂链表的复制练习题" class="headerlink" title="复杂链表的复制练习题"></a>复杂链表的复制练习题</h2><p><code>题目</code><br>输入一个复杂链表（每个节点中有节点值，以及两个指针，一个指向下一个节点，另一个特殊指针指向任意一个节点）。</p>
-<p><code>过程</code></p>
-<ul>
-<li>遍历链表，将链表复制一份<br><img src="/2019/02/26/nc_linklist/1524577325699.png" alt="Alt text"></li>
-<li>遍历节点，拿到一对拷贝，拷贝的链表的random为链表的random，找到random指向的链表，将拷贝链表的random指向链表的下一个</li>
-<li>将两个链表分离</li>
-</ul>
-<p><code>代码</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">struct RandomListNode &#123;</span></span><br><span class="line"><span class="comment">    int label;</span></span><br><span class="line"><span class="comment">    struct RandomListNode *next, *random;</span></span><br><span class="line"><span class="comment">    RandomListNode(int x) :</span></span><br><span class="line"><span class="comment">            label(x), next(NULL), random(NULL) &#123;</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">&#125;;</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">RandomListNode* <span class="title">Clone</span><span class="params">(RandomListNode* pHead)</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(pHead == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        RandomListNode* cur = pHead;</span><br><span class="line">        RandomListNode* next = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="literal">NULL</span>)&#123;</span><br><span class="line">            next = cur-&gt;next;</span><br><span class="line">            cur-&gt;next = <span class="keyword">new</span> RandomListNode(cur-&gt;label);</span><br><span class="line">            cur-&gt;next-&gt;next = next;</span><br><span class="line">            cur = next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        cur = pHead;</span><br><span class="line">        RandomListNode* curCopy = <span class="literal">NULL</span>;</span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="literal">NULL</span>)&#123;</span><br><span class="line">            next = cur-&gt;next-&gt;next;</span><br><span class="line">            curCopy = cur-&gt;next;</span><br><span class="line">            curCopy-&gt;random = cur-&gt;random != <span class="literal">NULL</span> ? cur-&gt;random-&gt;next : <span class="literal">NULL</span>;</span><br><span class="line">            cur = next;</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        cur = pHead;</span><br><span class="line">        RandomListNode* res = pHead-&gt;next;</span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="literal">NULL</span>)&#123;</span><br><span class="line">            next = cur-&gt;next-&gt;next;</span><br><span class="line">            curCopy = cur-&gt;next;</span><br><span class="line">            cur-&gt;next = next;</span><br><span class="line">            curCopy-&gt;next = next != <span class="literal">NULL</span> ? next-&gt;next : <span class="literal">NULL</span>;</span><br><span class="line">            cur = next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> res;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h2 id="链表判断环"><a href="#链表判断环" class="headerlink" title="链表判断环"></a>链表判断环</h2><p><code>题目</code><br>如何判断一个单链表是否有环？有环的话返回进入环的第一个节点的值，无环的话返回-1。如果链表的长度为N，请做到时间复杂度O(N)，额外空间复杂度O(1)。</p>
-<p>给定一个单链表的头结点head（注意另一个参数adjust为加密后的数据调整参数，方便数据设置，与本题求解无关)，请返回所求值。</p>
-<p><code>过程</code></p>
-<ul>
-<li>定义快慢指针，依次遍历，当快慢指针相等时候，则认定链表又环，如果没有相等，则没有环</li>
-<li>如果链表有环，则将快指针指向头，慢指针从原来位置继续遍历，每一次遍历一个，知道两个指针相等，返回指针的值即可</li>
-</ul>
-<p><code>代码</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">struct ListNode &#123;</span></span><br><span class="line"><span class="comment">    int val;</span></span><br><span class="line"><span class="comment">    struct ListNode *next;</span></span><br><span class="line"><span class="comment">    ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment">&#125;;*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ChkLoop</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">int</span> <span class="title">chkLoop</span><span class="params">(ListNode* head, <span class="keyword">int</span> adjust)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        <span class="keyword">if</span>(head == <span class="literal">NULL</span> || head-&gt;next == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        ListNode* pfastnode = head;</span><br><span class="line">        ListNode* pslownode = head;</span><br><span class="line">        <span class="keyword">while</span>(pfastnode != <span class="literal">NULL</span> &amp;&amp; pfastnode-&gt;next !=<span class="literal">NULL</span>)&#123;</span><br><span class="line">            pslownode = pslownode-&gt;next;</span><br><span class="line">            pfastnode = pfastnode-&gt;next-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(pslownode == pfastnode)<span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(pslownode == pfastnode)&#123;</span><br><span class="line">            pfastnode = head;</span><br><span class="line">            <span class="keyword">while</span>(pfastnode != pslownode)&#123;</span><br><span class="line">                pfastnode = pfastnode-&gt;next;</span><br><span class="line">                pslownode = pslownode-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> pfastnode-&gt;val;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h2 id="无环单链表相交"><a href="#无环单链表相交" class="headerlink" title="无环单链表相交"></a>无环单链表相交</h2><p><code>题目</code><br>现在有两个无环单链表，若两个链表的长度分别为m和n，请设计一个时间复杂度为O(n + m)，额外空间复杂度为O(1)的算法，判断这两个链表是否相交。</p>
-<p>给定两个链表的头结点headA和headB，请返回一个bool值，代表这两个链表是否相交。保证两个链表长度小于等于500。</p>
-<p><code>过程</code><br>方法一</p>
-<ul>
-<li>将链表A节点存入hash表中，遍历链表B，看是否存在对应B元素在hash表中存在</li>
-</ul>
-<p>方法二</p>
-<ul>
-<li>先遍历两个链表，求出两个链表的长度</li>
-<li>将较长的链表先遍历长度差值，剩下两个长度相同的链表</li>
-<li>同时遍历，如果相交，则在同一节点相遇，两节点指针相同</li>
-</ul>
-<p><code>代码</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">struct ListNode &#123;</span></span><br><span class="line"><span class="comment">    int val;</span></span><br><span class="line"><span class="comment">    struct ListNode *next;</span></span><br><span class="line"><span class="comment">    ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment">&#125;;*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CheckIntersect</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">chkIntersect</span><span class="params">(ListNode* headA, ListNode* headB)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        ListNode* pa = headA;</span><br><span class="line">        ListNode* pb = headB;</span><br><span class="line">        <span class="keyword">if</span>(pa==<span class="literal">NULL</span> || pb == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">int</span> countA=<span class="number">0</span>, countB=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(pa != <span class="literal">NULL</span>)&#123;</span><br><span class="line">            pa = pa-&gt;next;</span><br><span class="line">            countA++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(pb != <span class="literal">NULL</span>)&#123;</span><br><span class="line">            pb = pb-&gt;next;</span><br><span class="line">            countB++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> countC = countA&gt;countB?countA-countB:countB-countA;</span><br><span class="line">        pa=headA;pb=headB;</span><br><span class="line">        <span class="keyword">while</span>(countC)&#123;</span><br><span class="line">            <span class="keyword">if</span>(countA&gt;countB)&#123;</span><br><span class="line">                pa=pa-&gt;next;</span><br><span class="line">                countC--;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                pb=pb-&gt;next;</span><br><span class="line">                countC--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(pa!=<span class="literal">NULL</span>&amp;&amp;pb!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(pa == pb)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            pa=pa-&gt;next;</span><br><span class="line">            pb=pb-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h2 id="有环单链表相交"><a href="#有环单链表相交" class="headerlink" title="有环单链表相交"></a>有环单链表相交</h2><p><code>题目</code><br>如何判断两个有环单链表是否相交？相交的话返回第一个相交的节点，不想交的话返回空。如果两个链表长度分别为N和M，请做到时间复杂度O(N+M)，额外空间复杂度O(1)。</p>
-<p>给定两个链表的头结点head1和head2(注意，另外两个参数adjust0和adjust1用于调整数据,与本题求解无关)。请返回一个bool值代表它们是否相交。<br><code>过程</code></p>
-<ul>
-<li>先利用快慢指针分别求出两个有环链表的入环节点，如果两个入环节点相等，则返回true</li>
-<li>从链表1的入环节点开始往下遍历，如果遇到为start1，则无相交，如果遇到start2，则相交</li>
-</ul>
-<p><code>代码</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">struct ListNode &#123;</span></span><br><span class="line"><span class="comment">    int val;</span></span><br><span class="line"><span class="comment">    struct ListNode *next;</span></span><br><span class="line"><span class="comment">    ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment">&#125;;*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ChkIntersection</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">chkInter</span><span class="params">(ListNode* head1, ListNode* head2, <span class="keyword">int</span> adjust0, <span class="keyword">int</span> adjust1)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        ListNode* start1 = enterHuan(head1);</span><br><span class="line">        ListNode* start2 = enterHuan(head2);</span><br><span class="line">        <span class="keyword">if</span>(start1 == start2)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        ListNode* p=start1-&gt;next;</span><br><span class="line">        <span class="keyword">while</span>(p!=start1&amp;&amp;p!=start2)</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        <span class="keyword">if</span>(p == start2)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode* <span class="title">enterHuan</span><span class="params">(ListNode* head)</span></span>&#123;</span><br><span class="line">        ListNode* pfastnode=head;</span><br><span class="line">        ListNode* pslownode=head;</span><br><span class="line">        <span class="keyword">while</span>(pfastnode&amp;&amp;pfastnode-&gt;next)&#123;</span><br><span class="line">            pfastnode = pfastnode-&gt;next-&gt;next;</span><br><span class="line">            pslownode = pslownode-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(pfastnode == pslownode)<span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(pfastnode == pslownode)&#123;</span><br><span class="line">            pfastnode = head;</span><br><span class="line">            <span class="keyword">while</span>(pfastnode != pslownode)&#123;</span><br><span class="line">                pfastnode = pfastnode-&gt;next;</span><br><span class="line">                pslownode = pslownode-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> pslownode;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h2 id="单链表相交"><a href="#单链表相交" class="headerlink" title="单链表相交"></a>单链表相交</h2><p><code>题目</code><br>给定两个单链表的头节点head1和head2，如何判断两个链表是否相交？相交的话返回true，不想交的话返回false。<br>给定两个链表的头结点head1和head2(注意，另外两个参数adjust0和adjust1用于调整数据,与本题求解无关)。请返回一个bool值代表它们是否相交。</p>
-<p><code>过程</code></p>
-<ul>
-<li>判断链表是否有环，有环返回入环，无环则返回空</li>
-<li>如果一个有环，一个无环，则不可能相交</li>
-<li>如果两个都无环，则按照无环链表相交判断</li>
-<li>如果两个都有环，则按照有环链表相交判断</li>
-</ul>
-<p><code>代码</code><br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">struct ListNode &#123;</span></span><br><span class="line"><span class="comment">    int val;</span></span><br><span class="line"><span class="comment">    struct ListNode *next;</span></span><br><span class="line"><span class="comment">    ListNode(int x) : val(x), next(NULL) &#123;&#125;</span></span><br><span class="line"><span class="comment">&#125;;*/</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ChkIntersection</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">chkInter</span><span class="params">(ListNode* head1, ListNode* head2, <span class="keyword">int</span> adjust0, <span class="keyword">int</span> adjust1)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        ListNode* p1 = chkLoop(head1);</span><br><span class="line">        ListNode* p2 = chkLoop(head2);</span><br><span class="line">        <span class="keyword">if</span>((p1==<span class="literal">NULL</span>&amp;&amp;p2!=<span class="literal">NULL</span>) ||(p1!=<span class="literal">NULL</span>&amp;&amp;p2==<span class="literal">NULL</span>))<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">if</span>(p1 == <span class="literal">NULL</span> &amp;&amp; p2 == <span class="literal">NULL</span>)<span class="keyword">return</span> chkIntersect(head1, head2);</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> chkInter(head1, head2);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//判断是否有环</span></span><br><span class="line">    <span class="function">ListNode* <span class="title">chkLoop</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        <span class="keyword">if</span>(head == <span class="literal">NULL</span> || head-&gt;next == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        ListNode* pfastnode = head;</span><br><span class="line">        ListNode* pslownode = head;</span><br><span class="line">        <span class="keyword">while</span>(pfastnode != <span class="literal">NULL</span> &amp;&amp; pfastnode-&gt;next !=<span class="literal">NULL</span>)&#123;</span><br><span class="line">            pslownode = pslownode-&gt;next;</span><br><span class="line">            pfastnode = pfastnode-&gt;next-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(pslownode == pfastnode)<span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(pslownode == pfastnode)&#123;</span><br><span class="line">            pfastnode = head;</span><br><span class="line">            <span class="keyword">while</span>(pfastnode != pslownode)&#123;</span><br><span class="line">                pfastnode = pfastnode-&gt;next;</span><br><span class="line">                pslownode = pslownode-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> pfastnode;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//无环链表相交</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">chkIntersect</span><span class="params">(ListNode* headA, ListNode* headB)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        ListNode* pa = headA;</span><br><span class="line">        ListNode* pb = headB;</span><br><span class="line">        <span class="keyword">if</span>(pa==<span class="literal">NULL</span> || pb == <span class="literal">NULL</span>)<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        <span class="keyword">int</span> countA=<span class="number">0</span>, countB=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">while</span>(pa != <span class="literal">NULL</span>)&#123;</span><br><span class="line">            pa = pa-&gt;next;</span><br><span class="line">            countA++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(pb != <span class="literal">NULL</span>)&#123;</span><br><span class="line">            pb = pb-&gt;next;</span><br><span class="line">            countB++;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">int</span> countC = countA&gt;countB?countA-countB:countB-countA;</span><br><span class="line">        pa=headA;pb=headB;</span><br><span class="line">        <span class="keyword">while</span>(countC)&#123;</span><br><span class="line">            <span class="keyword">if</span>(countA&gt;countB)&#123;</span><br><span class="line">                pa=pa-&gt;next;</span><br><span class="line">                countC--;</span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                pb=pb-&gt;next;</span><br><span class="line">                countC--;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">while</span>(pa!=<span class="literal">NULL</span>&amp;&amp;pb!=<span class="literal">NULL</span>)&#123;</span><br><span class="line">            <span class="keyword">if</span>(pa == pb)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">            pa=pa-&gt;next;</span><br><span class="line">            pb=pb-&gt;next;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//有环链表是否相交</span></span><br><span class="line">    <span class="function"><span class="keyword">bool</span> <span class="title">chkInter</span><span class="params">(ListNode* head1, ListNode* head2)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// write code here</span></span><br><span class="line">        ListNode* start1 = enterHuan(head1);</span><br><span class="line">        ListNode* start2 = enterHuan(head2);</span><br><span class="line">        <span class="keyword">if</span>(start1 == start2)<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        ListNode* p=start1-&gt;next;</span><br><span class="line">        <span class="keyword">while</span>(p!=start1&amp;&amp;p!=start2)</span><br><span class="line">            p = p-&gt;next;</span><br><span class="line">        <span class="keyword">if</span>(p == start2)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function">ListNode* <span class="title">enterHuan</span><span class="params">(ListNode* head)</span></span>&#123;</span><br><span class="line">        ListNode* pfastnode=head;</span><br><span class="line">        ListNode* pslownode=head;</span><br><span class="line">        <span class="keyword">while</span>(pfastnode&amp;&amp;pfastnode-&gt;next)&#123;</span><br><span class="line">            pfastnode = pfastnode-&gt;next-&gt;next;</span><br><span class="line">            pslownode = pslownode-&gt;next;</span><br><span class="line">            <span class="keyword">if</span>(pfastnode == pslownode)<span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(pfastnode == pslownode)&#123;</span><br><span class="line">            pfastnode = head;</span><br><span class="line">            <span class="keyword">while</span>(pfastnode != pslownode)&#123;</span><br><span class="line">                pfastnode = pfastnode-&gt;next;</span><br><span class="line">                pslownode = pslownode-&gt;next;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> pslownode;</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2017/12/04/vim/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘韬">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不知归期的故人">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/12/04/vim/" itemprop="url">
-                  Vim 学习笔记
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-04T08:59:15+08:00">
-                2017-12-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-02T16:39:47+08:00">
+                2018-06-02
               </time>
             
 
@@ -635,8 +384,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/工作面试/" itemprop="url" rel="index">
+                    <span itemprop="name">工作面试</span>
                   </a>
                 </span>
 
@@ -671,12 +420,11 @@
 
       
         
-          <h1 id="Vim-学习笔记"><a href="#Vim-学习笔记" class="headerlink" title="Vim 学习笔记"></a>Vim 学习笔记</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="什么是-vim"><a href="#什么是-vim" class="headerlink" title="什么是 vim"></a>什么是 vim</h3><blockquote>
-<p>Vim是从 vi 发展出来的一个文本编辑器。代码补完、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。和Emacs并列成为类Unix系统用户最喜欢的编辑器。</p>
-</blockquote>
+          <h1 id="二叉树（一）"><a href="#二叉树（一）" class="headerlink" title="二叉树（一）"></a>二叉树（一）</h1><h2 id="递归实现二叉树遍历"><a href="#递归实现二叉树遍历" class="headerlink" title="递归实现二叉树遍历"></a>递归实现二叉树遍历</h2><p><code>题目</code><br>请用递归方式实现二叉树的先序、中序和后序的遍历打印。</p>
+<p>给定一个二叉树的根结点root，请依次返回二叉树的先序，中序和后续遍历(二维数组的形式)。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/04/vim/#more" rel="contents">
+            <a class="btn" href="/2018/06/02/NCbstree/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -722,7 +470,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2017/12/04/shell/">
+    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2018/05/25/NCpr/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="刘韬">
@@ -744,8 +492,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/12/04/shell/" itemprop="url">
-                  Shell 快速指南
+                <a class="post-title-link" href="/2018/05/25/NCpr/" itemprop="url">
+                  [牛客网算法]--概率和排列
                 </a>
               
             
@@ -761,8 +509,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-04T08:54:45+08:00">
-                2017-12-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-25T16:39:47+08:00">
+                2018-05-25
               </time>
             
 
@@ -784,8 +532,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
+                  <a href="/categories/工作面试/" itemprop="url" rel="index">
+                    <span itemprop="name">工作面试</span>
                   </a>
                 </span>
 
@@ -820,10 +568,11 @@
 
       
         
-          <h1 id="Shell-快速指南"><a href="#Shell-快速指南" class="headerlink" title="Shell 快速指南"></a>Shell 快速指南</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">███████╗██╗  ██╗███████╗██╗     ██╗                           </span><br><span class="line">██╔════╝██║  ██║██╔════╝██║     ██║                           </span><br><span class="line">███████╗███████║█████╗  ██║     ██║                           </span><br><span class="line">╚════██║██╔══██║██╔══╝  ██║     ██║                           </span><br><span class="line">███████║██║  ██║███████╗███████╗███████╗</span><br></pre></td></tr></table></figure>
+          <h1 id="概率（一）习题"><a href="#概率（一）习题" class="headerlink" title="概率（一）习题"></a>概率（一）习题</h1><p><code>题目</code><br>有2k只球队，有k-1个强队，其余都是弱队，随机把它们分成k组比赛，每组两个队，问两强相遇的概率是多大？</p>
+<p>给定一个数k，请返回一个数组，其中有两个元素，分别为最终结果的分子和分母，请化成最简分数</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/12/04/shell/#more" rel="contents">
+            <a class="btn" href="/2018/05/25/NCpr/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -869,7 +618,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2017/11/13/openstackauth/">
+    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2018/05/03/NCdp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="刘韬">
@@ -891,8 +640,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/11/13/openstackauth/" itemprop="url">
-                  django_openstack_auth认证与集成方法
+                <a class="post-title-link" href="/2018/05/03/NCdp/" itemprop="url">
+                  [牛客网算法]--动态规划
                 </a>
               
             
@@ -908,8 +657,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-13T16:07:37+08:00">
-                2017-11-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-03T16:39:47+08:00">
+                2018-05-03
               </time>
             
 
@@ -931,8 +680,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/openstack学习/" itemprop="url" rel="index">
-                    <span itemprop="name">openstack学习</span>
+                  <a href="/categories/工作面试/" itemprop="url" rel="index">
+                    <span itemprop="name">工作面试</span>
                   </a>
                 </span>
 
@@ -967,10 +716,10 @@
 
       
         
-          <h2 id="开始准备"><a href="#开始准备" class="headerlink" title="开始准备"></a>开始准备</h2><h3 id="安装django开发环境"><a href="#安装django开发环境" class="headerlink" title="安装django开发环境"></a>安装django开发环境</h3><p>1.安装python3-pip和django1.11<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo apt install python3-pip</span><br><span class="line">sudo python3 -m pip install django</span><br></pre></td></tr></table></figure></p>
+          <h1 id="动态规划（一）-习题"><a href="#动态规划（一）-习题" class="headerlink" title="动态规划（一） 习题"></a>动态规划（一） 习题</h1><h2 id="找零钱练习题"><a href="#找零钱练习题" class="headerlink" title="找零钱练习题"></a>找零钱练习题</h2><p><code>题目</code><br>有数组penny，penny中所有的值都为正数且不重复。每个值代表一种面值的货币，每种面值的货币可以使用任意张，再给定一个整数aim(小于等于1000)代表要找的钱数，求换钱有多少种方法。<br>给定数组penny及它的大小(小于等于50)，同时给定一个整数aim，请返回有多少种方法可以凑成aim。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/13/openstackauth/#more" rel="contents">
+            <a class="btn" href="/2018/05/03/NCdp/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1016,7 +765,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2017/11/13/strategy/">
+    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2018/05/02/NCbsearch/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="刘韬">
@@ -1038,8 +787,8 @@
             
               
                 
-                <a class="post-title-link" href="/2017/11/13/strategy/" itemprop="url">
-                  使用一等函数实现设计模式
+                <a class="post-title-link" href="/2018/05/02/NCbsearch/" itemprop="url">
+                  [牛客网算法]--二分搜索
                 </a>
               
             
@@ -1055,8 +804,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-13T15:10:16+08:00">
-                2017-11-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-02T16:39:47+08:00">
+                2018-05-02
               </time>
             
 
@@ -1078,8 +827,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python学习/" itemprop="url" rel="index">
-                    <span itemprop="name">python学习</span>
+                  <a href="/categories/工作面试/" itemprop="url" rel="index">
+                    <span itemprop="name">工作面试</span>
                   </a>
                 </span>
 
@@ -1114,11 +863,157 @@
 
       
         
-          <h2 id="案例分析：重构“策略”模式"><a href="#案例分析：重构“策略”模式" class="headerlink" title="案例分析：重构“策略”模式"></a>案例分析：重构“策略”模式</h2><h3 id="经典的“策略”模式"><a href="#经典的“策略”模式" class="headerlink" title="经典的“策略”模式"></a>经典的“策略”模式</h3><p>图中的UML类图指出了“策略”模式对类的编排。</p>
-<p><img src="/2017/11/13/strategy/strategy.png" alt=""><br></p>
+          <h1 id="二分搜索（一）习题"><a href="#二分搜索（一）习题" class="headerlink" title="二分搜索（一）习题"></a>二分搜索（一）习题</h1><h2 id="局部最小位置"><a href="#局部最小位置" class="headerlink" title="局部最小位置"></a>局部最小位置</h2><p><code>题目</code><br>定义局部最小的概念。arr长度为1时，arr[0]是局部最小。arr的长度为N(N&gt;1)时，如果arr[0]&lt;arr[1]，那么arr[0]是局部最小；如果arr[N-1]&lt;arr[N-2]，那么arr[N-1]是局部最小；如果0&lt;i&lt;N-1，既有arr[i]&lt;arr[i-1]又有arr[i]&lt;arr[i+1]，那么arr[i]是局部最小。 给定无序数组arr，已知arr中任意两个相邻的数都不相等，写一个函数，只需返回arr中任意一个局部最小出现的位置即可。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2017/11/13/strategy/#more" rel="contents">
+            <a class="btn" href="/2018/05/02/NCbsearch/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2018/04/25/NClinklist/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="刘韬">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="不知归期的故人">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2018/04/25/NClinklist/" itemprop="url">
+                  [牛客网算法]--链表
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-25T16:39:47+08:00">
+                2018-04-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/工作面试/" itemprop="url" rel="index">
+                    <span itemprop="name">工作面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h1 id="链表（一）基础操作"><a href="#链表（一）基础操作" class="headerlink" title="链表（一）基础操作"></a>链表（一）基础操作</h1><h2 id="环形链表插值"><a href="#环形链表插值" class="headerlink" title="环形链表插值"></a>环形链表插值</h2><p><code>题目</code><br>有一个整数val，如何在节点值有序的环形链表中插入一个节点值为val的节点，并且保证这个环形单链表依然有序。<br>给定链表的信息，及元素的值A及对应的nxt指向的元素编号同时给定val，请构造出这个环形链表，并插入该值。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/04/25/NClinklist/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1159,7 +1054,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1204,7 +1099,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-count">25</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1215,7 +1110,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
