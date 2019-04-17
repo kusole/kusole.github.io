@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="C++_base," />
 
 
 
@@ -97,13 +97,23 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="不知归期的故人">
-<meta property="og:url" content="https://kusole.github.io/page/2/index.html">
+<meta name="description" content="本文用于介绍引用和指针的传递值和返回值问题，其中包括函数的值传递和引用传递、直接返回值和引用作为函数的返回值、返回函数内部new分配的内存的引用和引用。 [TOC] 函数的值传递和引用传递本部分参考自：https://www.cnblogs.com/zjutzz/p/6818799.html C++的函数参数传递方式，可以是传值方式，也可以是传引用方式。传值的本质是：形参是实参的一份复制。传引用的">
+<meta name="keywords" content="C++_base">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++引用和指针">
+<meta property="og:url" content="https://kusole.github.io/2017/12/04/引用和指针/index.html">
 <meta property="og:site_name" content="不知归期的故人">
+<meta property="og:description" content="本文用于介绍引用和指针的传递值和返回值问题，其中包括函数的值传递和引用传递、直接返回值和引用作为函数的返回值、返回函数内部new分配的内存的引用和引用。 [TOC] 函数的值传递和引用传递本部分参考自：https://www.cnblogs.com/zjutzz/p/6818799.html C++的函数参数传递方式，可以是传值方式，也可以是传引用方式。传值的本质是：形参是实参的一份复制。传引用的">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://kusole.github.io/2017/12/04/引用和指针/指针和引用01.png">
+<meta property="og:image" content="https://kusole.github.io/2017/12/04/引用和指针/指针和引用02.png">
+<meta property="og:image" content="https://kusole.github.io/2017/12/04/引用和指针/指针和引用03.png">
+<meta property="og:image" content="https://kusole.github.io/2017/12/04/引用和指针/指针和引用04.png">
+<meta property="og:updated_time" content="2019-04-17T12:59:36.973Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="不知归期的故人">
+<meta name="twitter:title" content="C++引用和指针">
+<meta name="twitter:description" content="本文用于介绍引用和指针的传递值和返回值问题，其中包括函数的值传递和引用传递、直接返回值和引用作为函数的返回值、返回函数内部new分配的内存的引用和引用。 [TOC] 函数的值传递和引用传递本部分参考自：https://www.cnblogs.com/zjutzz/p/6818799.html C++的函数参数传递方式，可以是传值方式，也可以是传引用方式。传值的本质是：形参是实参的一份复制。传引用的">
+<meta name="twitter:image" content="https://kusole.github.io/2017/12/04/引用和指针/指针和引用01.png">
 
 
 
@@ -131,13 +141,13 @@
 
 
 
-  <link rel="canonical" href="https://kusole.github.io/page/2/"/>
+  <link rel="canonical" href="https://kusole.github.io/2017/12/04/引用和指针/"/>
 
 
 
 
 
-  <title> 不知归期的故人 </title>
+  <title> C++引用和指针 | 不知归期的故人 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -172,9 +182,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -311,456 +319,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2018/04/18/NCsort/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘韬">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不知归期的故人">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/04/18/NCsort/" itemprop="url">
-                  [牛客网算法]--排序
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-18T16:39:47+08:00">
-                2018-04-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/工作面试/" itemprop="url" rel="index">
-                    <span itemprop="name">工作面试</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="排序（一）基础排序算法"><a href="#排序（一）基础排序算法" class="headerlink" title="排序（一）基础排序算法"></a>排序（一）基础排序算法</h1><h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>时间复杂度为O(N2)</p>
-<p>过程:</p>
-<ul>
-<li>循环空间为0到N-1，第一个数和第二个数比较，较大的放在后面，第二个和第三个数比较，较大的放在后面，一直循环到最后，最大的数放在最后面N-1位置。</li>
-<li>循环空间为0到N-2，依次比较相邻的数，最大的数放在N-2位置。</li>
-<li>循环空间为0到1，最大的数放在1位置。</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/18/NCsort/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2018/04/18/NCstack/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘韬">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不知归期的故人">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/04/18/NCstack/" itemprop="url">
-                  [牛客网算法]--栈和队列
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-18T12:39:47+08:00">
-                2018-04-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/工作面试/" itemprop="url" rel="index">
-                    <span itemprop="name">工作面试</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="栈和队列（一）习题"><a href="#栈和队列（一）习题" class="headerlink" title="栈和队列（一）习题"></a>栈和队列（一）习题</h1><h2 id="可查询最值的栈的练习"><a href="#可查询最值的栈的练习" class="headerlink" title="可查询最值的栈的练习"></a>可查询最值的栈的练习</h2><p><code>题目</code><br>定义栈的数据结构，请在该类型中实现一个能够得到栈最小元素的min函数。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/18/NCstack/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2018/04/13/NCstring/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘韬">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不知归期的故人">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/04/13/NCstring/" itemprop="url">
-                  [牛客网算法]--字符串
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-13T16:39:47+08:00">
-                2018-04-13
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/工作面试/" itemprop="url" rel="index">
-                    <span itemprop="name">工作面试</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="字符串（一）字符串考点"><a href="#字符串（一）字符串考点" class="headerlink" title="字符串（一）字符串考点"></a>字符串（一）字符串考点</h1><h2 id="字符串考点"><a href="#字符串考点" class="headerlink" title="字符串考点"></a>字符串考点</h2><p><img src="/2018/04/13/NCstring/1523606992058.png" alt="Alt text"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/13/NCstring/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
 
   
 
@@ -790,10 +351,7 @@
             
             
               
-                
-                <a class="post-title-link" href="/2017/12/04/引用和指针/" itemprop="url">
-                  C++引用和指针
-                </a>
+                C++引用和指针
               
             
           </h1>
@@ -866,9 +424,7 @@
       
 
       
-        
-          
-            <p>本文用于介绍引用和指针的传递值和返回值问题，其中包括函数的值传递和引用传递、直接返回值和引用作为函数的返回值、返回函数内部new分配的内存的引用和引用。</p>
+        <p>本文用于介绍引用和指针的传递值和返回值问题，其中包括函数的值传递和引用传递、直接返回值和引用作为函数的返回值、返回函数内部new分配的内存的引用和引用。</p>
 <p>[TOC]</p>
 <h2 id="函数的值传递和引用传递"><a href="#函数的值传递和引用传递" class="headerlink" title="函数的值传递和引用传递"></a>函数的值传递和引用传递</h2><p>本部分参考自：<a href="https://www.cnblogs.com/zjutzz/p/6818799.html" target="_blank" rel="noopener">https://www.cnblogs.com/zjutzz/p/6818799.html</a></p>
 <p>C++的函数参数传递方式，可以是传值方式，也可以是传引用方式。传值的本质是：形参是实参的一份复制。传引用的本质是：形参和实参是同一个东西。<br>传值和传引用，对大多数常见类型都是适用的（就我所知）。指针、数组，它们都是数据类型的一种，没啥特殊的，因此指针作为函数参数传递时，也区分为传值和传引用两种方式。<br>例如：</p>
@@ -965,195 +521,97 @@
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">include &lt;iostream&gt;</span><br><span class="line">include &lt;cstdlib&gt;</span><br><span class="line"><span class="function"><span class="keyword">const</span> <span class="keyword">int</span>&amp; <span class="title">abc</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c, <span class="keyword">int</span>&amp; result)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    result = a + b + c;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">   <span class="keyword">int</span> a = <span class="number">1</span>; <span class="keyword">int</span> b = <span class="number">2</span>; <span class="keyword">int</span> c=<span class="number">3</span>;</span><br><span class="line">   <span class="keyword">int</span> z;</span><br><span class="line">   abc(a, b, c, z)++;  <span class="comment">//wrong: returning a const reference</span></span><br><span class="line">   <span class="built_in">cout</span> &lt;&lt; <span class="string">"z= "</span> &lt;&lt; z &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">   <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> j=<span class="number">3</span>;<span class="comment">//j是全局变量</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">val</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line"></span><br><span class="line">     <span class="keyword">int</span> i = <span class="number">1</span>; </span><br><span class="line">     <span class="keyword">return</span> i; </span><br><span class="line">&#125; </span><br><span class="line"><span class="function"><span class="keyword">int</span> &amp; <span class="title">ref</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line"><span class="comment">//   int j=3;j不能是局部变量！</span></span><br><span class="line">    <span class="keyword">int</span> &amp;i = j; </span><br><span class="line">      <span class="keyword">return</span> i; <span class="comment">//不能返回局部对象的引用</span></span><br><span class="line">&#125; </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span></span><br><span class="line"><span class="function"></span>&#123; </span><br><span class="line"></span><br><span class="line">      <span class="keyword">int</span>   vv = val(); </span><br><span class="line">      <span class="keyword">int</span>   rv = val();<span class="comment">//int   &amp;rv = val()错误！引用指向临时变量，为临时变量的别名</span></span><br><span class="line">      <span class="keyword">int</span>   vr = ref(); </span><br><span class="line">      <span class="keyword">int</span> &amp; rr = ref(); </span><br><span class="line">      <span class="built_in">cout</span>&lt;&lt;vv&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">      <span class="built_in">cout</span>&lt;&lt;rv&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">      <span class="built_in">cout</span>&lt;&lt;vr&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">      <span class="built_in">cout</span>&lt;&lt;rr&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-          
-        
       
     </div>
 
     <div>
       
+        
+
+      
     </div>
 
     <div>
       
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://kusole.github.io/2017/12/04/vim/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="刘韬">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="不知归期的故人">
-    </span>
-
-    
-      <header class="post-header">
-
         
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/12/04/vim/" itemprop="url">
-                  Vim 学习笔记
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-04T08:59:15+08:00">
-                2017-12-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index">
-                    <span itemprop="name">linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>如果文章对您有帮助，请随意打赏</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="https://i.loli.net/2018/10/15/5bc436827b4bc.png" alt="刘韬 WeChat Pay"/>
+          <p>微信打赏</p>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
       
       
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="https://i.loli.net/2018/10/15/5bc4368266e2b.png" alt="刘韬 Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
 
+
+      
+    </div>
+
+    <div>
       
         
-          <h1 id="Vim-学习笔记"><a href="#Vim-学习笔记" class="headerlink" title="Vim 学习笔记"></a>Vim 学习笔记</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><h3 id="什么是-vim"><a href="#什么是-vim" class="headerlink" title="什么是 vim"></a>什么是 vim</h3><blockquote>
-<p>Vim是从 vi 发展出来的一个文本编辑器。代码补完、编译及错误跳转等方便编程的功能特别丰富，在程序员中被广泛使用。和Emacs并列成为类Unix系统用户最喜欢的编辑器。</p>
-</blockquote>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/12/04/vim/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
+        <div class="post-tags">
+          
+            <a href="/tags/C-base/" rel="tag"># C++_base</a>
+          
+        </div>
       
 
       
+        
+      
 
       
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/04/vim/" rel="next" title="Vim 学习笔记">
+                <i class="fa fa-chevron-left"></i> Vim 学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/13/NCstring/" rel="prev" title="[牛客网算法]--字符串">
+                [牛客网算法]--字符串 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
       
-        <div class="post-eof"></div>
+
+      
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -1161,6 +619,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -1180,8 +642,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/avatar.png"
@@ -1288,6 +759,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数的值传递和引用传递"><span class="nav-number">1.</span> <span class="nav-text">函数的值传递和引用传递</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#传值方式"><span class="nav-number">1.1.</span> <span class="nav-text">传值方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传指针？其实还是传值！"><span class="nav-number">1.2.</span> <span class="nav-text">传指针？其实还是传值！</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传引用"><span class="nav-number">1.3.</span> <span class="nav-text">传引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现swap-函数"><span class="nav-number">1.4.</span> <span class="nav-text">实现swap()函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#真的理解了吗？"><span class="nav-number">1.5.</span> <span class="nav-text">真的理解了吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用函数模版"><span class="nav-number">1.6.</span> <span class="nav-text">使用函数模版</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">1.7.</span> <span class="nav-text">总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回值和返回引用"><span class="nav-number">2.</span> <span class="nav-text">返回值和返回引用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#case-1：用返回值方式调用函数"><span class="nav-number">2.1.</span> <span class="nav-text">case 1：用返回值方式调用函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case-2：用函数的返回值初始化引用的方式调用函数"><span class="nav-number">2.2.</span> <span class="nav-text">case 2：用函数的返回值初始化引用的方式调用函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case-3：用返回引用的方式调用函数"><span class="nav-number">2.3.</span> <span class="nav-text">case 3：用返回引用的方式调用函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#case-4：用函数返回的引用作为新引用的初始化值的方式来调用函数"><span class="nav-number">2.4.</span> <span class="nav-text">case 4：用函数返回的引用作为新引用的初始化值的方式来调用函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意几点！！！"><span class="nav-number">2.5.</span> <span class="nav-text">注意几点！！！</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用引用实现多态"><span class="nav-number">2.6.</span> <span class="nav-text">用引用实现多态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常引用"><span class="nav-number">2.7.</span> <span class="nav-text">常引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关于返回函数内部new分配的内存的引用"><span class="nav-number">2.8.</span> <span class="nav-text">关于返回函数内部new分配的内存的引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#引用返回值为需要传入的引用的对象"><span class="nav-number">2.9.</span> <span class="nav-text">引用返回值为需要传入的引用的对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回const类型"><span class="nav-number">2.10.</span> <span class="nav-text">返回const类型</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1421,6 +908,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
 
   
 
@@ -1599,26 +1090,6 @@
   
 
   
-  
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Config({
-        tex2jax: {
-          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-          processEscapes: true,
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-        }
-      });
-    </script>
-
-    <script type="text/x-mathjax-config">
-      MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for (i=0; i < all.length; i += 1) {
-          all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-      });
-    </script>
-    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   
 
 
